@@ -126,9 +126,9 @@ async def test_load_sample_creates_contracts(db, sample_records):
 
     result = await db.execute(select(Contract))
     contracts = result.scalars().all()
-    assert len(contracts) == 5
+    assert len(contracts) == 6
     assert run.status == "complete"
-    assert run.records_loaded == 5
+    assert run.records_loaded == 6
     assert run.records_updated == 0
     assert run.records_skipped == 0
 
@@ -156,8 +156,8 @@ async def test_load_idempotent_no_duplicates(db, sample_records):
 
     result = await db.execute(select(Contract))
     contracts = result.scalars().all()
-    assert len(contracts) == 5  # still 5, not 10
-    assert run2.records_skipped == 5
+    assert len(contracts) == 6  # still 6, not 12
+    assert run2.records_skipped == 6
     assert run2.records_loaded == 0
 
 
@@ -188,9 +188,9 @@ async def test_load_update_on_changed_content(db, sample_records):
 
     result = await db.execute(select(Contract))
     contracts = result.scalars().all()
-    assert len(contracts) == 5  # still 5
+    assert len(contracts) == 6  # still 6
     assert run2.records_updated == 1
-    assert run2.records_skipped == 4
+    assert run2.records_skipped == 5
 
 
 @pytest.mark.asyncio
@@ -209,8 +209,8 @@ async def test_supplier_upserted_not_duplicated(db, sample_records):
 
     result = await db.execute(select(Supplier))
     suppliers = result.scalars().all()
-    # 5 contracts, each with 1 supplier → 5 unique suppliers
-    assert len(suppliers) == 5
+    # 6 contracts, each with 1 supplier → 6 unique suppliers
+    assert len(suppliers) == 6
 
 
 # --- API endpoint tests ---

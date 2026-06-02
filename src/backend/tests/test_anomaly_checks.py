@@ -216,13 +216,14 @@ class TestRunner:
         assert out.outputs[0].check_id == 1
 
     def test_clean_contract_no_flags(self):
-        """A well-formed contract with adequate standstill and evaluation period."""
+        """A well-formed contract: adequate standstill, evaluation period, non-round value."""
         raw = raw_with_tender_period("2023-11-01", "2024-01-15")
         c = contract(
             award_date=date(2024, 2, 1),
             signing_date=date(2024, 2, 20),
             raw_ocds=raw,
         )
+        c["value"] = 4_876_543.50  # non-round value, no estimate → Check 4 OK
         out = run_checks(c, DEFAULT_CFG)
         flag_outputs = [o for o in out.outputs if o.result == CheckResult.FLAG]
         assert len(flag_outputs) == 0

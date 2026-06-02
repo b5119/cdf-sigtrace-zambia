@@ -237,6 +237,70 @@
       "_anomaly_hint": "framework_calloff — must NOT trigger single-source check"
     },
     {
+      "ocid": "ocds-zm-zppa-006",
+      "releases": [
+        {
+          "ocid": "ocds-zm-zppa-006",
+          "id": "ocds-zm-zppa-006-award-2024-006",
+          "date": "2024-10-01T10:00:00Z",
+          "tag": ["award", "contract"],
+          "initiationType": "tender",
+          "parties": [
+            {
+              "id": "zm-zppa-moh2",
+              "name": "Ministry of Housing",
+              "roles": ["procuringEntity"],
+              "identifier": { "scheme": "ZM-ZPPA", "id": "MOHSCP-001" }
+            },
+            {
+              "id": "zm-supplier-skycon",
+              "name": "Skyline Construction Ltd",
+              "roles": ["supplier"],
+              "identifier": { "scheme": "ZM-TPIN", "id": "1000087654" },
+              "address": { "streetAddress": "Plot 88, Thabo Mbeki Road, Lusaka" },
+              "contactPoint": { "telephone": "+260-211-678901" }
+            }
+          ],
+          "tender": {
+            "id": "TND-MOHSCP-2024-006",
+            "title": "Construction of 50 Low-Cost Housing Units — Chipata",
+            "status": "complete",
+            "procurementMethod": "open",
+            "value": { "amount": 18000000, "currency": "ZMW" }
+          },
+          "awards": [
+            {
+              "id": "AWD-MOHSCP-2024-006",
+              "date": "2024-10-01T10:00:00Z",
+              "status": "active",
+              "suppliers": [{ "id": "zm-supplier-skycon", "name": "Skyline Construction Ltd" }],
+              "value": { "amount": 18000000, "currency": "ZMW" }
+            }
+          ],
+          "contracts": [
+            {
+              "id": "CTR-MOHSCP-2024-006",
+              "awardID": "AWD-MOHSCP-2024-006",
+              "status": "active",
+              "dateSigned": "2024-10-18T09:00:00Z",
+              "value": { "amount": 18000000, "currency": "ZMW" },
+              "amendments": [
+                {
+                  "id": "AMD-001",
+                  "date": "2024-12-01",
+                  "description": "Scope extension — additional 10 units",
+                  "changes": [
+                    { "property": "value.amount", "oldValue": 18000000, "newValue": 24000000 }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "_anomaly_hint": "amendment_violation — 33% value increase, cap is 15%"
+    },
+    {
       "ocid": "ocds-zm-zppa-005",
       "releases": [
         {

@@ -4,16 +4,26 @@ import logging
 from engine.checks.check_01_signing import SigningCheck
 from engine.checks.check_02_standstill import StandstillCheck
 from engine.checks.check_03_time_gap import TimeGapCheck
+from engine.checks.check_04_forensics import ForensicsCheck
+from engine.checks.check_05_supplier_network import SupplierNetworkCheck
+from engine.checks.check_06_score_variance import ScoreVarianceCheck
+from engine.checks.check_07_amendment import AmendmentCheck
+from engine.checks.check_08_debarment import DebarmentCheck
 from engine.config import DEFAULT_THRESHOLDS, DEFAULT_WEIGHTS
 from engine.models import CheckOutput, CheckResult, EngineOutput
 
 log = logging.getLogger(__name__)
 
-# Ordered registry — INC-004 will add checks 4-8
+# Full ordered registry of all 8 checks
 ALL_CHECKS = [
     SigningCheck(),
     StandstillCheck(),
     TimeGapCheck(),
+    ForensicsCheck(),
+    SupplierNetworkCheck(),
+    ScoreVarianceCheck(),
+    AmendmentCheck(),
+    DebarmentCheck(),
 ]
 
 
