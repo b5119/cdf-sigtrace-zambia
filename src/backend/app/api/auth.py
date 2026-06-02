@@ -1,6 +1,8 @@
 """Auth router — /api/v1/auth/* (INC-001)."""
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.rate_limit import limiter, AUTH_LIMIT
 
 from app.core.deps import get_current_user
 from app.core.mfa import generate_totp_secret, get_totp_uri, verify_totp
@@ -33,7 +35,8 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/login", response_model=MFAChallengeResponse | TokenPairResponse)
-async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
+@limiter.limit(AUTH_LIMIT)
+async def login(request: Request, body: LoginRequest, db: AsyncSession = Depends(get_db)):
     """Step 1: validate credentials. Returns MFA challenge or full tokens (if MFA not set up)."""
     try:
         result = await start_login(db, body.email, body.password)
@@ -45,7 +48,8 @@ async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
 
 
 @router.post("/mfa/verify", response_model=TokenPairResponse)
-async def mfa_verify(body: MFAVerifyRequest, db: AsyncSession = Depends(get_db)):
+@limiter.limit(AUTH_LIMIT)
+async def mfa_verify(request: Request, body: MFAVerifyRequest, db: AsyncSession = Depends(get_db)):
     """Step 2: submit TOTP code → receive access + refresh tokens."""
     try:
         result = await complete_mfa(db, body.mfa_challenge_token, body.totp_code)
@@ -76,7 +80,8 @@ async def logout(
 
 
 @router.post("/password/forgot", response_model=MessageResponse)
-async def forgot_password(body: ForgotPasswordRequest, db: AsyncSession = Depends(get_db)):
+@limiter.limit(AUTH_LIMIT)
+async def forgot_password(request: Request, body: ForgotPasswordRequest, db: AsyncSession = Depends(get_db)):
     """Initiate a password reset. Always returns 200 to avoid email enumeration."""
     token = await initiate_password_reset(db, body.email)
     # In production, email the token. For the prototype, the token is returned in the

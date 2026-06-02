@@ -49,8 +49,9 @@ async def trigger_run(
     await db.commit()
     await db.refresh(run)
 
-    # TODO(INC-002): dispatch Celery task ingestion_tasks.run_ingestion.delay(str(run.id), body.source, body.since)
-    # For now, the run is created and the caller polls GET /ingestion/runs/{id}.
+    # Dispatch async Celery task — worker executes the pipeline
+    from app.tasks.ingestion_tasks import run_ingestion
+    run_ingestion.delay(str(run.id), body.source, body.since)
 
     return run
 

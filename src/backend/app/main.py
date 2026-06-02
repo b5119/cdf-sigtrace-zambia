@@ -3,22 +3,30 @@ import structlog
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
-from app.api.auth import router as auth_router
-from app.api.ingestion import router as ingestion_router
-from app.api.contracts import router as contracts_router
 from app.api.analysis import router as analysis_router
+from app.api.auth import router as auth_router
+from app.api.contracts import router as contracts_router
+from app.api.ingestion import router as ingestion_router
 from app.core.config import settings
+from app.core.rate_limit import limiter
 
 log = structlog.get_logger()
 
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    # Lock down OpenAPI in production
     docs_url="/docs" if settings.DEBUG else None,
     redoc_url="/redoc" if settings.DEBUG else None,
 )
+
+# Rate limiter state + middleware
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 # CORS
 app.add_middleware(
@@ -48,11 +56,7 @@ app.include_router(auth_router, prefix="/api/v1")       # INC-001
 app.include_router(ingestion_router, prefix="/api/v1")  # INC-002
 app.include_router(contracts_router, prefix="/api/v1")  # INC-005
 app.include_router(analysis_router, prefix="/api/v1")   # INC-005
-
-# Later increments will mount additional routers here:
-# app.include_router(public_router, prefix="/api/v1")
-# app.include_router(contracts_router, prefix="/api/v1")
-# etc.
+# INC-006+: anchor_router, public_router, pulse_router, monitor_router, etc.
 
 
 @app.exception_handler(Exception)

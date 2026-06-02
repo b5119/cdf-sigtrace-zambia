@@ -24,6 +24,10 @@ anyio==4.7.0
 redis==5.2.1
 celery==5.4.0
 
+# Rate limiting
+slowapi==0.1.9
+limits==3.14.0
+
 # Observability
 structlog==24.4.0
 
