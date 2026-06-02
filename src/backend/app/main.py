@@ -9,6 +9,7 @@ from slowapi.middleware import SlowAPIMiddleware
 
 from app.api.analysis import router as analysis_router
 from app.api.anchors import router as anchors_router
+from app.api.public import router as public_router
 from app.api.auth import router as auth_router
 from app.api.contracts import router as contracts_router
 from app.api.ingestion import router as ingestion_router
@@ -58,6 +59,7 @@ app.include_router(ingestion_router, prefix="/api/v1")  # INC-002
 app.include_router(contracts_router, prefix="/api/v1")  # INC-005
 app.include_router(analysis_router, prefix="/api/v1")   # INC-005
 app.include_router(anchors_router, prefix="/api/v1")    # INC-006
+app.include_router(public_router, prefix="/api/v1")     # INC-007
 
 
 @app.exception_handler(Exception)
