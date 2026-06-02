@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+
+# Env & secrets — NEVER commit
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+# Data / artefacts
+*.sqlite
+*.db
+/data/
+/uploads/
+ipfs-data/
+fabric-network/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Build outputs of contracts
+artifacts/
+cache/
+typechain-types/
+
+# GitHub Desktop placeholder folder
+cdf-sigtrace-zambia-/
