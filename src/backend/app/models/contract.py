@@ -60,7 +60,7 @@ class Contract(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now)
 
-    supplier: Mapped["Supplier | None"] = relationship("Supplier", back_populates="contracts")
+    supplier: Mapped["Supplier | None"] = relationship("Supplier", back_populates="contracts", lazy="selectin")
 
 
 class IngestionRun(Base):

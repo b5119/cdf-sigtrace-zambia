@@ -78,7 +78,7 @@ We build **one increment at a time**, in the order in `docs/08_INCREMENT_PLAN.md
 
 ## Current status
 
-- **Overall completion: 26%** (see `docs/09_PROGRESS.md` for the live figure).
+- **Overall completion: 30%** (see `docs/09_PROGRESS.md` for the live figure).
 - **Done:** INC-000, INC-001 (Auth/RBAC), INC-002 (OCDS ingestion), INC-003 (checks 1-3), INC-004 (checks 4-8, all 8 checks live, 180 tests).
 - **Next up:** **INC-005 — Risk scoring + two-tier output.**
 

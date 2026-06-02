@@ -6,6 +6,8 @@ from fastapi.responses import JSONResponse
 
 from app.api.auth import router as auth_router
 from app.api.ingestion import router as ingestion_router
+from app.api.contracts import router as contracts_router
+from app.api.analysis import router as analysis_router
 from app.core.config import settings
 
 log = structlog.get_logger()
@@ -44,6 +46,8 @@ async def readiness():
 # --- Routers ---
 app.include_router(auth_router, prefix="/api/v1")       # INC-001
 app.include_router(ingestion_router, prefix="/api/v1")  # INC-002
+app.include_router(contracts_router, prefix="/api/v1")  # INC-005
+app.include_router(analysis_router, prefix="/api/v1")   # INC-005
 
 # Later increments will mount additional routers here:
 # app.include_router(public_router, prefix="/api/v1")
