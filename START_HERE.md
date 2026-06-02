@@ -78,8 +78,8 @@ We build **one increment at a time**, in the order in `docs/08_INCREMENT_PLAN.md
 
 ## Current status
 
-- **Overall completion: 14%** (see `docs/09_PROGRESS.md` for the live figure).
-- **Done:** INC-000 (scaffold), INC-001 (Auth/RBAC/JWT/MFA, 101 tests), INC-002 (OCDS ingestion pipeline, 116 tests).
-- **Next up:** **INC-003 — Anomaly engine checks 1–3 (signing, standstill, time-gap).**
+- **Overall completion: 20%** (see `docs/09_PROGRESS.md` for the live figure).
+- **Done:** INC-000, INC-001 (Auth/RBAC), INC-002 (OCDS ingestion), INC-003 (anomaly checks 1-3, 143 tests).
+- **Next up:** **INC-004 — Anomaly engine checks 4–8 (forensics, supplier-network, score-variance, amendment, debarment).**
 
 Open `docs/09_PROGRESS.md` to see the full table, then `docs/08_INCREMENT_PLAN.md` → INC-002 to begin.

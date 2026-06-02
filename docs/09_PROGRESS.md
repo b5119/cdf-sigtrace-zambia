@@ -4,13 +4,13 @@
 > state. Overall % = Σ(weight × completion%). Do not mark an increment `DONE` without a matching
 > `increments/INC-XXX_*.md` validation record.
 
-## Overall completion: **14%**
+## Overall completion: **20%**
 
 ```
-[███████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  14 / 100
+[██████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  20 / 100
 ```
 
-Last updated: INC-002 complete (2026-06-02).
+Last updated: INC-003 complete (2026-06-02).
 
 ## Status table
 Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
@@ -20,7 +20,7 @@ Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
 | INC-000 | Project scaffold & handover | 3 | **DONE** | 100 | `increments/INC-000_scaffold.md` |
 | INC-001 | Auth, RBAC & user/role model | 5 | **DONE** | 100 | `increments/INC-001_auth_rbac.md` |
 | INC-002 | OCDS ingestion pipeline | 6 | **DONE** | 100 | `increments/INC-002_ocds_ingestion.md` |
-| INC-003 | Anomaly engine — checks 1–3 | 6 | TODO | 0 | — |
+| INC-003 | Anomaly engine — checks 1–3 | 6 | **DONE** | 100 | `increments/INC-003_anomaly_checks_1_3.md` |
 | INC-004 | Anomaly engine — checks 4–8 | 6 | TODO | 0 | — |
 | INC-005 | Risk scoring + two-tier output | 4 | TODO | 0 | — |
 | INC-006 | Fabric anchoring service | 6 | TODO | 0 | — |
