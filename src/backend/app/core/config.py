@@ -40,11 +40,16 @@ class Settings(BaseSettings):
     OBJECT_STORE_SECRET_KEY: str = "minioadmin"
     OBJECT_STORE_BUCKET_CONTRACTS: str = "contracts"
 
-    # Fabric (placeholder for INC-006)
+    # Fabric (INC-006)
     FABRIC_GATEWAY_ENDPOINT: str = ""
     FABRIC_MSP_ID: str = ""
     FABRIC_CHANNEL: str = "sigtrace-channel"
     FABRIC_CHAINCODE: str = "anchor"
+    FABRIC_TLS_CERT_PATH: str = ""
+    FABRIC_CLIENT_CERT_PATH: str = ""
+    FABRIC_CLIENT_KEY_PATH: str = ""
+    # Set True in dev/test to use in-memory mock instead of real Fabric network
+    FABRIC_MOCK_MODE: bool = True
 
     # Polygon (placeholder for INC-012)
     POLYGON_RPC: str = ""

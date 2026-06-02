@@ -4,13 +4,13 @@
 > state. Overall % = Σ(weight × completion%). Do not mark an increment `DONE` without a matching
 > `increments/INC-XXX_*.md` validation record.
 
-## Overall completion: **30%**
+## Overall completion: **36%**
 
 ```
-[███████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  30 / 100
+[██████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  36 / 100
 ```
 
-Last updated: INC-005 complete (2026-06-02).
+Last updated: INC-006 complete (2026-06-02).
 
 ## Status table
 Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
@@ -23,7 +23,7 @@ Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
 | INC-003 | Anomaly engine — checks 1–3 | 6 | **DONE** | 100 | `increments/INC-003_anomaly_checks_1_3.md` |
 | INC-004 | Anomaly engine — checks 4–8 | 6 | **DONE** | 100 | `increments/INC-004_anomaly_checks_4_8.md` |
 | INC-005 | Risk scoring + two-tier output | 4 | **DONE** | 100 | `increments/INC-005_risk_scoring.md` |
-| INC-006 | Fabric anchoring service | 6 | TODO | 0 | — |
+| INC-006 | Fabric anchoring service | 6 | **DONE** | 100 | `increments/INC-006_fabric_anchoring.md` |
 | INC-007 | Public verification portal | 4 | TODO | 0 | — |
 | INC-008 | Public CDF dashboard + map | 6 | TODO | 0 | — |
 | INC-009 | Oversight console (risk) | 8 | TODO | 0 | — |
