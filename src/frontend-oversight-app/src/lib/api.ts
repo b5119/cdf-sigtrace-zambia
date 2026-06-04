@@ -77,3 +77,24 @@ export const monitorApi = {
   run: () => api.post("/monitor/run", {}),
   clear: (id: string, justification: string) => api.post(`/monitor/ghost-projects/${id}/clear`, { justification }),
 };
+
+export interface CaseNote { id: string; case_id: string; author_id: string; body: string; created_at: string; }
+export interface CaseItem {
+  id: string; subject_type: string; subject_ref: string; title: string; assignee_id: string | null;
+  status: string; priority: string; created_by: string; created_at: string; closed_at: string | null; notes: CaseNote[];
+}
+export interface NotificationItem { id: string; type: string; payload: Record<string, unknown>; read: boolean; created_at: string; }
+
+export const casesApi = {
+  list: () => api.get<{ total: number; cases: CaseItem[] }>("/cases"),
+  get: (id: string) => api.get<CaseItem>(`/cases/${id}`),
+  create: (body: { subject_type: string; subject_ref: string; title: string; priority?: string }) => api.post<CaseItem>("/cases", body),
+  update: (id: string, body: { status?: string; priority?: string }) => api.patch<CaseItem>(`/cases/${id}`, body),
+  addNote: (id: string, bodyText: string) => api.post(`/cases/${id}/notes`, { body: bodyText }),
+  escalate: (id: string, target = "ACC") => api.post(`/cases/${id}/escalate`, { target }),
+};
+
+export const notificationsApi = {
+  list: () => api.get<{ total: number; unread: number; notifications: NotificationItem[] }>("/notifications"),
+  markRead: (id: string) => api.post(`/notifications/${id}/read`),
+};

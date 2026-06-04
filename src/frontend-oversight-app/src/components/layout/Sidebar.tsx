@@ -11,6 +11,7 @@ const NAV = [
   { to: ROUTES.SUPPLIER_NETWORK, icon: "hub",             label: "Supplier Network" },
   { to: ROUTES.VERIFICATION_REVIEW, icon: "how_to_reg",   label: "Verification Review" },
   { to: ROUTES.ANALYTICS,        icon: "insights",        label: "Analytics" },
+  { to: ROUTES.CASES,            icon: "folder_open",     label: "Cases" },
   { to: ROUTES.REPORTS,          icon: "summarize",       label: "Reports" },
   { to: ROUTES.NOTIFICATIONS,    icon: "notifications",   label: "Notifications" },
   { to: ROUTES.AUDIT,            icon: "fact_check",      label: "Audit Log" },

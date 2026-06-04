@@ -13,6 +13,7 @@ import SupplierNetwork from "./pages/SupplierNetwork";
 import VerificationReview from "./pages/VerificationReview";
 import Analytics from "./pages/Analytics";
 import Reports from "./pages/Reports";
+import Cases from "./pages/Cases";
 import Notifications from "./pages/Notifications";
 import AuditLog from "./pages/AuditLog";
 import Admin from "./pages/Admin";
@@ -37,6 +38,7 @@ export default function App() {
           <Route path={ROUTES.VERIFICATION_REVIEW} element={<ConsoleLayout><VerificationReview /></ConsoleLayout>} />
           <Route path={ROUTES.ANALYTICS} element={<ConsoleLayout><Analytics /></ConsoleLayout>} />
           <Route path={ROUTES.REPORTS} element={<ConsoleLayout><Reports /></ConsoleLayout>} />
+          <Route path={ROUTES.CASES} element={<ConsoleLayout><Cases /></ConsoleLayout>} />
           <Route path={ROUTES.NOTIFICATIONS} element={<ConsoleLayout><Notifications /></ConsoleLayout>} />
           <Route path={ROUTES.AUDIT} element={<ConsoleLayout><AuditLog /></ConsoleLayout>} />
           <Route path={ROUTES.ADMIN} element={<ConsoleLayout><Admin /></ConsoleLayout>} />

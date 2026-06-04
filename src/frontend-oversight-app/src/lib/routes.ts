@@ -6,6 +6,7 @@ export const ROUTES = {
   CONTRACT: "/contracts/:ocid",
   GHOST_QUEUE: "/ghost-projects",
   MISMATCH: "/disbursements",
+  CASES: "/cases",
   SUPPLIER_NETWORK: "/suppliers/network",
   VERIFICATION_REVIEW: "/verification-review",
   ANALYTICS: "/analytics",
