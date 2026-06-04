@@ -154,5 +154,7 @@ async def clear_ghost_signal(db: AsyncSession, signal_id: str, justification: st
     signal.state = "cleared"
     signal.justification = justification
     signal.cleared_at = datetime.now(timezone.utc)
+    from app.services.audit_service import log_action
+    await log_action(db, None, "ghost_signal_cleared", "ghost_signal", signal_id, {"justification": justification})
     await db.commit()
     return {"id": signal_id, "state": "cleared", "justification": justification}

@@ -41,6 +41,8 @@ async def update_weights(db: AsyncSession, weights: dict[str, float], updated_by
     for key, w in weights.items():
         if key in defs:
             defs[key].weight = float(w)
+    from app.services.audit_service import log_action
+    await log_action(db, updated_by, "weights_updated", "config", "weights", {"weights": weights})
     await db.commit()
     log.info("Check weights updated by %s: %s", updated_by, weights)
     return await get_weights(db)
@@ -67,6 +69,8 @@ async def update_thresholds(db: AsyncSession, thresholds: dict, updated_by: str)
     else:
         cfg = Config(key="thresholds", value=merged, updated_by=updated_by, version=1)
         db.add(cfg)
+    from app.services.audit_service import log_action
+    await log_action(db, updated_by, "thresholds_updated", "config", "thresholds", {"thresholds": thresholds})
     await db.commit()
     log.info("Thresholds updated by %s: %s", updated_by, thresholds)
     return merged

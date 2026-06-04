@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { adminApi, type WeightItem } from "../lib/api";
+import { adminApi, auditApi, type WeightItem } from "../lib/api";
 
-const TABS = ["Health", "Users", "Weights", "Thresholds", "Ledger"] as const;
+const TABS = ["Health", "Users", "Weights", "Thresholds", "Ledger", "Audit"] as const;
 type Tab = typeof TABS[number];
 
 const STATUS_DOT: Record<string, string> = {
@@ -155,6 +155,59 @@ function LedgerTab() {
   );
 }
 
+function AuditTab() {
+  const qc = useQueryClient();
+  const { data } = useQuery({ queryKey: ["admin-audit"], queryFn: () => auditApi.list().then(r => r.data) });
+  const anchorM = useMutation({
+    mutationFn: () => auditApi.anchor(),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["admin-audit"] }),
+  });
+  const entries = data?.entries ?? [];
+  const unanchored = entries.filter(e => !e.anchored).length;
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm text-on-surface-variant">{data?.total ?? 0} entries · {unanchored} unanchored</p>
+        <button onClick={() => anchorM.mutate()} disabled={anchorM.isPending || unanchored === 0}
+          className="text-sm font-semibold px-4 py-2 rounded-lg bg-accent text-white disabled:opacity-50 flex items-center gap-2">
+          <span className="material-symbols-outlined text-base">link</span>
+          {anchorM.isPending ? "Anchoring…" : "Anchor batch to Fabric"}
+        </button>
+      </div>
+      {anchorM.data && (
+        <div className="bg-risk-low/5 border border-risk-low/20 rounded-lg px-4 py-2.5 text-xs text-risk-low mb-4">
+          Anchored {anchorM.data.data.anchored} entries · batch hash {anchorM.data.data.batch_hash?.slice(0, 16)}…
+        </div>
+      )}
+      <div className="bg-card border border-outline-variant rounded-xl overflow-hidden">
+        <table className="w-full">
+          <thead className="bg-surface-2">
+            <tr>{["Action", "Target", "Actor", "When", "Anchored"].map(h => (
+              <th key={h} className="text-left text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold py-3 px-3">{h}</th>
+            ))}</tr>
+          </thead>
+          <tbody className="divide-y divide-outline-variant/60">
+            {entries.map(e => (
+              <tr key={e.id} className="hover:bg-surface-2/50">
+                <td className="py-2.5 px-3 text-xs"><span className="mono bg-surface-2 px-2 py-0.5 rounded">{e.action}</span></td>
+                <td className="py-2.5 px-3 text-xs mono">{e.target_type}{e.target_ref ? `:${e.target_ref.slice(0, 16)}` : ""}</td>
+                <td className="py-2.5 px-3 text-xs mono">{e.actor_id ? e.actor_id.slice(0, 8) : "system"}</td>
+                <td className="py-2.5 px-3 text-xs text-on-surface-variant">{e.created_at ? new Date(e.created_at).toLocaleString() : "—"}</td>
+                <td className="py-2.5 px-3 text-xs">
+                  {e.anchored
+                    ? <span className="inline-flex items-center gap-1 text-risk-low"><span className="material-symbols-outlined text-sm">verified</span>anchored</span>
+                    : <span className="text-on-surface-variant">pending</span>}
+                </td>
+              </tr>
+            ))}
+            {entries.length === 0 && <tr><td colSpan={5} className="py-8 text-center text-on-surface-variant text-sm">No audit entries yet.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export default function Admin() {
   const [tab, setTab] = useState<Tab>("Health");
   return (
@@ -174,6 +227,7 @@ export default function Admin() {
       {tab === "Weights" && <WeightsTab />}
       {tab === "Thresholds" && <ThresholdsTab />}
       {tab === "Ledger" && <LedgerTab />}
+      {tab === "Audit" && <AuditTab />}
     </div>
   );
 }

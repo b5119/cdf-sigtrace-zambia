@@ -113,6 +113,8 @@ async def anchor_contract(
     if contract:
         contract.signing_doc_ref = str(record.id)
 
+    from app.services.audit_service import log_action
+    await log_action(db, anchored_by, "contract_anchored", "contract", ocid, {"sha256": sha256})
     await db.commit()
     await db.refresh(record)
     return record

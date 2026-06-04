@@ -38,6 +38,9 @@ async def open_case(
     await db.flush()
     await _notify(db, assignee_id, "case_opened",
                   {"case_id": case.id, "title": title, "subject_type": subject_type})
+    from app.services.audit_service import log_action
+    await log_action(db, created_by, "case_opened", "case", case.id,
+                     {"subject_type": subject_type, "subject_ref": subject_ref})
     await db.commit()
     await db.refresh(case)
     log.info("Case %s opened (%s:%s) by %s", case.id, subject_type, subject_ref, created_by)
@@ -94,6 +97,8 @@ async def escalate_case(db: AsyncSession, case_id: str, actor_id: str, target: s
     case.status = "escalated"
     await _notify(db, case.assignee_id or actor_id, "case_escalated",
                   {"case_id": case.id, "title": case.title, "target": target})
+    from app.services.audit_service import log_action
+    await log_action(db, actor_id, "case_escalated", "case", case.id, {"target": target})
     await db.commit()
     await db.refresh(case)
     log.info("Case %s escalated to %s by %s", case_id, target, actor_id)

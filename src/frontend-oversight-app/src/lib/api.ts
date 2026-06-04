@@ -114,3 +114,15 @@ export const adminApi = {
   getThresholds: () => api.get<{ thresholds: Record<string, number> }>("/admin/config/thresholds"),
   updateThresholds: (thresholds: Record<string, number>) => api.put("/admin/config/thresholds", { thresholds }),
 };
+
+export interface AuditEntry {
+  id: string; actor_id: string | null; action: string; target_type: string | null;
+  target_ref: string | null; meta: Record<string, unknown>; created_at: string | null;
+  anchored: boolean; anchor_tx: string | null;
+}
+
+export const auditApi = {
+  list: (params?: { action?: string; actor_id?: string }) =>
+    api.get<{ total: number; entries: AuditEntry[] }>("/admin/audit", { params }),
+  anchor: () => api.post<{ anchored: number; batch_hash: string | null; anchor_tx: string | null }>("/admin/audit/anchor"),
+};

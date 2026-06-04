@@ -100,3 +100,29 @@ async def update_thresholds(body: ThresholdsUpdate, db: AsyncSession = Depends(g
                             current_user: User = require_permission(Permission.CONFIGURE_WEIGHTS)):
     thresholds = await admin_service.update_thresholds(db, body.thresholds, str(current_user.id))
     return ThresholdsResponse(thresholds=thresholds)
+
+
+# ── Audit log (S8) — INC-018 ───────────────────────────────────────────────────
+
+@router.get("/audit")
+async def get_audit(
+    actor_id: str | None = None,
+    action: str | None = None,
+    limit: int = 100,
+    db: AsyncSession = Depends(get_db),
+    _: User = require_permission(Permission.READ_AUDIT),
+):
+    """S8 — append-only audit log (filterable by actor / action)."""
+    from app.services.audit_service import get_audit as _get_audit
+    entries = await _get_audit(db, actor_id, action, limit)
+    return {"total": len(entries), "entries": entries}
+
+
+@router.post("/audit/anchor")
+async def anchor_audit_batch(
+    db: AsyncSession = Depends(get_db),
+    _: User = require_permission(Permission.SYSTEM_ADMIN),
+):
+    """Hash all unanchored audit entries and anchor the batch hash to Fabric."""
+    from app.services.audit_service import anchor_batch
+    return await anchor_batch(db)

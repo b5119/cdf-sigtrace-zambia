@@ -4,13 +4,13 @@
 > state. Overall % = Σ(weight × completion%). Do not mark an increment `DONE` without a matching
 > `increments/INC-XXX_*.md` validation record.
 
-## Overall completion: **91%**
+## Overall completion: **94%**
 
 ```
-[█████████████████████████████████████████████░░░░]  91 / 100
+[███████████████████████████████████████████████░░]  94 / 100
 ```
 
-Last updated: INC-017 complete (2026-06-04).
+Last updated: INC-018 complete (2026-06-05).
 
 ## Status table
 Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
@@ -35,7 +35,7 @@ Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
 | INC-015 | Integrated monitor + ghost queue | 6 | **DONE** | 100 | `increments/INC-015_integrated_monitor.md` |
 | INC-016 | Cases & notifications | 3 | **DONE** | 100 | `increments/INC-016_cases_notifications.md` |
 | INC-017 | Admin console | 5 | **DONE** | 100 | `increments/INC-017_admin_console.md` |
-| INC-018 | Audit logging (anchored) | 3 | TODO | 0 | — |
+| INC-018 | Audit logging (anchored) | 3 | **DONE** | 100 | `increments/INC-018_audit_logging.md` |
 | INC-019 | Testing, security & accessibility | 4 | TODO | 0 | — |
 | INC-020 | Deployment, CI/CD & docs | 2 | TODO | 0 | — |
 
