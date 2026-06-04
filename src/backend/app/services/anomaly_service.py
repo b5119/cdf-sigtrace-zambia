@@ -28,12 +28,28 @@ def _contract_to_dict(contract: Contract) -> dict:
 
 
 async def _load_config(db: AsyncSession) -> dict:
-    """Load weight overrides from check_definitions table."""
+    """Load weights from check_definitions and thresholds from the Config table.
+
+    Both are admin-tunable (INC-017) — updating them changes how contracts score
+    on the next analysis run.
+    """
     result = await db.execute(select(CheckDefinition))
     definitions = result.scalars().all()
     weights = {d.key: d.weight for d in definitions}
     enabled = {d.id for d in definitions if d.enabled}
-    return {"weights": weights, "enabled": enabled}
+
+    # Load admin-tuned thresholds (falls back to engine defaults if unset)
+    thresholds: dict = {}
+    try:
+        from app.models.config import Config
+        cfg_result = await db.execute(select(Config).where(Config.key == "thresholds"))
+        cfg = cfg_result.scalar_one_or_none()
+        if cfg and cfg.value:
+            thresholds = dict(cfg.value)
+    except Exception:
+        thresholds = {}
+
+    return {"weights": weights, "enabled": enabled, "thresholds": thresholds}
 
 
 async def analyse_contract(db: AsyncSession, ocid: str) -> dict:

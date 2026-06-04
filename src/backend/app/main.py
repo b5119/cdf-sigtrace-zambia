@@ -13,6 +13,7 @@ from app.api.public import router as public_router
 from app.api.pulse import router as pulse_router
 from app.api.monitor import router as monitor_router
 from app.api.cases import router as cases_router
+from app.api.admin import router as admin_router
 from app.api.auth import router as auth_router
 from app.api.contracts import router as contracts_router
 from app.api.ingestion import router as ingestion_router
@@ -66,6 +67,7 @@ app.include_router(public_router, prefix="/api/v1")     # INC-007
 app.include_router(pulse_router, prefix="/api/v1")      # INC-010
 app.include_router(monitor_router, prefix="/api/v1")    # INC-015
 app.include_router(cases_router, prefix="/api/v1")      # INC-016
+app.include_router(admin_router, prefix="/api/v1")     # INC-017
 
 
 @app.exception_handler(Exception)

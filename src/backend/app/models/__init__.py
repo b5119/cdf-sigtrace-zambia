@@ -8,3 +8,4 @@ from app.models.pulse import PulseSubmission  # noqa: F401
 from app.models.confirmation import Confirmation  # noqa: F401
 from app.models.monitor import Disbursement, GhostProjectSignal  # noqa: F401
 from app.models.case import Case, CaseNote, Notification  # noqa: F401
+from app.models.config import Config  # noqa: F401

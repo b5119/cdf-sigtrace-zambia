@@ -98,3 +98,19 @@ export const notificationsApi = {
   list: () => api.get<{ total: number; unread: number; notifications: NotificationItem[] }>("/notifications"),
   markRead: (id: string) => api.post(`/notifications/${id}/read`),
 };
+
+export interface WeightItem { id: number; key: string; name: string; weight: number; severity: string; enabled: boolean; }
+export interface AdminUser { id: string; name: string; email: string; role: string | null; active: boolean; mfa_enabled?: boolean; last_login?: string | null; }
+
+export const adminApi = {
+  health: () => api.get<{ status: string; components: Record<string, string>; checked_at: string }>("/admin/health"),
+  ledger: () => api.get<Record<string, any>>("/admin/ledger/nodes"),
+  users: () => api.get<{ total: number; users: AdminUser[] }>("/admin/users"),
+  createUser: (b: { name: string; email: string; password: string; role_key: string }) => api.post("/admin/users", b),
+  updateUser: (id: string, b: { active?: boolean; role_key?: string }) => api.patch(`/admin/users/${id}`, b),
+  roles: () => api.get<{ roles: { id: number; key: string; name: string; permissions: string[] }[] }>("/admin/roles"),
+  getWeights: () => api.get<{ weights: WeightItem[] }>("/admin/config/weights"),
+  updateWeights: (weights: Record<string, number>) => api.put<{ weights: WeightItem[] }>("/admin/config/weights", { weights }),
+  getThresholds: () => api.get<{ thresholds: Record<string, number> }>("/admin/config/thresholds"),
+  updateThresholds: (thresholds: Record<string, number>) => api.put("/admin/config/thresholds", { thresholds }),
+};
