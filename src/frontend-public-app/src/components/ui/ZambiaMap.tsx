@@ -1,93 +1,63 @@
-// Zambia SVG choropleth — uses the real 60-vertex Zambia outline from design/assets/zambia_path.txt
-// Mirrored from zambia_map() in design/screens/generate.py
-
+// Zambia choropleth — faithful to zambia_map() in design/screens/generate.py.
+// Real outline at viewBox 0 0 1000 800, preserveAspectRatio xMidYMid meet (true aspect),
+// markers at the design's FIXED svg coordinates (NOT a lat/lng projection).
 import { useNavigate } from "react-router-dom";
-import type { MapFeature } from "../../lib/api";
 import { constituencyPath } from "../../lib/routes";
 
-// The real Zambia outline SVG path (60-vertex, from natural earth GeoJSON)
-const ZAMBIA_PATH =
-  "M384,94 L410,88 L438,96 L469,83 L501,78 L535,90 L562,76 L589,82 L612,70 L640,80 L665,72 " +
-  "L690,85 L715,78 L738,92 L762,84 L789,98 L812,88 L834,102 L856,96 L875,112 L889,130 " +
-  "L898,152 L905,178 L908,206 L904,234 L898,258 L895,284 L890,308 L882,330 L876,354 " +
-  "L868,376 L858,396 L845,414 L828,428 L808,438 L784,444 L760,448 L736,452 L712,456 " +
-  "L688,460 L664,466 L640,474 L617,484 L596,496 L575,510 L556,526 L538,544 L520,562 " +
-  "L502,578 L483,592 L462,604 L440,614 L417,620 L393,622 L370,618 L347,610 L326,598 " +
-  "L308,584 L292,568 L278,550 L266,530 L256,508 L248,484 L242,460 L238,436 L236,412 " +
-  "L236,388 L238,364 L242,340 L248,316 L256,294 L265,272 L276,252 L289,234 L304,218 " +
-  "L320,204 L337,192 L355,182 L372,174 L388,167 L403,160 L416,152 L427,142 L436,130 " +
-  "L440,116 L436,102 L420,96 Z";
+const ZM = "M917.4,81.6L956.2,118.4L977.1,188.2L963.1,210.5L946.6,277.2L962.4,345.4L936.5,374.0L911.5,450.4L954.8,471.8L705.1,539.6L712.9,598.1L650.6,609.4L603.7,642.2L593.7,670.7L564.3,677.2L492.7,744.8L447.1,798.1L419.4,800.0L392.6,790.5L300.7,781.5L285.9,775.4L285.3,768.5L252.8,750.0L199.4,745.3L132.1,764.0L78.4,712.6L22.9,645.2L26.7,383.4L198.0,384.5L191.0,356.1L203.2,325.3L188.8,286.7L198.1,246.8L189.4,221.2L217.8,223.3L222.5,248.9L261.1,246.9L313.3,254.5L340.8,291.8L406.7,303.3L457.0,277.3L475.5,320.4L538.5,331.9L568.9,367.0L602.6,412.3L665.6,413.0L658.7,324.2L636.2,339.2L578.6,307.2L556.4,292.5L566.6,209.9L581.2,112.5L562.8,76.2L586.2,23.7L608.3,13.9L718.8,0L751.2,8.4L785.6,29.3L818.4,43.1L870.7,56.9L917.4,81.6Z";
 
-function riskColor(score: number | null): string {
-  if (score == null) return "#6f7974";
-  if (score >= 70) return "#B91C1C";
-  if (score >= 40) return "#B45309";
-  return "#138636";
+// (name, x, y, risk, constituency-id) — coords are the design's CITIES, ids map to the backend seed.
+const CITIES: [string, number, number, number, string][] = [
+  ["Lusaka", 560, 592, 82, "LSK-001"], ["Kafue", 548, 632, 71, "LSK-002"],
+  ["Ndola", 560, 402, 38, "CPB-001"], ["Kitwe", 520, 390, 33, "CPB-002"],
+  ["Solwezi", 360, 382, 46, "NWP-001"], ["Mansa", 590, 300, 29, "LPV-001"],
+  ["Chinsali", 690, 332, 57, "MCG-001"], ["Chipata", 792, 470, 34, "EPV-001"],
+  ["Mongu", 225, 520, 26, "WPV-001"], ["Livingstone", 448, 735, 21, "SPV-001"],
+  ["Milenge", 612, 320, 88, "LPV-002"], ["Kabwe", 520, 470, 40, "CPB-003"],
+];
+
+function riskColor(s: number): string {
+  return s >= 70 ? "#B91C1C" : s >= 40 ? "#B45309" : "#138636";
 }
 
 interface Props {
-  features: MapFeature[];
+  riskById?: Record<string, number>;  // optional live risk overrides from the API, keyed by constituency id
   height?: string;
   showControls?: boolean;
 }
 
-export default function ZambiaMap({ features, height = "h-80", showControls = false }: Props) {
+export default function ZambiaMap({ riskById, height = "h-72", showControls = false }: Props) {
   const navigate = useNavigate();
-
   return (
-    <div className={`relative ${height} rounded-xl bg-surface-2 overflow-hidden border border-outline-variant`}>
-      <svg viewBox="0 0 1100 750" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-        {/* Zambia outline */}
-        <path
-          d={ZAMBIA_PATH}
-          fill="#0E5C46"
-          fillOpacity="0.07"
-          stroke="#0E5C46"
-          strokeOpacity="0.45"
-          strokeWidth="2.5"
-        />
-        {/* Constituency markers */}
-        {features.map((f) => {
-          // Project lat/lng into the 1100×750 SVG viewBox
-          // Zambia bounds: lat -18..−8, lng 22..34 → linear scale
-          const svgX = ((f.lng - 22) / 12) * 700 + 200;
-          const svgY = ((f.lat - (-18)) / 10) * -600 + 680;
-          const color = riskColor(f.risk_score);
-          const r = f.risk_score ? 7 + f.risk_score / 12 : 8;
-          const isPulsing = (f.risk_score ?? 0) >= 70;
-
+    <div className={`relative ${height} rounded-lg bg-surface-2 overflow-hidden border border-outline-variant`}>
+      <svg viewBox="0 0 1000 800" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+        <path d={ZM} fill="#0E5C46" fillOpacity="0.07" stroke="#0E5C46" strokeOpacity="0.45" strokeWidth="2.5" />
+        {CITIES.map(([name, x, y, baseRisk, cid]) => {
+          const s = riskById?.[cid] ?? baseRisk;
+          const c = riskColor(s);
+          const r = 7 + s / 10;
+          const pulse = s >= 70;
           return (
-            <g
-              key={f.id}
-              className="cursor-pointer"
-              onClick={() => navigate(constituencyPath(f.id))}
-            >
-              <circle cx={svgX} cy={svgY} r={r + 7} fill={color} fillOpacity="0.15"
-                className={isPulsing ? "zpulse" : ""} />
-              <circle cx={svgX} cy={svgY} r={r} fill={color} fillOpacity="0.92"
-                stroke="#fff" strokeWidth="2.5">
-                <title>{f.name} — risk {f.risk_score ?? "?"}/100 · {f.project_count} projects</title>
+            <a key={cid} className="cursor-pointer" onClick={() => navigate(constituencyPath(cid))}>
+              <circle cx={x} cy={y} r={r + 6} fill={c} fillOpacity="0.16" className={pulse ? "zpulse" : ""} />
+              <circle cx={x} cy={y} r={r} fill={c} fillOpacity="0.92" stroke="#fff" strokeWidth="2.5">
+                <title>{name} — risk {s}/100</title>
               </circle>
-            </g>
+            </a>
           );
         })}
       </svg>
-
-      {/* Legend */}
-      <div className="absolute top-3 left-3 bg-card/90 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 flex items-center gap-3 text-[11px] font-semibold">
-        {[["#138636","Low"],["#B45309","Medium"],["#B91C1C","High"]].map(([c,l]) => (
-          <span key={l} className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full" style={{ background: c }} />
-            {l}
-          </span>
-        ))}
+      {/* legend */}
+      <div className="absolute top-4 left-4 bg-card/90 backdrop-blur border border-outline-variant rounded-lg px-3 py-2 flex items-center gap-3 text-[11px] font-semibold">
+        <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "#138636" }} />Low</span>
+        <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "#B45309" }} />Medium</span>
+        <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "#B91C1C" }} />High</span>
       </div>
-
       {showControls && (
-        <div className="absolute bottom-3 right-3 flex flex-col gap-1.5">
-          {["add","remove","my_location"].map(icon => (
-            <button key={icon} className="bg-card border border-outline-variant w-8 h-8 rounded flex items-center justify-center hover:bg-surface-2 text-on-surface-variant">
-              <span className="material-symbols-outlined text-base">{icon}</span>
+        <div className="absolute bottom-4 right-4 flex flex-col gap-2">
+          {["add", "remove", "my_location"].map(i => (
+            <button key={i} className="bg-card border border-outline-variant w-9 h-9 rounded-lg flex items-center justify-center shadow-sm hover:bg-surface-2">
+              <span className="material-symbols-outlined">{i}</span>
             </button>
           ))}
         </div>

@@ -4,21 +4,42 @@
 
 @layer base {
   body { @apply bg-surface text-on-surface antialiased; font-family: Inter, sans-serif; }
-  h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', sans-serif; }
+  h1,h2,h3,h4,h5,h6,.disp { font-family: 'Space Grotesk', sans-serif; }
   .mono { font-family: 'JetBrains Mono', monospace; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400; vertical-align: middle; }
 }
 
-@layer utilities {
-  .seal-ring { animation: spin-slow 26s linear infinite; }
-  @keyframes spin-slow { to { transform: rotate(360deg); } }
-  .zpulse {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: zpulse 2.2s ease-out infinite;
-  }
-  @keyframes zpulse {
-    0%   { transform: scale(.7); opacity: .5; }
-    70%  { transform: scale(1.9); opacity: 0; }
-    100% { opacity: 0; }
-  }
+/* ── Landing (P1) — morphing Zambia map, live ledger, seal — from design/screens/landing_enhanced.html ── */
+.mapbg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 0; }
+.mapbg svg { width: 820px; max-width: 112%; }
+.basemap { fill: #0E5C46; fill-opacity: .05; stroke: #0E5C46; stroke-opacity: .25; stroke-width: 2; }
+.pulse { fill: none; stroke-width: 5; stroke-linecap: round; filter: url(#glow); }
+.pulse.a { stroke-dasharray: 62 938; animation: travel 6.5s linear infinite, hueA 9s linear infinite; }
+.pulse.b { stroke-dasharray: 46 954; animation: travel 9s linear infinite, hueB 9s linear infinite; animation-delay: -3s; }
+.pulse.c { stroke-dasharray: 34 966; animation: travelR 11s linear infinite, hueC 9s linear infinite; animation-delay: -5s; }
+@keyframes travel { to { stroke-dashoffset: -1000; } }
+@keyframes travelR { to { stroke-dashoffset: 1000; } }
+@keyframes hueA { 0%,100% { stroke: #1FE000; } 25% { stroke: #FF1A1A; } 50% { stroke: #0A0A0A; } 75% { stroke: #FF8A00; } }
+@keyframes hueB { 0%,100% { stroke: #FF8A00; } 33% { stroke: #1FE000; } 66% { stroke: #FF1A1A; } }
+@keyframes hueC { 0%,100% { stroke: #FF1A1A; } 50% { stroke: #1FE000; } }
+
+.lstack { position: relative; height: 120px; }
+.levent { position: absolute; inset: 0; opacity: 0; animation: lfade 12s infinite; }
+.levent:nth-child(1) { animation-delay: 0s; } .levent:nth-child(2) { animation-delay: 3s; }
+.levent:nth-child(3) { animation-delay: 6s; } .levent:nth-child(4) { animation-delay: 9s; }
+@keyframes lfade { 0% { opacity: 0; transform: translateY(8px); } 4% { opacity: 1; transform: none; } 22% { opacity: 1; } 26% { opacity: 0; transform: translateY(-8px); } 100% { opacity: 0; } }
+
+.seal-spin { animation: spin 30s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }
+.pulse-ring { animation: pr 2.4s ease-out infinite; } @keyframes pr { 0% { transform: scale(.8); opacity: .6; } 100% { transform: scale(1.6); opacity: 0; } }
+
+/* shared map marker pulse (P2/P3) */
+.zpulse { transform-box: fill-box; transform-origin: center; animation: zpulse 2.2s ease-out infinite; }
+@keyframes zpulse { 0% { transform: scale(.7); opacity: .5; } 70% { transform: scale(1.9); opacity: 0; } 100% { opacity: 0; } }
+.seal-ring { animation: spin 26s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse { animation: none; stroke: #1FE000; stroke-dasharray: none; opacity: .5; }
+  .mapbg svg, .levent, .seal-spin, .pulse-ring, .zpulse { animation: none; }
+  .levent { opacity: 1; position: relative; }
+  .levent + .levent { display: none; }
 }

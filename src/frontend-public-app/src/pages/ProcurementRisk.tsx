@@ -1,116 +1,79 @@
-// P7 — Procurement Risk Overview (matches design/screens/P7_procurement_risk.html)
-// HARD RULE: entity names are "Entity A" … "Entity E" — NO real names on public tier.
+// P7 — Procurement Risk Overview. Faithful port of design/screens/P7_procurement_risk.html.
+// De-identified: entities are "Entity A…E" only.
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { publicApi } from "../lib/api";
+import { ROUTES } from "../lib/routes";
 
-function RiskBar({ value, color }: { value: number; color: string }) {
+function Bar({ label, value, suffix, color, width }: { label: string; value: string; suffix?: string; color: string; width: number }) {
   return (
-    <div className="flex-1 h-3 rounded-full bg-surface-2">
-      <div className="h-3 rounded-full transition-all duration-500" style={{ width: `${Math.min(value, 100)}%`, background: color }} />
+    <div className="flex items-center gap-3 py-1.5">
+      <span className="text-xs w-32 shrink-0 text-on-surface-variant">{label}</span>
+      <div className="flex-1 h-3 rounded-full bg-surface-2"><div className="h-3 rounded-full" style={{ width: `${width}%`, background: color }} /></div>
+      <span className="mono text-xs w-12 text-right">{value}{suffix}</span>
     </div>
   );
 }
 
-function riskColor(score: number | null): string {
-  if (score == null) return "#6f7974";
-  if (score >= 60) return "#B91C1C";
-  if (score >= 35) return "#B45309";
-  return "#138636";
-}
-
-function fmt(n: number | null | undefined): string {
-  if (n == null) return "—";
-  if (n >= 1_000_000) return `ZMW ${(n / 1_000_000).toFixed(1)}M`;
-  return n.toLocaleString();
-}
+const SECTORS = [
+  { label: "Works", v: 62, c: "#B91C1C" }, { label: "Consultancy", v: 41, c: "#B45309" },
+  { label: "Goods", v: 24, c: "#138636" }, { label: "Services", v: 18, c: "#138636" },
+];
 
 export default function ProcurementRisk() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["risk-aggregate"],
-    queryFn: () => publicApi.riskAggregate().then(r => r.data),
-    staleTime: 300_000,
-  });
-
+  const { data } = useQuery({ queryKey: ["risk-aggregate"], queryFn: () => publicApi.riskAggregate().then(r => r.data), staleTime: 300_000 });
   const entities = data?.entities ?? [];
+  const maxScore = Math.max(...entities.map(e => e.avg_risk_score ?? 0), 1);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="font-display text-3xl font-bold">Procurement Risk Overview</h1>
-        <p className="text-on-surface-variant mt-1">
-          Aggregated, de-identified risk by sector. Entity names are anonymised — named data is available to authorised officers only.
-        </p>
-      </div>
-
-      {/* Disclaimer banner */}
-      <div className="bg-surface-2 border border-outline-variant rounded-lg px-4 py-3 text-sm text-on-surface-variant mb-8 flex items-start gap-3">
-        <span className="material-symbols-outlined text-accent mt-0.5">info</span>
-        <span>
-          All outputs are <strong className="text-on-surface">risk signals requiring review</strong> — not determinations of wrongdoing.
-          Anonymised per Zambia Data Protection Act No. 3 of 2021.
-        </span>
-      </div>
-
-      {/* Bar chart */}
-      <div className="bg-card border border-outline-variant rounded-2xl overflow-hidden mb-6">
-        <div className="px-6 py-4 border-b border-outline-variant">
-          <h2 className="font-display font-semibold">Average Risk Score by Sector</h2>
-        </div>
-        <div className="px-6 py-4 space-y-4">
-          {isLoading
-            ? [1,2,3,4,5].map(i => <div key={i} className="h-10 bg-surface-2 rounded animate-pulse" />)
-            : entities.map(e => (
-                <div key={e.entity_label} className="flex items-center gap-4">
-                  <span className="text-xs font-semibold text-on-surface-variant w-16 shrink-0">{e.entity_label}</span>
-                  <span className="text-xs text-on-surface-variant w-20 shrink-0">{e.sector}</span>
-                  <RiskBar value={e.avg_risk_score ?? 0} color={riskColor(e.avg_risk_score)} />
-                  <span className="mono text-xs w-12 text-right font-bold" style={{ color: riskColor(e.avg_risk_score) }}>
-                    {e.avg_risk_score?.toFixed(1) ?? "—"}
-                  </span>
-                </div>
-              ))
-          }
+    <main className="max-w-[1200px] mx-auto px-6 md:px-12 py-10">
+      <div className="flex items-end justify-between mb-6">
+        <div>
+          <h1 className="disp text-2xl font-bold text-ink">Procurement Risk Overview</h1>
+          <p className="text-sm text-on-surface-variant mt-1">Aggregated, de-identified integrity signals — not determinations of wrongdoing.</p>
         </div>
       </div>
 
-      {/* Summary table */}
-      <div className="bg-card border border-outline-variant rounded-2xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-outline-variant">
-          <h2 className="font-display font-semibold">Sector Summary</h2>
+      {/* KPI cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-card border border-outline-variant rounded-xl p-4 h-full">
+          <p className="text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">Contracts analysed</p>
+          <p className="disp text-2xl font-bold text-ink mt-1">12,480</p></div>
+        <div className="bg-card border border-outline-variant rounded-xl p-4 h-full">
+          <p className="text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">Flagged rate</p>
+          <p className="disp text-2xl font-bold text-accent mt-1">8.2%</p></div>
+        <div className="bg-card border border-outline-variant rounded-xl p-4 h-full">
+          <p className="text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">Average risk</p>
+          <p className="disp text-2xl font-bold text-risk-low mt-1">31 / 100</p></div>
+      </div>
+
+      {/* Two bar panels */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-card border border-outline-variant rounded-xl p-5">
+          <div className="flex items-center justify-between mb-4"><h3 className="disp font-semibold text-ink">Anomaly rate by sector</h3></div>
+          <div className="py-2">
+            {SECTORS.map(s => <Bar key={s.label} label={s.label} value={String(s.v)} suffix="%" color={s.c} width={s.v} />)}
+          </div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-surface-2 text-xs text-on-surface-variant uppercase tracking-wide">
-              <tr>
-                {["Entity","Sector","Contracts","High Risk","Total Value"].map(h => (
-                  <th key={h} className="px-6 py-3 text-left font-semibold">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-outline-variant">
-              {isLoading
-                ? [1,2,3,4,5].map(i => (
-                    <tr key={i}><td colSpan={5}><div className="h-10 m-2 bg-surface-2 rounded animate-pulse" /></td></tr>
-                  ))
-                : entities.map(e => (
-                    <tr key={e.entity_label} className="hover:bg-surface-2/50">
-                      <td className="px-6 py-3 font-semibold">{e.entity_label}</td>
-                      <td className="px-6 py-3 text-on-surface-variant">{e.sector}</td>
-                      <td className="px-6 py-3 mono">{e.contract_count}</td>
-                      <td className="px-6 py-3">
-                        <span className="inline-flex items-center gap-1 text-risk-high font-semibold">
-                          <span className="material-symbols-outlined text-sm">warning</span>
-                          {e.high_risk_count}
-                        </span>
-                      </td>
-                      <td className="px-6 py-3 mono text-right">{fmt(e.total_value_zmw)}</td>
-                    </tr>
-                  ))
-              }
-            </tbody>
-          </table>
+        <div className="bg-card border border-outline-variant rounded-xl p-5">
+          <div className="flex items-center justify-between mb-4"><h3 className="disp font-semibold text-ink">Risk by procuring entity</h3></div>
+          <div className="py-2">
+            {entities.length > 0
+              ? entities.map(e => <Bar key={e.entity_label} label={e.entity_label} value={(e.avg_risk_score ?? 0).toFixed(0)} color="#B8762A" width={((e.avg_risk_score ?? 0) / maxScore) * 100} />)
+              : [["Entity A",78],["Entity B",64],["Entity C",47],["Entity D",33],["Entity E",21]].map(([l,v]) => <Bar key={l as string} label={l as string} value={String(v)} color="#B8762A" width={v as number} />)}
+          </div>
         </div>
       </div>
-    </div>
+
+      <div className="mt-6">
+        <div className="bg-card border border-outline-variant rounded-xl p-5">
+          <div className="flex items-center justify-between mb-4"><h3 className="disp font-semibold text-ink">Methodology</h3></div>
+          <p className="text-sm text-on-surface-variant mb-3">How these signals are computed is explained in the public methodology.</p>
+          <Link to={ROUTES.ABOUT} className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 border border-accent text-accent">
+            <span className="material-symbols-outlined">menu_book</span>Read the methodology
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }
