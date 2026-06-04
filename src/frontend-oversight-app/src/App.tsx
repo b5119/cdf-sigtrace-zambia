@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import ContractList from "./pages/ContractList";
 import ContractDetail from "./pages/ContractDetail";
 import SupplierNetwork from "./pages/SupplierNetwork";
+import VerificationReview from "./pages/VerificationReview";
 import Analytics from "./pages/Analytics";
 import Reports from "./pages/Reports";
 import Notifications from "./pages/Notifications";
@@ -29,6 +30,7 @@ export default function App() {
           <Route path={ROUTES.CONTRACTS} element={<ConsoleLayout><ContractList /></ConsoleLayout>} />
           <Route path={ROUTES.CONTRACT} element={<ConsoleLayout><ContractDetail /></ConsoleLayout>} />
           <Route path={ROUTES.SUPPLIER_NETWORK} element={<ConsoleLayout><SupplierNetwork /></ConsoleLayout>} />
+          <Route path={ROUTES.VERIFICATION_REVIEW} element={<ConsoleLayout><VerificationReview /></ConsoleLayout>} />
           <Route path={ROUTES.ANALYTICS} element={<ConsoleLayout><Analytics /></ConsoleLayout>} />
           <Route path={ROUTES.REPORTS} element={<ConsoleLayout><Reports /></ConsoleLayout>} />
           <Route path={ROUTES.NOTIFICATIONS} element={<ConsoleLayout><Notifications /></ConsoleLayout>} />

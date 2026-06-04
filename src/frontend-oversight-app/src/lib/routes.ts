@@ -5,6 +5,7 @@ export const ROUTES = {
   CONTRACTS: "/contracts",
   CONTRACT: "/contracts/:ocid",
   SUPPLIER_NETWORK: "/suppliers/network",
+  VERIFICATION_REVIEW: "/verification-review",
   ANALYTICS: "/analytics",
   REPORTS: "/reports",
   NOTIFICATIONS: "/notifications",

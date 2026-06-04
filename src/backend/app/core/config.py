@@ -57,6 +57,8 @@ class Settings(BaseSettings):
     POLYGON_CONTRACT_ADDRESS: str = ""
     # Set True in dev/test to use the in-memory mirror of CDFConfirmation.sol
     POLYGON_MOCK_MODE: bool = True
+    # Distinct confirmations required before a submission is 'confirmed' (INC-013)
+    CONFIRMATIONS_REQUIRED: int = 2
 
     # IPFS (INC-011)
     IPFS_API: str = "/ip4/127.0.0.1/tcp/5001"

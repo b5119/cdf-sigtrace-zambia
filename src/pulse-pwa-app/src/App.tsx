@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Capture from "./pages/Capture";
 import Submissions from "./pages/Submissions";
 import SubmissionDetail from "./pages/SubmissionDetail";
+import Confirm from "./pages/Confirm";
 import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false } } });
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/capture" element={<RequireAuth><Capture /></RequireAuth>} />
           <Route path="/submissions" element={<RequireAuth><Submissions /></RequireAuth>} />
           <Route path="/submissions/:id" element={<RequireAuth><SubmissionDetail /></RequireAuth>} />
+          <Route path="/confirm" element={<RequireAuth><Confirm /></RequireAuth>} />
           <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="*" element={<Navigate to="/home" replace />} />
         </Routes>

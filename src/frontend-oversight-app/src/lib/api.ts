@@ -49,3 +49,14 @@ export const ingestionApi = {
   runs: (params?: { page?: number; size?: number }) => api.get("/ingestion/runs", { params }),
   trigger: (source: string) => api.post("/ingestion/runs", { source }),
 };
+
+export interface PulseSubmissionRow {
+  id: string; client_uuid: string; project_id: string; lat: number; lng: number;
+  category: string | null; status: string; captured_at: string; ipfs_cid: string | null;
+}
+
+export const verifyApi = {
+  listSubmissions: () => api.get<{ submissions: PulseSubmissionRow[]; total: number }>("/pulse/submissions"),
+  confirm: (id: string) => api.post(`/pulse/submissions/${id}/confirm`, {}),
+  reject: (id: string, reason: string) => api.post(`/pulse/submissions/${id}/reject`, { reason }),
+};

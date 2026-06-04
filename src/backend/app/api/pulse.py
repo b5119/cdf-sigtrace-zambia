@@ -20,6 +20,11 @@ from app.schemas.pulse import (
     SubmissionOut,
     SyncBatch,
     SyncResult,
+    ConfirmRequest,
+    RejectRequest,
+    ConfirmationResult,
+    RejectResult,
+    ConfirmationListResponse,
 )
 from app.services import ipfs_service, pulse_service
 
@@ -185,3 +190,62 @@ async def project_evidence(
     """List evidence (submissions with pinned photos) for a project."""
     subs = await ipfs_service.get_project_evidence(db, project_id)
     return SubmissionListResponse(submissions=subs, total=len(subs))
+
+
+# ── INC-013: Confirmation workflow ─────────────────────────────────────────────
+
+@router.post("/submissions/{submission_id}/confirm")
+async def confirm_submission_endpoint(
+    submission_id: str,
+    body: ConfirmRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = require_permission(Permission.CONFIRM_SUBMISSION),
+):
+    """O8/M7 — record a multi-party confirmation (→ Polygon).
+
+    Distinct confirmers required; a single party cannot complete alone;
+    the recording monitor cannot self-confirm. On the Nth distinct confirmation
+    the submission becomes 'confirmed'.
+    """
+    from app.services.confirmation_service import ConfirmationError, confirm_submission
+    try:
+        result = await confirm_submission(db, submission_id, str(current_user.id), body.signature)
+    except ConfirmationError as e:
+        msg = str(e)
+        if "not found" in msg:
+            raise HTTPException(status_code=404, detail=msg)
+        if "duplicate" in msg:
+            raise HTTPException(status_code=409, detail=msg)
+        raise HTTPException(status_code=400, detail=msg)
+    return result
+
+
+@router.post("/submissions/{submission_id}/reject")
+async def reject_submission_endpoint(
+    submission_id: str,
+    body: RejectRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = require_permission(Permission.CONFIRM_SUBMISSION),
+):
+    """O8/M7 — reject a submission with a reason."""
+    from app.services.confirmation_service import ConfirmationError, reject_submission
+    try:
+        result = await reject_submission(db, submission_id, str(current_user.id), body.reason)
+    except ConfirmationError as e:
+        msg = str(e)
+        if "not found" in msg:
+            raise HTTPException(status_code=404, detail=msg)
+        raise HTTPException(status_code=400, detail=msg)
+    return result
+
+
+@router.get("/submissions/{submission_id}/confirmations", response_model=ConfirmationListResponse)
+async def list_confirmations(
+    submission_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """List all confirmations/rejections for a submission."""
+    from app.services.confirmation_service import get_confirmations
+    confs = await get_confirmations(db, submission_id)
+    return {"confirmations": confs, "total": len(confs)}

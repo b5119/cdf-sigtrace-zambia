@@ -44,3 +44,14 @@ export const evidenceApi = {
     return api.post(`/pulse/submissions/${submissionId}/photo`, fd);
   },
 };
+
+export interface SubmissionServer {
+  id: string; client_uuid: string; project_id: string; lat: number; lng: number;
+  category: string | null; status: string; captured_at: string; ipfs_cid: string | null;
+}
+
+export const confirmApi = {
+  listSubmissions: () => api.get<{ submissions: SubmissionServer[]; total: number }>("/pulse/submissions"),
+  confirm: (id: string) => api.post(`/pulse/submissions/${id}/confirm`, {}),
+  reject: (id: string, reason: string) => api.post(`/pulse/submissions/${id}/reject`, { reason }),
+};

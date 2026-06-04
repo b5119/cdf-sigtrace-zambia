@@ -65,3 +65,45 @@ class SyncResult(BaseModel):
     synced: int
     duplicates: int  # client_uuids already present (idempotent skip)
     submissions: list[SubmissionOut]
+
+
+# ── Confirmation workflow (INC-013) ────────────────────────────────────────────
+
+class ConfirmRequest(BaseModel):
+    signature: Optional[str] = None
+
+
+class RejectRequest(BaseModel):
+    reason: str = Field(..., min_length=1, max_length=1000)
+
+
+class ConfirmationResult(BaseModel):
+    submission_id: str
+    status: str
+    confirmation_count: int
+    required: int
+    complete: bool
+    onchain_tx: Optional[str]
+
+
+class RejectResult(BaseModel):
+    submission_id: str
+    status: str
+    reason: str
+
+
+class ConfirmationOut(BaseModel):
+    id: str
+    submission_id: str
+    confirmer_id: str
+    decision: str
+    reason: Optional[str]
+    onchain_tx: Optional[str]
+    confirmed_at: datetime
+
+    model_config = {"from_attributes": True}
+
+
+class ConfirmationListResponse(BaseModel):
+    confirmations: list[ConfirmationOut]
+    total: int

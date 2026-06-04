@@ -7,6 +7,7 @@ const NAV = [
   { to: ROUTES.DASHBOARD,        icon: "monitoring",      label: "Risk Dashboard" },
   { to: ROUTES.CONTRACTS,        icon: "table_rows",      label: "Contract Risk List" },
   { to: ROUTES.SUPPLIER_NETWORK, icon: "hub",             label: "Supplier Network" },
+  { to: ROUTES.VERIFICATION_REVIEW, icon: "how_to_reg",   label: "Verification Review" },
   { to: ROUTES.ANALYTICS,        icon: "insights",        label: "Analytics" },
   { to: ROUTES.REPORTS,          icon: "summarize",       label: "Reports" },
   { to: ROUTES.NOTIFICATIONS,    icon: "notifications",   label: "Notifications" },
