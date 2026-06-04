@@ -19,6 +19,7 @@ from app.api.contracts import router as contracts_router
 from app.api.ingestion import router as ingestion_router
 from app.core.config import settings
 from app.core.rate_limit import limiter
+from app.core.security_headers import SecurityHeadersMiddleware
 
 log = structlog.get_logger()
 
@@ -33,6 +34,7 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
 
 # CORS
 app.add_middleware(

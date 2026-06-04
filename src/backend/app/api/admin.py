@@ -126,3 +126,13 @@ async def anchor_audit_batch(
     """Hash all unanchored audit entries and anchor the batch hash to Fabric."""
     from app.services.audit_service import anchor_batch
     return await anchor_batch(db)
+
+
+@router.get("/audit/verify")
+async def verify_audit_integrity(
+    db: AsyncSession = Depends(get_db),
+    _: User = require_permission(Permission.READ_AUDIT),
+):
+    """Verify the audit trail integrity — recompute batch hashes, detect tampering."""
+    from app.services.audit_service import verify_integrity
+    return await verify_integrity(db)

@@ -11,6 +11,7 @@ export const ROUTES = {
   ABOUT:        "/about",
   AUDIT_TRAIL:  "/ledger",
   VERIFY:       "/verify",
+  CONSENT:      "/data-protection",
 } as const;
 
 export function constituencyPath(id: string) {

@@ -13,6 +13,8 @@ import OpenData         from "./pages/OpenData";
 import About            from "./pages/About";
 import AuditTrail       from "./pages/AuditTrail";
 import VerifyPortal     from "./pages/VerifyPortal";
+import Consent          from "./pages/Consent";
+import OfflineBanner    from "./components/ui/OfflineBanner";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
@@ -21,6 +23,7 @@ const queryClient = new QueryClient({
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-surface">
+      <OfflineBanner />
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
@@ -43,6 +46,7 @@ export default function App() {
           <Route path={ROUTES.ABOUT}       element={<PublicLayout><About /></PublicLayout>} />
           <Route path={ROUTES.AUDIT_TRAIL} element={<PublicLayout><AuditTrail /></PublicLayout>} />
           <Route path={ROUTES.VERIFY}      element={<PublicLayout><VerifyPortal /></PublicLayout>} />
+          <Route path={ROUTES.CONSENT}     element={<PublicLayout><Consent /></PublicLayout>} />
           <Route path="*" element={
             <PublicLayout>
               <div className="flex flex-col items-center justify-center py-32 text-center">

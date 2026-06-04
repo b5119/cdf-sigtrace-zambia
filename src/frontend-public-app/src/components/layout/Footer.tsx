@@ -29,6 +29,7 @@ export default function Footer() {
           <div className="flex flex-col gap-1.5 text-sm text-sidebar-muted">
             <Link to={ROUTES.ABOUT}       className="hover:text-sidebar-text">About & Methodology</Link>
             <Link to={ROUTES.AUDIT_TRAIL} className="hover:text-sidebar-text">Public Ledger</Link>
+            <Link to={ROUTES.CONSENT}     className="hover:text-sidebar-text">Data Protection</Link>
             <a href="#"                   className="hover:text-sidebar-text">Officials Portal ↗</a>
           </div>
         </div>

@@ -105,3 +105,28 @@ async def get_audit(
         }
         for e in result.scalars().all()
     ]
+
+
+async def verify_integrity(db: AsyncSession) -> dict:
+    """Verify the audit trail's integrity: recompute each anchored batch's hash
+    from the stored entries and confirm it matches the anchor_hash. Detects any
+    tampering with past entries."""
+    from collections import defaultdict
+    result = await db.execute(
+        select(AuditLog).where(AuditLog.anchor_hash.isnot(None)).order_by(AuditLog.created_at)
+    )
+    anchored = list(result.scalars().all())
+    if not anchored:
+        return {"verified": True, "batches": 0, "tampered": []}
+
+    batches: dict[str, list[AuditLog]] = defaultdict(list)
+    for e in anchored:
+        batches[e.anchor_hash].append(e)
+
+    tampered = []
+    for stored_hash, entries in batches.items():
+        recomputed = compute_batch_hash(entries)
+        if recomputed != stored_hash:
+            tampered.append({"batch_hash": stored_hash, "recomputed": recomputed})
+
+    return {"verified": len(tampered) == 0, "batches": len(batches), "tampered": tampered}
