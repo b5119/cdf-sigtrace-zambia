@@ -1,6 +1,6 @@
 """Pydantic schemas for public-tier endpoints (INC-007, INC-008)."""
 from datetime import date, datetime
-from typing import Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
@@ -34,6 +34,8 @@ class NationalKPIs(BaseModel):
     constituencies_covered: int
 
 
+# ── Constituency schemas (INC-008) ────────────────────────────────────────────
+
 class ConstituencySummary(BaseModel):
     id: str
     name: str
@@ -42,6 +44,44 @@ class ConstituencySummary(BaseModel):
     verified_count: int
     risk_aggregate: Optional[str]   # "high" | "medium" | "low" | None
 
+
+class ConstituencyDetail(BaseModel):
+    id: str
+    name: str
+    province: str
+    cdf_allocation: Optional[float]
+    geo: Optional[Any]
+    project_count: int
+    verified_count: int
+    risk_aggregate: Optional[str]
+
+
+class ConstituencyMapFeature(BaseModel):
+    """One item in the /public/map response — GeoJSON-style aggregate."""
+    id: str
+    name: str
+    province: str
+    lat: float
+    lng: float
+    project_count: int
+    verified_count: int
+    risk_score: Optional[float]
+    risk_tier: Optional[str]        # "high" | "medium" | "low"
+    cdf_allocation: Optional[float]
+
+
+class MapResponse(BaseModel):
+    type: str = "FeatureCollection"
+    count: int
+    features: list[ConstituencyMapFeature]
+
+
+class ConstituencyListResponse(BaseModel):
+    total: int
+    constituencies: list[ConstituencySummary]
+
+
+# ── Risk aggregate (INC-008) ──────────────────────────────────────────────────
 
 class PublicContractSummary(BaseModel):
     """De-identified contract row for public risk overview (no names)."""
@@ -55,9 +95,25 @@ class PublicContractSummary(BaseModel):
 
 
 class PublicRiskAggregateRow(BaseModel):
-    """Aggregated risk by procuring entity sector — de-identified."""
+    """Aggregated risk by procuring entity sector — de-identified (Entity A … E)."""
+    entity_label: str               # "Entity A" … "Entity E"
     sector: str
     contract_count: int
     avg_risk_score: Optional[float]
     high_risk_count: int
     total_value_zmw: Optional[float]
+
+
+class RiskAggregateResponse(BaseModel):
+    entities: list[PublicRiskAggregateRow]
+    generated_at: datetime
+
+
+# ── Open data download (INC-008) ──────────────────────────────────────────────
+
+class OpenDataMeta(BaseModel):
+    dataset: str
+    record_count: int
+    generated_at: datetime
+    note: str
+    data: list[Any]

@@ -4,13 +4,13 @@
 > state. Overall % = Σ(weight × completion%). Do not mark an increment `DONE` without a matching
 > `increments/INC-XXX_*.md` validation record.
 
-## Overall completion: **40%**
+## Overall completion: **46%**
 
 ```
 [████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]  40 / 100
 ```
 
-Last updated: INC-007 complete (2026-06-02).
+Last updated: INC-008 complete (2026-06-04).
 
 ## Status table
 Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
@@ -25,7 +25,7 @@ Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
 | INC-005 | Risk scoring + two-tier output | 4 | **DONE** | 100 | `increments/INC-005_risk_scoring.md` |
 | INC-006 | Fabric anchoring service | 6 | **DONE** | 100 | `increments/INC-006_fabric_anchoring.md` |
 | INC-007 | Public verification portal | 4 | **DONE** | 100 | `increments/INC-007_public_verification_portal.md` |
-| INC-008 | Public CDF dashboard + map | 6 | TODO | 0 | — |
+| INC-008 | Public CDF dashboard + map | 6 | **DONE** | 100 | `increments/INC-008_public_dashboard.md` |
 | INC-009 | Oversight console (risk) | 8 | TODO | 0 | — |
 | INC-010 | CDF Pulse PWA — capture + offline | 6 | TODO | 0 | — |
 | INC-011 | IPFS evidence storage | 3 | TODO | 0 | — |
