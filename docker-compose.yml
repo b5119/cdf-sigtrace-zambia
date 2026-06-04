@@ -1,0 +1,47 @@
+# CDF Integrity — full local stack. `docker compose up` brings everything up.
+# Uses SQLite + mock ledgers by default (zero external services, free).
+# To use Postgres instead, uncomment the `db` service and set DATABASE_URL.
+services:
+  backend:
+    build: ./src/backend
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_URL: sqlite+aiosqlite:///./cdf.db
+      MFA_ENFORCE: "false"
+      FABRIC_MOCK_MODE: "true"
+      POLYGON_MOCK_MODE: "true"
+      IPFS_MOCK_MODE: "true"
+      CORS_ORIGINS: '["http://localhost:5173","http://localhost:5174","http://localhost:5175"]'
+
+  public:
+    build:
+      context: ./src/frontend-public-app
+      args: { VITE_API_BASE_URL: http://localhost:8000/api/v1 }
+    ports: ["5173:80"]
+    depends_on: [backend]
+
+  oversight:
+    build:
+      context: ./src/frontend-oversight-app
+      args: { VITE_API_BASE_URL: http://localhost:8000/api/v1 }
+    ports: ["5174:80"]
+    depends_on: [backend]
+
+  pulse:
+    build:
+      context: ./src/pulse-pwa-app
+      args: { VITE_API_BASE_URL: http://localhost:8000/api/v1 }
+    ports: ["5175:80"]
+    depends_on: [backend]
+
+  # ── Optional real infra (uncomment for production) ──
+  # db:
+  #   image: postgres:16
+  #   environment: { POSTGRES_PASSWORD: postgres, POSTGRES_DB: cdf_sigtrace }
+  #   volumes: ["pgdata:/var/lib/postgresql/data"]
+  # redis:
+  #   image: redis:7
+  # ipfs:
+  #   image: ipfs/kubo:latest
+  #   ports: ["5001:5001", "8080:8080"]
+# volumes: { pgdata: {} }

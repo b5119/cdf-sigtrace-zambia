@@ -1,0 +1,37 @@
+# Render.com blueprint — completely free tier.
+# Backend = free web service (sleeps after 15min idle). Frontends = free static sites.
+# Ledgers stay in mock mode (free). Swap to Neon/Supabase Postgres free tier for persistence.
+services:
+  - type: web
+    name: cdf-backend
+    runtime: docker
+    dockerfilePath: ./src/backend/Dockerfile
+    dockerContext: ./src/backend
+    plan: free
+    envVars:
+      - { key: DATABASE_URL, value: "sqlite+aiosqlite:///./cdf.db" }
+      - { key: MFA_ENFORCE, value: "false" }
+      - { key: FABRIC_MOCK_MODE, value: "true" }
+      - { key: POLYGON_MOCK_MODE, value: "true" }
+      - { key: IPFS_MOCK_MODE, value: "true" }
+      - { key: JWT_SECRET, generateValue: true }
+
+  - type: web
+    name: cdf-public
+    runtime: static
+    buildCommand: cd src/frontend-public-app && npm ci && npm run build
+    staticPublishPath: ./src/frontend-public-app/dist
+    envVars:
+      - { key: VITE_API_BASE_URL, value: "https://cdf-backend.onrender.com/api/v1" }
+    routes:
+      - { type: rewrite, source: "/*", destination: "/index.html" }
+
+  - type: web
+    name: cdf-oversight
+    runtime: static
+    buildCommand: cd src/frontend-oversight-app && npm ci && npm run build
+    staticPublishPath: ./src/frontend-oversight-app/dist
+    envVars:
+      - { key: VITE_API_BASE_URL, value: "https://cdf-backend.onrender.com/api/v1" }
+    routes:
+      - { type: rewrite, source: "/*", destination: "/index.html" }

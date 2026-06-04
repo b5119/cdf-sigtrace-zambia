@@ -42,3 +42,6 @@ typechain-types/
 
 # GitHub Desktop placeholder folder
 cdf-sigtrace-zambia-/
+
+cdf_local.db
+*.db

@@ -4,13 +4,13 @@
 > state. Overall % = Σ(weight × completion%). Do not mark an increment `DONE` without a matching
 > `increments/INC-XXX_*.md` validation record.
 
-## Overall completion: **98%**
+## Overall completion: **100%**
 
 ```
-[████████████████████████████████████████████████░]  98 / 100
+[█████████████████████████████████████████████████]  100 / 100
 ```
 
-Last updated: INC-019 complete (2026-06-05).
+Last updated: INC-020 complete (2026-06-05) — PLATFORM COMPLETE.
 
 ## Status table
 Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
@@ -37,7 +37,7 @@ Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
 | INC-017 | Admin console | 5 | **DONE** | 100 | `increments/INC-017_admin_console.md` |
 | INC-018 | Audit logging (anchored) | 3 | **DONE** | 100 | `increments/INC-018_audit_logging.md` |
 | INC-019 | Testing, security & accessibility | 4 | **DONE** | 100 | `increments/INC-019_hardening.md` |
-| INC-020 | Deployment, CI/CD & docs | 2 | TODO | 0 | — |
+| INC-020 | Deployment, CI/CD & docs | 2 | **DONE** | 100 | `increments/INC-020_deployment.md` |
 
 ## How to update
 1. Set the increment's `Status` and `%` (use 0/50/100, or finer if helpful).
