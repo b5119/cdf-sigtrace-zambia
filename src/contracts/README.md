@@ -1,16 +1,34 @@
-# contracts — Polygon smart contracts (Solidity + Hardhat)
+# contracts — Polygon Confirmation Smart Contract
 
-The CDF Pulse **multi-party confirmation** contract: records a submission (IPFS CID + location hash +
-metadata) and requires N distinct confirmations before a project is marked complete. A single party
-cannot complete alone. Built in **INC-012**, used by INC-013.
+Solidity multi-party confirmation contract for CDF Pulse field-evidence delivery.
+A submission requires **N distinct institutional confirmations** before it is marked
+complete — a single party cannot complete a submission alone.
 
+## Layout
 ```
-contracts/
-  PulseConfirmation.sol     submission registry + multi-sig confirmation + completion event
-  scripts/deploy.ts         deploy to Polygon Amoy testnet
-test/                       hardhat tests: N-1 ≠ complete; Nth completes; duplicate confirmer rejected
-hardhat.config.ts
+contracts/CDFConfirmation.sol   the confirmation contract (Solidity 0.8.24)
+test/CDFConfirmation.test.js     Hardhat tests (14, all green)
+scripts/deploy.js                deploy to Polygon Amoy
+hardhat.config.js                Hardhat + Amoy network config
 ```
-On-chain data is **non-personal only** (CIDs, hashes, addresses) — never personal data.
-Anchoring of procurement contract hashes uses **Hyperledger Fabric** (in `backend/services/anchor`),
-not this contract.
+
+## Commands
+```bash
+npm install
+npx hardhat compile
+npx hardhat test                 # 14 passing
+npx hardhat run scripts/deploy.js --network amoy   # needs funded Amoy key in .env
+```
+
+## On-chain guarantees (enforced in CDFConfirmation.sol)
+- N distinct confirmations required before `complete`
+- a single party cannot complete alone (duplicate confirm from same address reverts)
+- the recording monitor cannot self-confirm
+- only owner-whitelisted institutional confirmers may confirm
+- `SubmissionCompleted` event fires only when the Nth distinct confirmation lands
+
+The backend mirrors this contract in `src/backend/app/services/polygon_client.py`
+(`MockPolygonClient`) so the confirmation workflow (INC-013) is testable without a
+live testnet. The real web3 client is wired at deployment (INC-020).
+
+Built in **INC-012**. Confirmation workflow wiring + UI is **INC-013**.

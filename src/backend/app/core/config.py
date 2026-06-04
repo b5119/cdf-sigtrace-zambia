@@ -51,9 +51,12 @@ class Settings(BaseSettings):
     # Set True in dev/test to use in-memory mock instead of real Fabric network
     FABRIC_MOCK_MODE: bool = True
 
-    # Polygon (placeholder for INC-012)
+    # Polygon (INC-012)
     POLYGON_RPC: str = ""
     POLYGON_SIGNER_KEY: str = ""
+    POLYGON_CONTRACT_ADDRESS: str = ""
+    # Set True in dev/test to use the in-memory mirror of CDFConfirmation.sol
+    POLYGON_MOCK_MODE: bool = True
 
     # IPFS (INC-011)
     IPFS_API: str = "/ip4/127.0.0.1/tcp/5001"

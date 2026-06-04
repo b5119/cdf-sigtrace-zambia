@@ -1,0 +1,19 @@
+{
+  "name": "cdf-confirmation-contracts",
+  "version": "0.1.0",
+  "description": "Polygon multi-party confirmation contract for CDF Pulse field evidence",
+  "type": "commonjs",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:amoy": "hardhat run scripts/deploy.js --network amoy",
+    "node": "hardhat node"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0"
+  }
+}
