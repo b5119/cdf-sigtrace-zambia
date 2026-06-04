@@ -1,0 +1,51 @@
+import axios from "axios";
+
+export const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api/v1",
+  timeout: 30_000,
+});
+
+// Attach JWT from storage on every request
+api.interceptors.request.use(cfg => {
+  const token = localStorage.getItem("access_token");
+  if (token) cfg.headers.Authorization = `Bearer ${token}`;
+  return cfg;
+});
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+export interface LoginResponse { mfa_challenge_token?: string; access_token?: string; refresh_token?: string; token_type?: string; }
+export interface MeResponse { id: string; name: string; email: string; role: { key: string; name: string; permissions: string[] }; institution?: { id: string; name: string; type: string } | null; mfa_enabled: boolean; }
+export interface ContractRestricted { ocid: string; procuring_entity: string; supplier?: { id: string; name: string; tpin?: string; debarred_until?: string } | null; value?: number; currency: string; award_date?: string; signing_date?: string; framework_parent?: string; status: string; risk_score?: number; content_hash?: string; created_at: string; updated_at: string; }
+export interface ContractListResponse { contracts: ContractRestricted[]; total: number; page: number; size: number; }
+export interface CheckResult { check_id: number; check_key: string; result: string; evidence_note: string; weight_applied: number; }
+export interface RiskScoreOut { contract_ocid: string; score: number; normalised_score: number; tier: string; flag_count: number; applicable_max: number; weights_version: string; breakdown: Record<string, { result: string; weight_applied: number; evidence_note: string }>; computed_at?: string; }
+
+// ── Auth ─────────────────────────────────────────────────────────────────────
+
+export const authApi = {
+  login: (email: string, password: string) =>
+    api.post<LoginResponse>("/auth/login", { email, password }),
+  mfaVerify: (mfa_challenge_token: string, totp_code: string) =>
+    api.post<LoginResponse>("/auth/mfa/verify", { mfa_challenge_token, totp_code }),
+  me: () => api.get<MeResponse>("/auth/me"),
+  logout: (refresh_token: string) =>
+    api.post("/auth/logout", { refresh_token }),
+};
+
+// ── Contracts ─────────────────────────────────────────────────────────────────
+
+export const contractsApi = {
+  list: (params?: { page?: number; size?: number; min_score?: number; status?: string }) =>
+    api.get<ContractListResponse>("/contracts", { params }),
+  get: (ocid: string) => api.get<ContractRestricted>(`/contracts/${ocid}`),
+  checks: (ocid: string) => api.get<CheckResult[]>(`/contracts/${ocid}/checks`),
+  risk: (ocid: string) => api.get<RiskScoreOut>(`/contracts/${ocid}/risk`),
+};
+
+// ── Ingestion ─────────────────────────────────────────────────────────────────
+
+export const ingestionApi = {
+  runs: (params?: { page?: number; size?: number }) => api.get("/ingestion/runs", { params }),
+  trigger: (source: string) => api.post("/ingestion/runs", { source }),
+};

@@ -1,0 +1,43 @@
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ROUTES } from "./lib/routes";
+import ConsoleLayout from "./components/layout/ConsoleLayout";
+import Login from "./pages/Login";
+import MfaChallenge from "./pages/MfaChallenge";
+import Dashboard from "./pages/Dashboard";
+import ContractList from "./pages/ContractList";
+import ContractDetail from "./pages/ContractDetail";
+import SupplierNetwork from "./pages/SupplierNetwork";
+import Analytics from "./pages/Analytics";
+import Reports from "./pages/Reports";
+import Notifications from "./pages/Notifications";
+import AuditLog from "./pages/AuditLog";
+import Admin from "./pages/Admin";
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
+});
+
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+          <Route path={ROUTES.MFA} element={<MfaChallenge />} />
+          <Route path={ROUTES.DASHBOARD} element={<ConsoleLayout><Dashboard /></ConsoleLayout>} />
+          <Route path={ROUTES.CONTRACTS} element={<ConsoleLayout><ContractList /></ConsoleLayout>} />
+          <Route path={ROUTES.CONTRACT} element={<ConsoleLayout><ContractDetail /></ConsoleLayout>} />
+          <Route path={ROUTES.SUPPLIER_NETWORK} element={<ConsoleLayout><SupplierNetwork /></ConsoleLayout>} />
+          <Route path={ROUTES.ANALYTICS} element={<ConsoleLayout><Analytics /></ConsoleLayout>} />
+          <Route path={ROUTES.REPORTS} element={<ConsoleLayout><Reports /></ConsoleLayout>} />
+          <Route path={ROUTES.NOTIFICATIONS} element={<ConsoleLayout><Notifications /></ConsoleLayout>} />
+          <Route path={ROUTES.AUDIT} element={<ConsoleLayout><AuditLog /></ConsoleLayout>} />
+          <Route path={ROUTES.ADMIN} element={<ConsoleLayout><Admin /></ConsoleLayout>} />
+          <Route path="/" element={<Navigate to={ROUTES.DASHBOARD} replace />} />
+          <Route path="*" element={<Navigate to={ROUTES.DASHBOARD} replace />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+}
