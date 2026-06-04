@@ -60,3 +60,20 @@ export const verifyApi = {
   confirm: (id: string) => api.post(`/pulse/submissions/${id}/confirm`, {}),
   reject: (id: string, reason: string) => api.post(`/pulse/submissions/${id}/reject`, { reason }),
 };
+
+export interface GhostSignal {
+  id: string; disbursement_id: string; constituency_id: string | null; project_id: string | null;
+  amount: number; disbursement_date: string; days_overdue: number; state: string; raised_at: string | null;
+}
+export interface DisbursementRow {
+  id: string; constituency_id: string | null; project_id: string | null; contract_ocid: string | null;
+  amount: number; date: string; source: string; matched_completion: boolean; matched_at: string | null;
+}
+
+export const monitorApi = {
+  ghostQueue: () => api.get<{ total: number; signals: GhostSignal[] }>("/monitor/ghost-projects"),
+  disbursements: () => api.get<{ total: number; disbursements: DisbursementRow[] }>("/monitor/disbursements"),
+  mismatches: () => api.get<{ total: number; disbursements: DisbursementRow[] }>("/monitor/mismatches"),
+  run: () => api.post("/monitor/run", {}),
+  clear: (id: string, justification: string) => api.post(`/monitor/ghost-projects/${id}/clear`, { justification }),
+};

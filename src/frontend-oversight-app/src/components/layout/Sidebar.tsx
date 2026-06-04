@@ -6,6 +6,8 @@ import { authApi } from "../../lib/api";
 const NAV = [
   { to: ROUTES.DASHBOARD,        icon: "monitoring",      label: "Risk Dashboard" },
   { to: ROUTES.CONTRACTS,        icon: "table_rows",      label: "Contract Risk List" },
+  { to: ROUTES.GHOST_QUEUE,      icon: "report",          label: "Ghost-Project Queue" },
+  { to: ROUTES.MISMATCH,         icon: "compare_arrows",  label: "Disbursement Explorer" },
   { to: ROUTES.SUPPLIER_NETWORK, icon: "hub",             label: "Supplier Network" },
   { to: ROUTES.VERIFICATION_REVIEW, icon: "how_to_reg",   label: "Verification Review" },
   { to: ROUTES.ANALYTICS,        icon: "insights",        label: "Analytics" },

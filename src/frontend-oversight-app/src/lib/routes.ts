@@ -4,6 +4,8 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   CONTRACTS: "/contracts",
   CONTRACT: "/contracts/:ocid",
+  GHOST_QUEUE: "/ghost-projects",
+  MISMATCH: "/disbursements",
   SUPPLIER_NETWORK: "/suppliers/network",
   VERIFICATION_REVIEW: "/verification-review",
   ANALYTICS: "/analytics",

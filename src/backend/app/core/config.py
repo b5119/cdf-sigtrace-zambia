@@ -59,6 +59,8 @@ class Settings(BaseSettings):
     POLYGON_MOCK_MODE: bool = True
     # Distinct confirmations required before a submission is 'confirmed' (INC-013)
     CONFIRMATIONS_REQUIRED: int = 2
+    # Days after disbursement before a missing completion is a ghost signal (INC-015)
+    GHOST_WINDOW_DAYS: int = 180
 
     # IPFS (INC-011)
     IPFS_API: str = "/ip4/127.0.0.1/tcp/5001"
