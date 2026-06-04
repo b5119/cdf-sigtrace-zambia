@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Detail | Republic of Zambia Public Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .verification-seal-gradient {
+            background: radial-gradient(circle, #ffffff 0%, #f8faf8 100%);
+        }
+        .zebra-striping div:nth-child(even) {
+            background-color: #f8faf8;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#2a3e38",
+                        "inverse-on-surface": "#eff1ef",
+                        "surface-variant": "#e1e3e1",
+                        "surface-container-high": "#e6e9e7",
+                        "on-background": "#191c1b",
+                        "tertiary-fixed": "#d1e8df",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#aaf1d4",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#6f7974",
+                        "surface": "#f8faf8",
+                        "secondary-fixed": "#ffdcbd",
+                        "secondary": "#8a5100",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb86f",
+                        "secondary-container": "#feb15f",
+                        "surface-container": "#eceeec",
+                        "inverse-surface": "#2e3130",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f2",
+                        "primary-container": "#0e5c46",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dad9",
+                        "surface-tint": "#226a53",
+                        "primary": "#004331",
+                        "on-surface": "#191c1b",
+                        "on-tertiary-fixed": "#0b1f1a",
+                        "surface-bright": "#f8faf8",
+                        "surface-container-highest": "#e1e3e1",
+                        "outline-variant": "#bfc9c2",
+                        "inverse-primary": "#8fd5b8",
+                        "on-tertiary-fixed-variant": "#374b45",
+                        "on-primary-fixed": "#002116",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#b5cbc3",
+                        "on-surface-variant": "#3f4944",
+                        "background": "#f8faf8",
+                        "primary-fixed-dim": "#8fd5b8",
+                        "tertiary-container": "#41554f",
+                        "on-tertiary-container": "#b2c9c1",
+                        "on-secondary-container": "#744300",
+                        "on-primary-container": "#8cd2b6",
+                        "on-secondary-fixed": "#2c1600",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00513c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.zpulse{transform-box:fill-box;transform-origin:center;animation:zp 2.4s ease-out infinite}@keyframes zp{0%{transform:scale(.6);opacity:.55}70%{transform:scale(2);opacity:0}100%{opacity:0}}</style></head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop bg-surface dark:bg-inverse-surface h-16 border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface dark:text-inverse-on-surface">REP. OF ZAMBIA | LEDGER</span>
+</div>
+<nav class="hidden md:flex gap-gutter h-full items-center">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors h-full flex items-center px-2" href="../../screens/P2_dashboard.html">Registry</a>
+<a class="font-label-caps text-label-caps text-primary dark:text-primary-fixed-dim border-b-2 border-primary transition-colors h-full flex items-center px-2" href="../../screens/P10_audit_trail.html">Audit Trail</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors h-full flex items-center px-2" href="../constituency_detail/code.html">Constituencies</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors h-full flex items-center px-2" href="../../screens/P2_dashboard.html">Allocations</a>
+</nav>
+<div class="flex items-center gap-stack-md">
+<button class="bg-primary-container text-on-primary-container px-stack-md py-2 rounded-lg font-label-caps text-label-caps hover:opacity-80 transition-opacity">Verify a Contract</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden">
+<img alt="Official Seal" class="w-full h-full object-cover" src="../../assets/coat_of_arms.png"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- Main Content Canvas -->
+<main class="flex-1 max-w-container-max mx-auto px-margin-desktop py-stack-lg flex flex-col gap-stack-lg">
+<!-- Project Header -->
+<section class="flex flex-col md:flex-row justify-between items-end gap-stack-md border-b border-outline-variant pb-stack-md">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-caps text-label-caps">LUSAKA CENTRAL • HEALTH SECTOR</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Chilenje Level-1 Hospital Expansion Phase II</h1>
+<div class="flex items-center gap-4 mt-2">
+<span class="px-3 py-1 bg-primary text-on-primary rounded-full font-label-caps text-[10px]">ACTIVE PROJECT</span>
+<span class="font-data-mono text-data-mono text-primary">ZMW 42,500,000.00</span>
+</div>
+</div>
+<!-- Signature Verification Seal (Header Placement) -->
+<div class="relative group cursor-help">
+<div class="w-24 h-24 rounded-full border-2 border-[#B8762A] bg-white flex items-center justify-center relative shadow-sm">
+<div class="absolute inset-0 rounded-full border border-primary/20 animate-pulse"></div>
+<div class="w-16 h-16 rounded-full border border-[#B8762A] flex items-center justify-center p-2 bg-surface">
+<img alt="Zambian Coat of Arms" class="w-full h-full object-contain" data-alt="A highly detailed and minimalist rendering of the Zambian Coat of Arms, embossed in a metallic copper texture. The lighting is soft and professional, creating subtle shadows that emphasize the intricate heraldic details. The background is a clean, off-white institutional paper texture, maintaining a high-end, official government document aesthetic." src="../../assets/coat_of_arms.png"/>
+</div>
+<svg class="absolute inset-0 w-full h-full" viewbox="0 0 100 100">
+<path d="M 15,50 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" id="curve"></path>
+<text class="font-label-caps text-[6px] font-bold fill-[#B8762A]">
+<textpath startoffset="0%" xlink:href="#curve">VERIFIED ON LEDGER • REPUBLIC OF ZAMBIA • </textpath>
+</text>
+</svg>
+</div>
+<div class="absolute top-full right-0 mt-2 bg-on-surface text-surface text-[10px] font-data-mono px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-xl">
+                        Block Hash: 0x8f2c...4e1d
+                    </div>
+</div>
+</section>
+<!-- Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Data Column -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-stack-lg">
+<!-- Evidence Gallery (Bento Style) -->
+<section class="flex flex-col gap-stack-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md text-on-surface">Photographic Evidence (IPFS)</h2>
+<span class="font-data-mono text-[12px] text-on-surface-variant">4 Records Verified</span>
+</div>
+<div class="grid grid-cols-3 grid-rows-2 gap-4 h-[400px]">
+<div class="col-span-2 row-span-2 rounded-xl overflow-hidden relative group">
+<div class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 bg-surface-container flex items-center justify-center" style="min-height:80px"><span class="material-symbols-outlined text-outline" style="font-size:40px">image</span></div>
+<div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/60 to-transparent text-white">
+<p class="font-label-caps text-[10px]">VERIFIED 14 OCT 2026</p>
+<p class="text-body-md">Main Structural Foundation Completed</p>
+</div>
+</div>
+<div class="col-span-1 rounded-xl overflow-hidden relative group">
+<div class="w-full h-full object-cover bg-surface-container flex items-center justify-center" style="min-height:80px"><span class="material-symbols-outlined text-outline" style="font-size:40px">image</span></div>
+</div>
+<div class="col-span-1 rounded-xl overflow-hidden relative group">
+<div class="w-full h-full object-cover bg-surface-container flex items-center justify-center" style="min-height:80px"><span class="material-symbols-outlined text-outline" style="font-size:40px">image</span></div>
+</div>
+</div>
+</section>
+<!-- Verified Location Mini-Map -->
+<section class="bg-white p-stack-md rounded-xl border border-outline-variant">
+<div class="flex items-center justify-between mb-stack-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">map</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Verified Location</h2>
+</div>
+<span class="font-data-mono text-data-mono text-primary">15.4241° S, 28.3245° E</span>
+</div>
+<div class="h-64 bg-surface-container rounded-lg overflow-hidden relative">
+<!-- Placeholder for Map -->
+<svg viewBox="0 0 1000 800" class="w-full h-full" preserveAspectRatio="xMidYMid meet"><path d="M917.4,81.6L956.2,118.4L977.1,188.2L963.1,210.5L946.6,277.2L962.4,345.4L936.5,374.0L911.5,450.4L954.8,471.8L705.1,539.6L712.9,598.1L650.6,609.4L603.7,642.2L593.7,670.7L564.3,677.2L492.7,744.8L447.1,798.1L419.4,800.0L392.6,790.5L300.7,781.5L285.9,775.4L285.3,768.5L252.8,750.0L199.4,745.3L132.1,764.0L78.4,712.6L22.9,645.2L26.7,383.4L198.0,384.5L191.0,356.1L203.2,325.3L188.8,286.7L198.1,246.8L189.4,221.2L217.8,223.3L222.5,248.9L261.1,246.9L313.3,254.5L340.8,291.8L406.7,303.3L457.0,277.3L475.5,320.4L538.5,331.9L568.9,367.0L602.6,412.3L665.6,413.0L658.7,324.2L636.2,339.2L578.6,307.2L556.4,292.5L566.6,209.9L581.2,112.5L562.8,76.2L586.2,23.7L608.3,13.9L718.8,-0.0L751.2,8.4L785.6,29.3L818.4,43.1L870.7,56.9L917.4,81.6Z" fill="#EEF3EF" stroke="#0E5C46" stroke-opacity="0.4" stroke-width="3"/><circle cx="560" cy="592" r="52" fill="#B8762A" fill-opacity="0.16" class="zpulse"/><circle cx="560" cy="592" r="15" fill="#B8762A" stroke="#fff" stroke-width="3"/><text x="560" y="566" text-anchor="middle" font-family="Inter" font-size="24" font-weight="700" fill="#0B1F1A">Chilenje, Lusaka</text></svg><div class="absolute bottom-2 left-2 bg-white/90 border border-outline-variant rounded px-2 py-1 font-data-mono text-[10px]">15.4241 S, 28.3245 E</div>
+</div>
+</section>
+<!-- Timeline of Disbursement -->
+<section class="flex flex-col gap-stack-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Audit Trail &amp; Timeline</h2>
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden">
+<div class="flex flex-col zebra-striping">
+<div class="p-stack-md flex justify-between items-center">
+<div class="flex gap-4 items-start">
+<div class="mt-1 w-2 h-2 rounded-full bg-primary"></div>
+<div>
+<p class="font-bold text-on-surface">Final Inspection Confirmation</p>
+<p class="text-[12px] text-on-surface-variant">Verified by Ministry of Works Inspector #442</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-data-mono text-data-mono">22 NOV 2026</p>
+<p class="font-label-caps text-[10px] text-primary">SIGNED</p>
+</div>
+</div>
+<div class="p-stack-md flex justify-between items-center">
+<div class="flex gap-4 items-start">
+<div class="mt-1 w-2 h-2 rounded-full bg-primary"></div>
+<div>
+<p class="font-bold text-on-surface">Tranche 3 Disbursement</p>
+<p class="text-[12px] text-on-surface-variant">TX Hash: 0x4f...99bc</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-data-mono text-data-mono">15 OCT 2026</p>
+<p class="font-label-caps text-[10px] text-primary">ZMW 12M</p>
+</div>
+</div>
+<div class="p-stack-md flex justify-between items-center">
+<div class="flex gap-4 items-start">
+<div class="mt-1 w-2 h-2 rounded-full bg-primary"></div>
+<div>
+<p class="font-bold text-on-surface">Photographic Evidence IPFS Commit</p>
+<p class="text-[12px] text-on-surface-variant">CID: QmXoyp...331</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-data-mono text-data-mono">14 OCT 2026</p>
+<p class="font-label-caps text-[10px] text-primary">VERIFIED</p>
+</div>
+</div>
+<div class="p-stack-md flex justify-between items-center">
+<div class="flex gap-4 items-start">
+<div class="mt-1 w-2 h-2 rounded-full bg-outline"></div>
+<div>
+<p class="font-bold text-on-surface">Project Initiation</p>
+<p class="text-[12px] text-on-surface-variant">Parliamentary Approval ID: ZM-2026-H-12</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-data-mono text-data-mono">01 JUN 2026</p>
+<p class="font-label-caps text-[10px] text-on-surface-variant">ARCHIVED</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar Content -->
+<aside class="col-span-12 lg:col-span-4 flex flex-col gap-stack-lg">
+<!-- Project Facts Card -->
+<div class="bg-white p-stack-md rounded-xl border border-outline-variant flex flex-col gap-stack-md">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">PROJECT SPECIFICATIONS</h3>
+<div class="flex flex-col gap-4">
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Primary Contractor</p>
+<p class="text-body-md font-bold">BuildZambia Infrastructure Ltd.</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Oversight Body</p>
+<p class="text-body-md font-bold">Ministry of Health (MoH)</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Estimated Completion</p>
+<p class="text-body-md font-bold">March 15, 2026</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant uppercase">Impact Metric</p>
+<p class="text-body-md font-bold">+150 Beds, New Pediatric Wing</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant flex flex-col gap-2">
+<div class="flex justify-between text-[12px] font-data-mono">
+<span>Risk Assessment</span>
+<span class="text-primary">08 / 100</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[8%]"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant italic">Risk score calculated via multi-nodal verification latency.</p>
+</div>
+</div>
+<!-- Ledger Anchor Info -->
+<div class="bg-on-surface text-surface p-stack-md rounded-xl shadow-lg flex flex-col gap-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">shield</span>
+<h3 class="font-label-caps text-label-caps text-primary-fixed">LEDGER ANCHOR</h3>
+</div>
+<div class="bg-surface-container-highest/10 p-3 rounded-lg border border-surface/20">
+<p class="font-label-caps text-[10px] text-surface/60 mb-1">CONTRACT HASH (SHA-256)</p>
+<p class="font-data-mono text-[11px] break-all">f7e8b9a1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9</p>
+</div>
+<button class="w-full py-3 border border-primary-fixed/30 rounded-lg font-label-caps text-label-caps text-primary-fixed hover:bg-primary-fixed/10 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+                            View On Explorer
+                        </button>
+</div>
+<!-- Report Concern -->
+<div class="p-stack-md bg-surface-container-low border border-outline-variant rounded-xl flex flex-col gap-3">
+<h4 class="font-bold text-on-surface">Community Oversight</h4>
+<p class="text-[14px] text-on-surface-variant">Citizens are encouraged to report any discrepancies between this ledger and physical site reality.</p>
+<a class="flex items-center gap-2 text-secondary font-label-caps text-label-caps hover:underline" href="../../screens/P9_about.html">
+<span class="material-symbols-outlined text-[20px]">report</span>
+                            Report a Concern
+                        </a>
+</div>
+</aside>
+</div>
+</main>
+</div>
+<!-- Footer Component -->
+<footer class="w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-low dark:bg-surface-container-highest border-t border-outline-variant mt-auto">
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps font-bold text-on-surface uppercase">Republic of Zambia Ledger</span>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">© 2026 Republic of Zambia Public Ledger. Verified via Cryptographic Audit.</p>
+</div>
+<div class="flex flex-wrap gap-stack-md">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/X6_consent.html">Privacy Protocol</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P8_open_data.html">Open Data Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P8_open_data.html">API Documentation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P9_about.html">Terms of Oversight</a>
+</div>
+</footer>
+<!-- Interaction Script -->
+<script>
+        // Subtle interaction for the verification seal
+        const seal = document.querySelector('.relative.group');
+        if (seal) {
+            seal.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = seal.getBoundingClientRect();
+                const x = (e.clientX - left) / width - 0.5;
+                const y = (e.clientY - top) / height - 0.5;
+                
+                const sealInner = seal.querySelector('.rounded-full');
+                sealInner.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${y * -10}deg)`;
+            });
+            
+            seal.addEventListener('mouseleave', () => {
+                const sealInner = seal.querySelector('.rounded-full');
+                sealInner.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+            });
+        }
+    </script>
+<div id="proto-return-pill" style="position:fixed;left:16px;bottom:16px;z-index:9999;display:flex;gap:8px;font-family:Inter,sans-serif">
+<a href="../../screens/landing_enhanced.html" style="background:#0B1F1A;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(11,31,26,.25)">&#8592; Portal</a>
+<a href="../../screens/index.html" style="background:#fff;color:#0B1F1A;border:1px solid #D7E0DA;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none">Screen map</a>
+</div></body></html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>REP. OF ZAMBIA | LEDGER - National Oversight</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .verification-seal-spin {
+            animation: slow-rotate 20s linear infinite;
+        }
+        @keyframes slow-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#2a3e38",
+                        "inverse-on-surface": "#eff1ef",
+                        "surface-variant": "#e1e3e1",
+                        "surface-container-high": "#e6e9e7",
+                        "on-background": "#191c1b",
+                        "tertiary-fixed": "#d1e8df",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#aaf1d4",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#6f7974",
+                        "surface": "#f8faf8",
+                        "secondary-fixed": "#ffdcbd",
+                        "secondary": "#8a5100",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb86f",
+                        "secondary-container": "#feb15f",
+                        "surface-container": "#eceeec",
+                        "inverse-surface": "#2e3130",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f2",
+                        "primary-container": "#0e5c46",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dad9",
+                        "surface-tint": "#226a53",
+                        "primary": "#004331",
+                        "on-surface": "#191c1b",
+                        "on-tertiary-fixed": "#0b1f1a",
+                        "surface-bright": "#f8faf8",
+                        "surface-container-highest": "#e1e3e1",
+                        "outline-variant": "#bfc9c2",
+                        "inverse-primary": "#8fd5b8",
+                        "on-tertiary-fixed-variant": "#374b45",
+                        "on-primary-fixed": "#002116",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#b5cbc3",
+                        "on-surface-variant": "#3f4944",
+                        "background": "#f8faf8",
+                        "primary-fixed-dim": "#8fd5b8",
+                        "tertiary-container": "#41554f",
+                        "on-tertiary-container": "#b2c9c1",
+                        "on-secondary-container": "#744300",
+                        "on-primary-container": "#8cd2b6",
+                        "on-secondary-fixed": "#2c1600",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00513c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden selection:bg-primary-fixed-dim">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop bg-surface border-b border-outline-variant h-16">
+<div class="flex items-center gap-gutter">
+<div class="flex items-center gap-stack-sm">
+<img alt="Zambian Seal" class="w-8 h-8 rounded-full shadow-sm" data-alt="A professional high-resolution close-up of the Zambian Coat of Arms rendered in a sleek, monochrome copper finish. The lighting is editorial and sharp, highlighting the intricate details of the shield, eagle, and national motto. The style is modern institutional, set against a pristine white studio background with soft ambient shadows to convey authority and official status." src="../../assets/coat_of_arms.png"/>
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">REP. OF ZAMBIA | LEDGER</span>
+</div>
+<nav class="hidden md:flex items-center gap-stack-lg ml-gutter">
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary py-1 transition-opacity duration-150" href="../../screens/landing_enhanced.html">HOME</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="../national_project_map/code.html">MAP</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="../verification_portal/code.html">VERIFY</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="../constituency_detail/code.html">CONSTITUENCIES</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="../../screens/P8_open_data.html">OPEN DATA</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="../../screens/P9_about.html">ABOUT</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="hidden lg:flex items-center px-stack-md py-2 bg-primary-container text-on-primary-container rounded-lg font-bold hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined mr-2" data-icon="verified">verified</span>
+                Verify a Contract
+            </button>
+<button class="md:hidden material-symbols-outlined text-on-surface" data-icon="menu">menu</button>
+</div>
+</header>
+<main class="mt-16">
+<!-- Hero Section -->
+<section class="relative min-h-[819px] flex flex-col items-center justify-center text-center px-margin-mobile md:px-margin-desktop bg-surface-bright py-stack-lg">
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#0E5C46 1px, transparent 1px); background-size: 32px 32px;"></div>
+<div class="max-w-[900px] z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-caps text-label-caps mb-stack-md border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    LIVE CRYPTOGRAPHIC OVERSIGHT
+                </div>
+<h1 class="font-display-lg text-display-lg mb-stack-md text-on-surface leading-tight">
+                    See how Zambia's <span class="text-primary">CDF money</span> is really spent
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg max-w-[700px] mx-auto">
+                    The Public Ledger provides independent, tamper-evident verification of Community Development Fund allocations. Trust, verified through code.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-stack-md mb-stack-lg">
+<button class="w-full sm:w-auto px-8 py-4 bg-primary text-on-primary font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-colors shadow-sm">
+                        Verify a contract
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="w-full sm:w-auto px-8 py-4 bg-surface-container border border-outline text-on-surface font-bold rounded-xl hover:bg-surface-container-high transition-colors">
+                        Explore the map
+                    </button>
+</div>
+<div class="inline-block p-stack-md rounded-2xl bg-white border border-outline-variant shadow-sm">
+<div class="flex items-baseline gap-2">
+<span class="font-data-mono text-4xl text-secondary font-bold">K6.245B</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Annual Allocation</span>
+</div>
+<div class="h-1 w-full bg-surface-container mt-2 rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-3/4"></div>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">Across 156 constituencies nationwide</p>
+</div>
+</div>
+</section>
+<!-- Stats Strip -->
+<section class="bg-on-surface py-stack-md">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="flex flex-col border-l border-surface-variant/20 pl-4">
+<span class="font-label-caps text-label-caps text-surface-variant opacity-70 uppercase">Active Projects</span>
+<span class="font-data-mono text-headline-md text-surface-bright">1,248</span>
+</div>
+<div class="flex flex-col border-l border-surface-variant/20 pl-4">
+<span class="font-label-caps text-label-caps text-surface-variant opacity-70 uppercase">Verified Audits</span>
+<span class="font-data-mono text-headline-md text-surface-bright">4,912</span>
+</div>
+<div class="flex flex-col border-l border-surface-variant/20 pl-4">
+<span class="font-label-caps text-label-caps text-surface-variant opacity-70 uppercase">Flagged Risks</span>
+<span class="font-data-mono text-headline-md text-secondary-fixed-dim">24</span>
+</div>
+<div class="flex flex-col border-l border-surface-variant/20 pl-4">
+<span class="font-label-caps text-label-caps text-surface-variant opacity-70 uppercase">Uptime</span>
+<span class="font-data-mono text-headline-md text-primary-fixed-dim">99.98%</span>
+</div>
+</div>
+</section>
+<!-- Feature Bento -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Verify Card -->
+<div class="md:col-span-8 bg-white border border-outline-variant rounded-3xl p-margin-desktop relative overflow-hidden group hover:border-primary transition-colors">
+<div class="flex flex-col h-full justify-between relative z-10">
+<div>
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary mb-stack-md">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">Verify Contracts</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[400px]">
+                                Use our cryptographic portal to check if any government contract has been altered since publication. Immediate transparency for every kwacha.
+                            </p>
+</div>
+<button class="mt-stack-lg font-label-caps text-label-caps text-primary flex items-center gap-2 hover:gap-4 transition-all">
+                            BEGIN VERIFICATION <span class="material-symbols-outlined" data-icon="trending_flat">trending_flat</span>
+</button>
+</div>
+<div class="absolute right-[-10%] bottom-[-10%] opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[300px]" data-icon="fact_check">fact_check</span>
+</div>
+</div>
+<!-- Track Delivery Card -->
+<div class="md:col-span-4 bg-surface-container-low border border-outline-variant rounded-3xl p-stack-lg flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary mb-stack-md">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Track Delivery</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Monitor real-time progress of infrastructure projects in your constituency with photographic evidence.
+                        </p>
+</div>
+<div class="mt-stack-lg rounded-xl object-cover w-full h-40 border border-outline-variant bg-surface-container flex items-center justify-center" style="min-height:80px"><span class="material-symbols-outlined text-outline" style="font-size:40px">map</span></div>
+</div>
+<!-- Flag Ghost Projects Card -->
+<div class="md:col-span-4 bg-error-container/10 border border-error/20 rounded-3xl p-stack-lg flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-error-container flex items-center justify-center text-on-error-container mb-stack-md">
+<span class="material-symbols-outlined" data-icon="report">report</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Flag Anomalies</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Notice a project listed as "Complete" that doesn't exist? Use our secure whistleblowing portal to report ghost projects.
+                        </p>
+</div>
+<button class="mt-stack-lg px-6 py-3 border border-error text-error font-bold rounded-lg hover:bg-error hover:text-white transition-colors">
+                        Report Anomaly
+                    </button>
+</div>
+<!-- Data Transparency Card -->
+<div class="md:col-span-8 bg-on-surface rounded-3xl p-margin-desktop flex flex-col md:flex-row gap-gutter items-center overflow-hidden">
+<div class="flex-1">
+<h3 class="font-headline-lg text-headline-lg text-surface-bright mb-stack-sm">Audit Trail Integrity</h3>
+<p class="font-body-md text-body-md text-surface-variant opacity-80 mb-stack-lg">
+                            Every allocation is recorded on an immutable ledger. Our system ensures that once a public official commits a figure, it cannot be changed retroactively without a public trail.
+                        </p>
+<div class="font-data-mono text-sm text-primary-fixed bg-primary-container/30 p-stack-sm rounded border border-primary-fixed/20">
+                            HASH: 0x8a2f...c94d Verified by 3 independent nodes.
+                        </div>
+</div>
+<div class="w-48 h-48 flex-shrink-0 relative flex items-center justify-center">
+<div class="absolute inset-0 border-2 border-primary-fixed/30 rounded-full verification-seal-spin"></div>
+<div class="absolute inset-4 border border-secondary-fixed/50 rounded-full"></div>
+<div class="text-center">
+<span class="material-symbols-outlined text-surface-bright text-5xl" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<div class="font-label-caps text-[8px] text-surface-variant mt-1">LEDGER CERTIFIED</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Verification Seal (Signature) -->
+<section class="flex flex-col items-center justify-center py-24 bg-surface-container-low border-y border-outline-variant">
+<div class="relative w-40 h-40 mb-stack-md flex items-center justify-center">
+<!-- Verification Seal Component -->
+<div class="absolute inset-0 border border-[#B8762A] rounded-full flex items-center justify-center">
+<div class="w-[90%] h-[90%] border border-[#B8762A]/30 rounded-full flex items-center justify-center">
+<img alt="Coat of Arms" class="w-16 h-16" data-alt="A detailed monochrome copper rendering of the Zambian Coat of Arms, captured in a tight macro shot with high-key studio lighting. The metallic texture of the copper is rich and detailed, conveying a sense of permanence and administrative weight. The background is a clean, neutral white, maintaining the modern institutional design language." src="../../assets/coat_of_arms.png"/>
+</div>
+</div>
+<!-- Circular Text -->
+<svg class="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite]" viewbox="0 0 100 100">
+<path d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" id="circlePath"></path>
+<text class="font-label-caps text-[6px] font-bold fill-[#B8762A]">
+<textpath href="#circlePath">
+                            VERIFIED ON LEDGER • REPUBLIC OF ZAMBIA • VERIFIED ON LEDGER • REPUBLIC OF ZAMBIA •
+                        </textpath>
+</text>
+</svg>
+</div>
+<div class="text-center">
+<p class="font-headline-md text-headline-md text-on-surface mb-1">Authenticity Guaranteed</p>
+<p class="font-data-mono text-data-mono text-on-surface-variant">BLOCK HASH: <span class="text-primary font-bold">ZMB-CDF-99421-E8B2</span></p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-low border-t border-outline-variant">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-label-caps text-label-caps font-bold text-on-surface mb-2">REPUBLIC OF ZAMBIA | PUBLIC LEDGER</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-center md:text-left max-w-sm">
+                © 2026 Republic of Zambia Public Ledger. Verified via Cryptographic Audit.
+            </p>
+</div>
+<div class="flex flex-wrap justify-center gap-stack-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/X6_consent.html">Privacy Protocol</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P8_open_data.html">Open Data Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P8_open_data.html">API Documentation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P9_about.html">Terms of Oversight</a>
+</div>
+</footer>
+<script>
+        // Micro-interaction for the verification seal rotation
+        document.addEventListener('scroll', () => {
+            const seals = document.querySelectorAll('.verification-seal-spin');
+            const scrollPos = window.scrollY;
+            seals.forEach(seal => {
+                seal.style.transform = `rotate(${scrollPos * 0.1}deg)`;
+            });
+        });
+    </script>
+<div id="proto-return-pill" style="position:fixed;left:16px;bottom:16px;z-index:9999;display:flex;gap:8px;font-family:Inter,sans-serif">
+<a href="../../screens/landing_enhanced.html" style="background:#0B1F1A;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(11,31,26,.25)">&#8592; Portal</a>
+<a href="../../screens/index.html" style="background:#fff;color:#0B1F1A;border:1px solid #D7E0DA;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none">Screen map</a>
+</div></body></html>

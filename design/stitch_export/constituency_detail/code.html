@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Constituency Detail | Republic of Zambia Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#2a3e38",
+                        "inverse-on-surface": "#eff1ef",
+                        "surface-variant": "#e1e3e1",
+                        "surface-container-high": "#e6e9e7",
+                        "on-background": "#191c1b",
+                        "tertiary-fixed": "#d1e8df",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#aaf1d4",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#6f7974",
+                        "surface": "#f8faf8",
+                        "secondary-fixed": "#ffdcbd",
+                        "secondary": "#8a5100",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb86f",
+                        "secondary-container": "#feb15f",
+                        "surface-container": "#eceeec",
+                        "inverse-surface": "#2e3130",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f2f4f2",
+                        "primary-container": "#0e5c46",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dad9",
+                        "surface-tint": "#226a53",
+                        "primary": "#004331",
+                        "on-surface": "#191c1b",
+                        "on-tertiary-fixed": "#0b1f1a",
+                        "surface-bright": "#f8faf8",
+                        "surface-container-highest": "#e1e3e1",
+                        "outline-variant": "#bfc9c2",
+                        "inverse-primary": "#8fd5b8",
+                        "on-tertiary-fixed-variant": "#374b45",
+                        "on-primary-fixed": "#002116",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#b5cbc3",
+                        "on-surface-variant": "#3f4944",
+                        "background": "#f8faf8",
+                        "primary-fixed-dim": "#8fd5b8",
+                        "tertiary-container": "#41554f",
+                        "on-tertiary-container": "#b2c9c1",
+                        "on-secondary-container": "#744300",
+                        "on-primary-container": "#8cd2b6",
+                        "on-secondary-fixed": "#2c1600",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00513c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .verification-seal {
+            border: 1px solid #B8762A;
+        }
+        .zebra-row:nth-child(even) {
+            background-color: #f8faf8;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8faf8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bfc9c2;
+            border-radius: 4px;
+        }
+    </style>
+<style>.zpulse{transform-box:fill-box;transform-origin:center;animation:zp 2.4s ease-out infinite}@keyframes zp{0%{transform:scale(.6);opacity:.55}70%{transform:scale(2);opacity:0}100%{opacity:0}}</style></head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop bg-surface dark:bg-inverse-surface h-16 border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface dark:text-inverse-on-surface uppercase">REP. OF ZAMBIA | LEDGER</span>
+</div>
+<nav class="hidden md:flex gap-gutter">
+<a class="font-label-caps text-label-caps text-primary dark:text-primary-fixed-dim border-b-2 border-primary py-5" href="../../screens/P2_dashboard.html">Registry</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary py-5 transition-colors" href="../../screens/P10_audit_trail.html">Audit Trail</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary py-5 transition-colors" href="../constituency_detail/code.html">Constituencies</a>
+</nav>
+<div class="flex items-center gap-stack-md">
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-stack-md py-2 rounded-lg hover:opacity-90 transition-opacity">Verify a Contract</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="Official Seal" class="w-6 h-6" src="../../assets/coat_of_arms.png"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen pt-16">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:flex flex-col w-[280px] h-[calc(100vh-64px)] p-stack-md bg-on-surface dark:bg-surface-container-lowest border-r border-outline-variant fixed left-0 top-16">
+<div class="flex items-center gap-stack-sm mb-stack-lg px-2">
+<div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-bright" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-surface-bright leading-none">National Oversight</h2>
+<p class="font-label-caps text-[10px] text-surface-variant opacity-70">Public Ledger v2.4</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-stack-md px-stack-md py-3 text-surface-variant hover:bg-surface-variant/10 rounded-lg transition-transform hover:translate-x-1" href="../../screens/P2_dashboard.html">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-caps text-label-caps">Registry</span>
+</a>
+<a class="flex items-center gap-stack-md px-stack-md py-3 text-surface-variant hover:bg-surface-variant/10 rounded-lg transition-transform hover:translate-x-1" href="../../screens/P10_audit_trail.html">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-label-caps text-label-caps">Audit Trail</span>
+</a>
+<a class="flex items-center gap-stack-md px-stack-md py-3 bg-primary-container text-on-primary-container rounded-lg font-bold" href="../constituency_detail/code.html">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-caps text-label-caps">Constituencies</span>
+</a>
+<a class="flex items-center gap-stack-md px-stack-md py-3 text-surface-variant hover:bg-surface-variant/10 rounded-lg transition-transform hover:translate-x-1" href="../../screens/P2_dashboard.html">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-caps text-label-caps">Allocations</span>
+</a>
+<a class="flex items-center gap-stack-md px-stack-md py-3 text-surface-variant hover:bg-surface-variant/10 rounded-lg transition-transform hover:translate-x-1" href="../../screens/P8_open_data.html">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-caps text-label-caps">Civic Reports</span>
+</a>
+</nav>
+<div class="pt-stack-lg border-t border-white/10 mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-lg font-bold font-label-caps text-label-caps mb-stack-md hover:scale-[0.98] transition-transform">
+                    Generate Report
+                </button>
+<a class="flex items-center gap-stack-md px-stack-md py-2 text-surface-variant hover:text-white transition-colors" href="../../screens/X4_account.html">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-stack-md px-stack-md py-2 text-surface-variant hover:text-white transition-colors" href="../../screens/P9_about.html">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-[280px] px-margin-desktop py-stack-lg">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-stack-sm mb-stack-md text-on-surface-variant">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="../national_project_map/code.html">
+<span class="material-symbols-outlined text-[18px]" data-icon="home">home</span>
+<span class="font-label-caps text-[11px]">National Map</span>
+</a>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="font-label-caps text-[11px] text-primary">Lusaka Central</span>
+</nav>
+<!-- Constituency Header -->
+<section class="bg-white rounded-xl border border-outline-variant p-stack-lg mb-stack-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-gutter">
+<div class="flex-1">
+<div class="flex items-center gap-stack-sm mb-2">
+<span class="bg-secondary/10 text-secondary px-2 py-0.5 rounded font-label-caps text-[10px]">PROVINCE: LUSAKA</span>
+<span class="bg-primary/10 text-primary px-2 py-0.5 rounded font-label-caps text-[10px]">ID: ZMB-LUS-001</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Lusaka Central Constituency</h1>
+<p class="text-on-surface-variant max-w-2xl">A vital economic and administrative hub, currently overseeing 14 major infrastructure and social development projects funded through the National Constituency Development Fund (CDF).</p>
+</div>
+<div class="flex flex-col items-end gap-stack-sm">
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">TOTAL CDF ALLOCATION (2026)</p>
+<p class="font-data-mono text-[24px] font-bold text-primary">ZMW 28,300,000.00</p>
+</div>
+<div class="flex items-center gap-stack-md mt-2">
+<div class="verification-seal flex flex-col items-center justify-center p-3 rounded-full bg-surface-container-low w-24 h-24">
+<span class="material-symbols-outlined text-secondary" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-[8px] font-bold text-center leading-tight mt-1">VERIFIED ON LEDGER</span>
+</div>
+<div class="text-right">
+<span class="bg-primary text-white px-3 py-1 rounded-full font-label-caps text-[10px] inline-block mb-1">98.4% AUDIT SCORE</span>
+<p class="font-data-mono text-[10px] text-on-surface-variant">HASH: 0x8F2...91C</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Grid: Map & Projects -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Metrics & Map -->
+<div class="col-span-12 xl:col-span-4 space-y-gutter">
+<!-- Locator Map Card -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-stack-md border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md">Geographic Scope</h3>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="map">map</span>
+</div>
+<div class="aspect-square bg-surface-container relative">
+<svg viewBox="0 0 1000 800" class="w-full h-full" preserveAspectRatio="xMidYMid meet"><path d="M917.4,81.6L956.2,118.4L977.1,188.2L963.1,210.5L946.6,277.2L962.4,345.4L936.5,374.0L911.5,450.4L954.8,471.8L705.1,539.6L712.9,598.1L650.6,609.4L603.7,642.2L593.7,670.7L564.3,677.2L492.7,744.8L447.1,798.1L419.4,800.0L392.6,790.5L300.7,781.5L285.9,775.4L285.3,768.5L252.8,750.0L199.4,745.3L132.1,764.0L78.4,712.6L22.9,645.2L26.7,383.4L198.0,384.5L191.0,356.1L203.2,325.3L188.8,286.7L198.1,246.8L189.4,221.2L217.8,223.3L222.5,248.9L261.1,246.9L313.3,254.5L340.8,291.8L406.7,303.3L457.0,277.3L475.5,320.4L538.5,331.9L568.9,367.0L602.6,412.3L665.6,413.0L658.7,324.2L636.2,339.2L578.6,307.2L556.4,292.5L566.6,209.9L581.2,112.5L562.8,76.2L586.2,23.7L608.3,13.9L718.8,-0.0L751.2,8.4L785.6,29.3L818.4,43.1L870.7,56.9L917.4,81.6Z" fill="#EEF3EF" stroke="#0E5C46" stroke-opacity="0.4" stroke-width="3"/><circle cx="560" cy="592" r="52" fill="#B8762A" fill-opacity="0.16" class="zpulse"/><circle cx="560" cy="592" r="15" fill="#B8762A" stroke="#fff" stroke-width="3"/><text x="560" y="566" text-anchor="middle" font-family="Inter" font-size="24" font-weight="700" fill="#0B1F1A">Lusaka Central</text></svg><div class="absolute bottom-2 left-2 bg-white/90 border border-outline-variant rounded px-2 py-1 font-data-mono text-[10px]">-15.41, 28.30</div>
+</div>
+<div class="p-stack-md bg-surface-container-low">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-[11px] text-on-surface-variant">TOTAL AREA</span>
+<span class="font-data-mono text-[13px]">52.4 km²</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[11px] text-on-surface-variant">POPULATION EST.</span>
+<span class="font-data-mono text-[13px]">219,300</span>
+</div>
+</div>
+</div>
+<!-- Sector Distribution -->
+<div class="bg-white rounded-xl border border-outline-variant p-stack-md shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-md">Allocation by Sector</h3>
+<div class="space-y-stack-md">
+<div>
+<div class="flex justify-between font-label-caps text-[11px] mb-1">
+<span>Education</span>
+<span>45%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 45%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-caps text-[11px] mb-1">
+<span>Healthcare</span>
+<span>30%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 30%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-caps text-[11px] mb-1">
+<span>Public Safety</span>
+<span>15%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 15%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-caps text-[11px] mb-1">
+<span>Infrastructure</span>
+<span>10%</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 10%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Project Grid -->
+<div class="col-span-12 xl:col-span-8">
+<div class="flex items-center justify-between mb-stack-md">
+<h2 class="font-headline-md text-headline-md">Active Ledger Projects</h2>
+<div class="flex gap-stack-sm">
+<button class="bg-white border border-outline-variant p-2 rounded-lg flex items-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+<button class="bg-white border border-outline-variant p-2 rounded-lg flex items-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="sort">sort</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<!-- Project Card 1 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden group hover:border-primary transition-colors">
+<div class="aspect-video relative overflow-hidden">
+<div class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 bg-surface-container flex items-center justify-center" style="min-height:80px"><span class="material-symbols-outlined text-outline" style="font-size:40px">image</span></div>
+<div class="absolute top-stack-sm right-stack-sm">
+<div class="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+<div class="p-stack-md">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest mb-1 block">Education Sector</span>
+<h4 class="font-headline-md text-[18px] leading-tight mb-2">Central Market Primary Wing Extension</h4>
+<div class="flex justify-between items-center mb-stack-md">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-label-caps text-[10px]">85% COMPLETE</span>
+<span class="font-data-mono text-[14px] text-primary">ZMW 4,200,000</span>
+</div>
+<div class="pt-stack-sm border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-on-surface-variant">REF: CDF-2026-ED-012</span>
+<button class="text-primary font-bold text-[12px] flex items-center gap-1 group-hover:underline">
+                                        View Details
+                                        <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden group hover:border-primary transition-colors">
+<div class="aspect-video relative overflow-hidden">
+<div class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 bg-surface-container flex items-center justify-center" style="min-height:80px"><span class="material-symbols-outlined text-outline" style="font-size:40px">image</span></div>
+<div class="absolute top-stack-sm right-stack-sm">
+<div class="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+<div class="p-stack-md">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest mb-1 block">Healthcare Sector</span>
+<h4 class="font-headline-md text-[18px] leading-tight mb-2">Kalingalinga Clinic Modernization</h4>
+<div class="flex justify-between items-center mb-stack-md">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-label-caps text-[10px]">IN PROGRESS</span>
+<span class="font-data-mono text-[14px] text-primary">ZMW 7,850,000</span>
+</div>
+<div class="pt-stack-sm border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-on-surface-variant">REF: CDF-2026-HC-045</span>
+<button class="text-primary font-bold text-[12px] flex items-center gap-1 group-hover:underline">
+                                        View Details
+                                        <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 3 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden group hover:border-primary transition-colors">
+<div class="aspect-video relative overflow-hidden">
+<div class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 bg-surface-container flex items-center justify-center" style="min-height:80px"><span class="material-symbols-outlined text-outline" style="font-size:40px">image</span></div>
+<div class="absolute top-stack-sm right-stack-sm">
+<div class="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+<div class="p-stack-md">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest mb-1 block">Infrastructure Sector</span>
+<h4 class="font-headline-md text-[18px] leading-tight mb-2">Ward 16 Drainage Rehabilitation</h4>
+<div class="flex justify-between items-center mb-stack-md">
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-label-caps text-[10px]">UNDER REVIEW</span>
+<span class="font-data-mono text-[14px] text-primary">ZMW 1,200,000</span>
+</div>
+<div class="pt-stack-sm border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-on-surface-variant">REF: CDF-2026-IN-009</span>
+<button class="text-primary font-bold text-[12px] flex items-center gap-1 group-hover:underline">
+                                        View Details
+                                        <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Project Card 4 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden group hover:border-primary transition-colors">
+<div class="aspect-video relative overflow-hidden bg-surface-container flex items-center justify-center p-gutter">
+<div class="text-center">
+<span class="material-symbols-outlined text-[48px] text-outline-variant mb-2" data-icon="add_circle">add_circle</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Awaiting Procurement</p>
+</div>
+</div>
+<div class="p-stack-md">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest mb-1 block">Public Safety</span>
+<h4 class="font-headline-md text-[18px] leading-tight mb-2">Constituency Solar Street Lighting</h4>
+<div class="flex justify-between items-center mb-stack-md">
+<span class="bg-surface-container text-on-surface-variant px-3 py-1 rounded-full font-label-caps text-[10px]">PLANNING</span>
+<span class="font-data-mono text-[14px] text-primary">ZMW 2,450,000</span>
+</div>
+<div class="pt-stack-sm border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-on-surface-variant">REF: CDF-2026-PS-022</span>
+<button class="text-primary font-bold text-[12px] flex items-center gap-1 group-hover:underline">
+                                        View RFP
+                                        <span class="material-symbols-outlined text-[16px]" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-low dark:bg-surface-container-highest border-t border-outline-variant">
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps font-bold text-on-surface">REPUBLIC OF ZAMBIA | PUBLIC LEDGER</span>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                © 2026 Republic of Zambia Public Ledger. Verified via Cryptographic Audit.
+            </p>
+</div>
+<div class="flex flex-wrap gap-stack-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/X6_consent.html">Privacy Protocol</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P8_open_data.html">Open Data Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P8_open_data.html">API Documentation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-opacity" href="../../screens/P9_about.html">Terms of Oversight</a>
+</div>
+</footer>
+<script>
+        // Simple Micro-interaction for project cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.3s cubic-bezier(0.2, 0, 0, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Simulating Ledger Data Loading
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Zambia Public Ledger v2.4 Connection Established');
+            console.log('Block Integrity: Verified');
+        });
+    </script>
+<div id="proto-return-pill" style="position:fixed;left:16px;bottom:16px;z-index:9999;display:flex;gap:8px;font-family:Inter,sans-serif">
+<a href="../../screens/landing_enhanced.html" style="background:#0B1F1A;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(11,31,26,.25)">&#8592; Portal</a>
+<a href="../../screens/index.html" style="background:#fff;color:#0B1F1A;border:1px solid #D7E0DA;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none">Screen map</a>
+</div></body></html>

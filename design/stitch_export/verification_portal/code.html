@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verification Portal | Republic of Zambia Public Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#8cd2b6",
+                        "secondary-fixed-dim": "#ffb86f",
+                        "surface-bright": "#f8faf8",
+                        "secondary-fixed": "#ffdcbd",
+                        "surface-tint": "#226a53",
+                        "on-surface": "#191c1b",
+                        "inverse-primary": "#8fd5b8",
+                        "outline": "#6f7974",
+                        "primary-fixed": "#aaf1d4",
+                        "on-secondary-container": "#744300",
+                        "tertiary": "#2a3e38",
+                        "on-secondary-fixed-variant": "#693c00",
+                        "on-tertiary-fixed-variant": "#374b45",
+                        "inverse-surface": "#2e3130",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e1e3e1",
+                        "inverse-on-surface": "#eff1ef",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#feb15f",
+                        "background": "#f8faf8",
+                        "surface-container-high": "#e6e9e7",
+                        "on-background": "#191c1b",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#bfc9c2",
+                        "secondary": "#8a5100",
+                        "primary": "#004331",
+                        "surface-container-highest": "#e1e3e1",
+                        "tertiary-container": "#41554f",
+                        "primary-container": "#0e5c46",
+                        "on-surface-variant": "#3f4944",
+                        "surface-container": "#eceeec",
+                        "primary-fixed-dim": "#8fd5b8",
+                        "surface-container-low": "#f2f4f2",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8faf8",
+                        "tertiary-fixed-dim": "#b5cbc3",
+                        "tertiary-fixed": "#d1e8df",
+                        "surface-dim": "#d8dad9",
+                        "on-primary-fixed-variant": "#00513c",
+                        "on-tertiary-fixed": "#0b1f1a",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#002116",
+                        "on-tertiary-container": "#b2c9c1",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#2c1600",
+                        "copper": "#B8762A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F6F8F6; }
+        .verification-seal {
+            width: 140px;
+            height: 140px;
+            border: 1px solid #B8762A;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: white;
+        }
+        .seal-text-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop bg-surface border-b border-outline-variant h-16">
+<div class="flex items-center gap-gutter">
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">REP. OF ZAMBIA | LEDGER</h1>
+<nav class="hidden md:flex gap-gutter h-full items-center">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="../../screens/P2_dashboard.html">Registry</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary h-16 flex items-center" href="../verification_portal/code.html">Verify a Contract</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="../../screens/P8_open_data.html">Public Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<a href="../../screens/O1_login.html" class="px-6 py-2 bg-primary-container text-on-primary font-bold rounded-lg hover:opacity-80 transition-opacity">
+                Portal Login
+            </a>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img alt="Official Seal" class="w-full h-full object-contain p-1" src="../../assets/coat_of_arms.png"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-stack-lg px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Hero / Headline Section -->
+<div class="mb-stack-lg text-center md:text-left">
+<h2 class="font-display-lg text-display-lg mb-2">Cryptographic Verification</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Ensuring administrative authority through immutable digital signatures. Upload any government-issued contract to verify its authenticity against the National Oversight Ledger.
+            </p>
+</div>
+<!-- Verification Dropzone -->
+<section class="mb-gutter">
+<div class="relative group bg-white border-2 border-dashed border-outline-variant rounded-xl p-16 flex flex-col items-center justify-center transition-all hover:border-primary hover:bg-surface-container-low cursor-pointer" id="dropzone">
+<div class="mb-stack-md text-primary opacity-40 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-6xl">upload_file</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Drag and drop contract PDF</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-md">
+                    Or <span class="text-primary font-bold">browse your local files</span> to begin the hashing process.
+                </p>
+<div class="mt-8 px-4 py-2 bg-surface-container rounded-lg border border-outline-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-sm">shield</span>
+<span class="font-data-mono text-data-mono text-xs uppercase">Privacy Shield Active: Local Client-Side Hashing Only</span>
+</div>
+</div>
+<p class="mt-stack-sm font-data-mono text-data-mono text-xs text-on-surface-variant text-center">
+                We hash your document locally and compare it to the immutable ledger. No data leaves your browser.
+            </p>
+</section>
+<!-- Demonstration States Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- VERIFIED STATE -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="p-stack-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Live Demonstration: Authenticated State</span>
+<span class="px-2 py-1 bg-primary/10 text-primary font-data-mono text-[10px] rounded border border-primary/20">STATUS: MATCHED</span>
+</div>
+<div class="p-stack-lg flex flex-col items-center flex-grow">
+<!-- The Seal -->
+<div class="verification-seal mb-stack-lg">
+<img alt="Zambian Coat of Arms" class="w-16 h-16" data-alt="A highly detailed monochrome gold emblem of the Zambian coat of arms, rendered with professional engraving style aesthetics on a clean white circular background. The lighting is bright and even, conveying institutional authority and cryptographic security in a modern government portal setting." src="../../assets/coat_of_arms.png"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<svg class="seal-text-ring" viewbox="0 0 100 100">
+<path d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" id="curve"></path>
+<text class="font-label-caps text-[6.5px] font-bold fill-copper">
+<textpath xlink:href="#curve">
+                                        VERIFIED ON LEDGER • REPUBLIC OF ZAMBIA • VERIFIED ON LEDGER • REPUBLIC OF ZAMBIA •
+                                    </textpath>
+</text>
+</svg>
+</div>
+<div class="absolute -bottom-2 px-2 bg-white border border-copper rounded font-data-mono text-[9px] text-copper">
+                            A1B29F4C
+                        </div>
+</div>
+<div class="w-full space-y-4">
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-1">DOCUMENT IDENTITY (SHA-256)</label>
+<div class="font-data-mono text-data-mono bg-surface-container p-3 rounded border border-outline-variant break-all">
+                                0xa1b2c3d4e5f67890a1b2c3d4e5f678909f
+                            </div>
+</div>
+<div class="grid grid-cols-2 gap-stack-md">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-1">LEDGER TX</label>
+<div class="font-data-mono text-data-mono bg-surface-container p-3 rounded border border-outline-variant">
+                                    ZAM-7728-TX
+                                </div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-1">TIMESTAMP</label>
+<div class="font-data-mono text-data-mono bg-surface-container p-3 rounded border border-outline-variant">
+                                    2026-10-12 14:22
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-stack-md bg-primary-container text-white text-center font-bold">
+                    DOCUMENT AUTHENTICITY CONFIRMED
+                </div>
+</div>
+<!-- MISMATCH STATE -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="p-stack-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Live Demonstration: Tampered State</span>
+<span class="px-2 py-1 bg-error/10 text-error font-data-mono text-[10px] rounded border border-error/20">STATUS: CONFLICT</span>
+</div>
+<div class="p-stack-lg flex flex-col items-center flex-grow opacity-90">
+<!-- Broken Seal -->
+<div class="w-[140px] h-[140px] border-2 border-dashed border-error/40 rounded-full flex items-center justify-center relative mb-stack-lg bg-error-container/20">
+<span class="material-symbols-outlined text-6xl text-error">gavel</span>
+<div class="absolute inset-0 flex items-center justify-center overflow-hidden">
+<div class="w-full h-px bg-error/40 rotate-45"></div>
+<div class="w-full h-px bg-error/40 -rotate-45"></div>
+</div>
+<div class="absolute -bottom-2 px-3 py-1 bg-error text-white rounded font-label-caps text-[10px] font-bold">
+                            INVALID
+                        </div>
+</div>
+<div class="w-full space-y-4">
+<div class="p-4 bg-error-container/30 border border-error/20 rounded-lg">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-1">warning</span>
+<div>
+<h4 class="font-bold text-error">Verification Failure</h4>
+<p class="font-body-md text-sm text-on-error-container">The cryptographic hash of the provided file does not match any official record in the public ledger. This document may be altered, counterfeit, or unregistered.</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-1">DETECTED HASH</label>
+<div class="font-data-mono text-data-mono bg-surface-container p-3 rounded border border-outline-variant break-all text-error">
+                                0xEE729FA...UNAUTHORIZED_STR
+                            </div>
+</div>
+</div>
+</div>
+<div class="p-stack-md bg-error text-white text-center font-bold">
+                    NOT VERIFIED — ALTERED OR UNREGISTERED
+                </div>
+</div>
+</div>
+<!-- Institutional Footer Note -->
+<footer class="mt-gutter pt-gutter border-t border-outline-variant flex flex-col md:flex-row justify-between gap-gutter">
+<div class="max-w-md">
+<p class="font-label-caps text-label-caps font-bold text-on-surface mb-2">REPUBLIC OF ZAMBIA PUBLIC LEDGER</p>
+<p class="text-xs text-on-surface-variant">© 2026 Republic of Zambia Public Ledger. Verified via Cryptographic Audit. This portal serves as a public utility for administrative transparency and document veracity under the National Digital Infrastructure Act.</p>
+</div>
+<div class="flex flex-wrap gap-stack-md items-start">
+<a class="font-data-mono text-xs text-primary underline" href="../../screens/X6_consent.html">Privacy Protocol</a>
+<a class="font-data-mono text-xs text-on-surface-variant hover:text-primary transition-colors" href="../../screens/P8_open_data.html">API Documentation</a>
+<a class="font-data-mono text-xs text-on-surface-variant hover:text-primary transition-colors" href="../../screens/P8_open_data.html">Open Data Policy</a>
+</div>
+</footer>
+</main>
+<script>
+        // Simple drag and drop visual interaction
+        const dropzone = document.getElementById('dropzone');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false);
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => {
+                dropzone.classList.add('border-primary', 'bg-surface-container-low');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => {
+                dropzone.classList.remove('border-primary', 'bg-surface-container-low');
+            }, false);
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            alert('Demonstration: In a live environment, the file would now be hashed locally and compared against the ledger API.');
+        });
+    </script>
+<div id="proto-return-pill" style="position:fixed;left:16px;bottom:16px;z-index:9999;display:flex;gap:8px;font-family:Inter,sans-serif">
+<a href="../../screens/landing_enhanced.html" style="background:#0B1F1A;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(11,31,26,.25)">&#8592; Portal</a>
+<a href="../../screens/index.html" style="background:#fff;color:#0B1F1A;border:1px solid #D7E0DA;font-size:12px;font-weight:600;padding:8px 12px;border-radius:10px;text-decoration:none">Screen map</a>
+</div></body></html>

@@ -40,6 +40,7 @@ cdf_sigtrace_project/
 │   ├── 08_INCREMENT_PLAN.md      the ordered build increments (the work-list)
 │   ├── 09_PROGRESS.md            live % completion + status table  ← UPDATE THIS
 │   ├── 10_TESTING.md             testing strategy + definition of done
+│   ├── 11_FRONTEND_DESIGN.md     design system + Stitch prompts + app/mobile strategy  ← READ BEFORE ANY UI
 │   └── templates/
 │       ├── INCREMENT_TEMPLATE.md  copy this when an increment is finished
 │       └── VALIDATION_TEMPLATE.md test/validation evidence template

@@ -1,0 +1,162 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Landing — CDF Integrity (LOCKED)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config={darkMode:"class",theme:{extend:{colors:{
+ primary:"#0E5C46",accent:"#B8762A",ink:"#0B1F1A",surface:"#F6F8F6","surface-2":"#EEF3EF",
+ card:"#FFFFFF","on-surface":"#191c1b","on-surface-variant":"#3f4944",outline:"#6f7974",
+ "outline-variant":"#D7E0DA","risk-low":"#138636","risk-mid":"#B45309","risk-high":"#B91C1C"},
+ fontFamily:{display:["Space Grotesk"],body:["Inter"],mono:["JetBrains Mono"]},
+ borderRadius:{xl:"0.75rem","2xl":"1rem",full:"9999px"}}}}
+</script>
+<style>
+ body{font-family:Inter} h1,h2,h3,.disp{font-family:'Space Grotesk'} .mono{font-family:'JetBrains Mono'}
+ .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400;vertical-align:middle}
+ /* Zambia map background — flag-colour pulses travelling around the outline */
+ .mapbg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:0}
+ .mapbg svg{width:820px;max-width:112%}
+ .basemap{fill:#0E5C46;fill-opacity:.05;stroke:#0E5C46;stroke-opacity:.25;stroke-width:2}
+ .pulse{fill:none;stroke-width:5;stroke-linecap:round;filter:url(#glow)}
+ .pulse.a{stroke-dasharray:62 938;animation:travel 6.5s linear infinite, hueA 9s linear infinite}
+ .pulse.b{stroke-dasharray:46 954;animation:travel 9s linear infinite, hueB 9s linear infinite;animation-delay:-3s}
+ .pulse.c{stroke-dasharray:34 966;animation:travelR 11s linear infinite, hueC 9s linear infinite;animation-delay:-5s}
+ @keyframes travel{to{stroke-dashoffset:-1000}}
+ @keyframes travelR{to{stroke-dashoffset:1000}}
+ @keyframes hueA{0%,100%{stroke:#1FE000}25%{stroke:#FF1A1A}50%{stroke:#0A0A0A}75%{stroke:#FF8A00}}
+ @keyframes hueB{0%,100%{stroke:#FF8A00}33%{stroke:#1FE000}66%{stroke:#FF1A1A}}
+ @keyframes hueC{0%,100%{stroke:#FF1A1A}50%{stroke:#1FE000}}
+ @media (prefers-reduced-motion:reduce){.pulse{animation:none;stroke:#1FE000;stroke-dasharray:none;opacity:.5}}
+ /* live-ledger morph */
+ .lstack{position:relative;height:120px}
+ .levent{position:absolute;inset:0;opacity:0;animation:lfade 12s infinite}
+ .levent:nth-child(1){animation-delay:0s}.levent:nth-child(2){animation-delay:3s}.levent:nth-child(3){animation-delay:6s}.levent:nth-child(4){animation-delay:9s}
+ @keyframes lfade{0%{opacity:0;transform:translateY(8px)}4%{opacity:1;transform:none}22%{opacity:1}26%{opacity:0;transform:translateY(-8px)}100%{opacity:0}}
+ .seal-spin{animation:spin 30s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+ .pulse-ring{animation:pr 2.4s ease-out infinite}@keyframes pr{0%{transform:scale(.8);opacity:.6}100%{transform:scale(1.6);opacity:0}}
+ @media (prefers-reduced-motion:reduce){.mapbg svg,.dot,.levent,.seal-spin,.pulse-ring{animation:none}.levent{opacity:1;position:relative}.levent+.levent{display:none}}
+</style></head>
+<body class="bg-surface text-on-surface">
+
+<header class="sticky top-0 z-50 flex justify-between items-center px-12 h-16 bg-card/90 backdrop-blur border-b border-outline-variant">
+  <a href="landing_enhanced.html" class="flex items-center gap-2.5"><img src="../assets/coat_of_arms.png" class="h-8 w-8 object-contain"/>
+    <span class="disp font-bold tracking-tight text-ink">REP. OF ZAMBIA <span class="text-outline font-normal">|</span> LEDGER</span></a>
+  <nav class="flex items-center gap-7 text-sm">
+    <div class="relative group"><button class="flex items-center gap-1 text-on-surface-variant hover:text-ink">Explore<span class="material-symbols-outlined" style="font-size:16px">expand_more</span></button>
+      <div class="absolute left-0 top-full pt-2 hidden group-hover:block z-50"><div class="w-56 bg-card border border-outline-variant rounded-xl shadow-lg p-2">
+        <a href="P2_dashboard.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">National dashboard</a><a href="../stitch_export/national_project_map/code.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">National map</a><a href="../stitch_export/constituency_detail/code.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Constituencies</a><a href="../stitch_export/project_transparency_detail/code.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Projects</a><a href="P7_procurement_risk.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Procurement risk</a></div></div></div>
+    <div class="relative group"><button class="flex items-center gap-1 text-on-surface-variant hover:text-ink">Data<span class="material-symbols-outlined" style="font-size:16px">expand_more</span></button>
+      <div class="absolute left-0 top-full pt-2 hidden group-hover:block z-50"><div class="w-56 bg-card border border-outline-variant rounded-xl shadow-lg p-2">
+        <a href="P8_open_data.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Open data &amp; datasets</a><a href="P8_open_data.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Public API</a><a href="P9_about.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Methodology</a></div></div></div>
+    <div class="relative group"><button class="flex items-center gap-1 text-on-surface-variant hover:text-ink">About<span class="material-symbols-outlined" style="font-size:16px">expand_more</span></button>
+      <div class="absolute left-0 top-full pt-2 hidden group-hover:block z-50"><div class="w-56 bg-card border border-outline-variant rounded-xl shadow-lg p-2">
+        <a href="P9_about.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">How it works</a><a href="P9_about.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">FAQ</a><a href="X6_consent.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Data protection</a><a href="P9_about.html" class="block px-3 py-2 rounded-lg hover:bg-surface-2">Contact</a></div></div></div>
+    <a href="index.html" class="text-on-surface-variant hover:text-ink">Screen map</a>
+  </nav>
+  <div class="flex items-center gap-5">
+    <a href="O1_login.html" class="hidden md:flex items-center gap-1.5 text-sm text-on-surface-variant hover:text-ink"><span class="material-symbols-outlined" style="font-size:18px">lock</span>For officials<span class="material-symbols-outlined" style="font-size:16px">chevron_right</span></a>
+    <a href="../stitch_export/verification_portal/code.html" class="bg-primary text-white text-sm font-semibold px-4 py-2 rounded-lg flex items-center gap-2"><span class="material-symbols-outlined" style="font-size:18px">shield</span>Verify a contract</a>
+  </div>
+</header>
+
+<!-- HERO: centered, morphing Zambia map behind -->
+<section class="relative overflow-hidden min-h-[680px] flex items-center">
+  <div class="mapbg" aria-hidden="true">
+    <svg viewBox="0 0 1000 800">
+      <defs><filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <path class="basemap" d="M917.4,81.6L956.2,118.4L977.1,188.2L963.1,210.5L946.6,277.2L962.4,345.4L936.5,374.0L911.5,450.4L954.8,471.8L705.1,539.6L712.9,598.1L650.6,609.4L603.7,642.2L593.7,670.7L564.3,677.2L492.7,744.8L447.1,798.1L419.4,800.0L392.6,790.5L300.7,781.5L285.9,775.4L285.3,768.5L252.8,750.0L199.4,745.3L132.1,764.0L78.4,712.6L22.9,645.2L26.7,383.4L198.0,384.5L191.0,356.1L203.2,325.3L188.8,286.7L198.1,246.8L189.4,221.2L217.8,223.3L222.5,248.9L261.1,246.9L313.3,254.5L340.8,291.8L406.7,303.3L457.0,277.3L475.5,320.4L538.5,331.9L568.9,367.0L602.6,412.3L665.6,413.0L658.7,324.2L636.2,339.2L578.6,307.2L556.4,292.5L566.6,209.9L581.2,112.5L562.8,76.2L586.2,23.7L608.3,13.9L718.8,0L751.2,8.4L785.6,29.3L818.4,43.1L870.7,56.9L917.4,81.6Z"/>
+      <path class="pulse a" pathLength="1000" d="M917.4,81.6L956.2,118.4L977.1,188.2L963.1,210.5L946.6,277.2L962.4,345.4L936.5,374.0L911.5,450.4L954.8,471.8L705.1,539.6L712.9,598.1L650.6,609.4L603.7,642.2L593.7,670.7L564.3,677.2L492.7,744.8L447.1,798.1L419.4,800.0L392.6,790.5L300.7,781.5L285.9,775.4L285.3,768.5L252.8,750.0L199.4,745.3L132.1,764.0L78.4,712.6L22.9,645.2L26.7,383.4L198.0,384.5L191.0,356.1L203.2,325.3L188.8,286.7L198.1,246.8L189.4,221.2L217.8,223.3L222.5,248.9L261.1,246.9L313.3,254.5L340.8,291.8L406.7,303.3L457.0,277.3L475.5,320.4L538.5,331.9L568.9,367.0L602.6,412.3L665.6,413.0L658.7,324.2L636.2,339.2L578.6,307.2L556.4,292.5L566.6,209.9L581.2,112.5L562.8,76.2L586.2,23.7L608.3,13.9L718.8,0L751.2,8.4L785.6,29.3L818.4,43.1L870.7,56.9L917.4,81.6Z"/>
+      <path class="pulse b" pathLength="1000" d="M917.4,81.6L956.2,118.4L977.1,188.2L963.1,210.5L946.6,277.2L962.4,345.4L936.5,374.0L911.5,450.4L954.8,471.8L705.1,539.6L712.9,598.1L650.6,609.4L603.7,642.2L593.7,670.7L564.3,677.2L492.7,744.8L447.1,798.1L419.4,800.0L392.6,790.5L300.7,781.5L285.9,775.4L285.3,768.5L252.8,750.0L199.4,745.3L132.1,764.0L78.4,712.6L22.9,645.2L26.7,383.4L198.0,384.5L191.0,356.1L203.2,325.3L188.8,286.7L198.1,246.8L189.4,221.2L217.8,223.3L222.5,248.9L261.1,246.9L313.3,254.5L340.8,291.8L406.7,303.3L457.0,277.3L475.5,320.4L538.5,331.9L568.9,367.0L602.6,412.3L665.6,413.0L658.7,324.2L636.2,339.2L578.6,307.2L556.4,292.5L566.6,209.9L581.2,112.5L562.8,76.2L586.2,23.7L608.3,13.9L718.8,0L751.2,8.4L785.6,29.3L818.4,43.1L870.7,56.9L917.4,81.6Z"/>
+      <path class="pulse c" pathLength="1000" d="M917.4,81.6L956.2,118.4L977.1,188.2L963.1,210.5L946.6,277.2L962.4,345.4L936.5,374.0L911.5,450.4L954.8,471.8L705.1,539.6L712.9,598.1L650.6,609.4L603.7,642.2L593.7,670.7L564.3,677.2L492.7,744.8L447.1,798.1L419.4,800.0L392.6,790.5L300.7,781.5L285.9,775.4L285.3,768.5L252.8,750.0L199.4,745.3L132.1,764.0L78.4,712.6L22.9,645.2L26.7,383.4L198.0,384.5L191.0,356.1L203.2,325.3L188.8,286.7L198.1,246.8L189.4,221.2L217.8,223.3L222.5,248.9L261.1,246.9L313.3,254.5L340.8,291.8L406.7,303.3L457.0,277.3L475.5,320.4L538.5,331.9L568.9,367.0L602.6,412.3L665.6,413.0L658.7,324.2L636.2,339.2L578.6,307.2L556.4,292.5L566.6,209.9L581.2,112.5L562.8,76.2L586.2,23.7L608.3,13.9L718.8,0L751.2,8.4L785.6,29.3L818.4,43.1L870.7,56.9L917.4,81.6Z"/>
+    </svg>
+  </div>
+  <div class="absolute inset-0 z-[1] pointer-events-none" style="background:radial-gradient(ellipse 62% 52% at 50% 40%, #F6F8F6 0%, rgba(246,248,246,.55) 42%, transparent 78%)"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto px-6 py-14 text-center w-full">
+    <span class="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-widest text-accent bg-accent/10 px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span>LIVE CRYPTOGRAPHIC OVERSIGHT</span>
+    <h1 class="disp text-6xl font-bold text-ink leading-[1.05] mt-5">See how Zambia's CDF<br>money is <span class="text-primary">really spent</span></h1>
+    <p class="text-on-surface-variant text-lg mt-5 max-w-xl mx-auto">Independent, tamper-evident verification of Constituency Development Fund allocations — across all 156 constituencies. Trust, verified through code.</p>
+    <div class="flex items-center justify-center gap-3 mt-7">
+      <a href="../stitch_export/verification_portal/code.html" class="bg-primary text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2">Verify a contract<span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span></a>
+      <a href="../stitch_export/national_project_map/code.html" class="border border-outline-variant bg-card text-ink font-semibold px-6 py-3 rounded-lg">Explore the map</a>
+    </div>
+    <a href="P2_dashboard.html" class="inline-flex items-center gap-6 mt-9 bg-card/80 backdrop-blur border border-outline-variant rounded-xl px-6 py-3 hover:border-primary transition-colors">
+      <div><p class="disp text-2xl font-bold text-accent mono">K6.245B</p><p class="text-[11px] text-on-surface-variant">Annual allocation</p></div>
+      <div class="w-px h-8 bg-outline-variant"></div>
+      <div><p class="disp text-2xl font-bold text-ink mono">156</p><p class="text-[11px] text-on-surface-variant">Constituencies tracked</p></div>
+      <div class="w-px h-8 bg-outline-variant"></div>
+      <div><p class="disp text-2xl font-bold text-risk-low mono">4,912</p><p class="text-[11px] text-on-surface-variant">Verified audits</p></div>
+    </a>
+  </div>
+</section>
+
+<!-- BENTO -->
+<section class="relative z-10 max-w-[1200px] mx-auto px-12 pt-10 pb-16 grid grid-cols-12 gap-5 items-stretch">
+  <!-- A: Contract verification VIDEO -->
+  <a href="../stitch_export/verification_portal/code.html" class="col-span-7 bg-ink rounded-2xl overflow-hidden relative aspect-[16/9] block">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="relative">
+        <span class="absolute inset-0 rounded-full border-2 border-accent pulse-ring"></span>
+        <button class="relative w-16 h-16 rounded-full bg-accent text-white flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:32px">play_arrow</span></button>
+      </div>
+    </div>
+    <div class="absolute top-4 left-4 text-[11px] font-bold tracking-widest text-white/60">WATCH · HOW VERIFICATION WORKS</div>
+    <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+      <p class="mono text-xs text-white/70">verifying ocds-zm-000123 → <span class="text-[#8fd5b8]">MATCH ✓</span></p>
+      <span class="text-[11px] bg-black/40 text-white px-2 py-0.5 rounded mono">0:12</span></div>
+  </a>
+
+  <!-- B: Live Ledger morph -->
+  <a href="P10_audit_trail.html" class="col-span-5 bg-card border border-outline-variant rounded-2xl p-5 block hover:border-primary transition-colors">
+    <div class="flex items-center gap-2 mb-3"><span class="w-2 h-2 rounded-full bg-risk-low animate-pulse"></span><h3 class="disp font-semibold text-ink text-sm tracking-wide">LIVE LEDGER</h3></div>
+    <div class="lstack">
+      <div class="levent"><div class="flex items-start gap-2"><span class="material-symbols-outlined text-primary" style="font-size:20px">anchor</span><div><p class="text-sm font-semibold">Contract anchored</p><p class="mono text-[11px] text-on-surface-variant">0xa1b2…9f · Hyperledger Fabric · 2s ago</p></div></div></div>
+      <div class="levent"><div class="flex items-start gap-2"><span class="material-symbols-outlined text-risk-low" style="font-size:20px">verified</span><div><p class="text-sm font-semibold">Project verified · Milenge</p><p class="mono text-[11px] text-on-surface-variant">3 confirmations · IPFS Qm…f1 · 6s ago</p></div></div></div>
+      <div class="levent"><div class="flex items-start gap-2"><span class="material-symbols-outlined text-risk-high" style="font-size:20px">gpp_maybe</span><div><p class="text-sm font-semibold">Ghost-project flag · Kafue</p><p class="mono text-[11px] text-on-surface-variant">disbursed, unverified · review · 11s ago</p></div></div></div>
+      <div class="levent"><div class="flex items-start gap-2"><span class="material-symbols-outlined text-accent" style="font-size:20px">fact_check</span><div><p class="text-sm font-semibold">Field evidence submitted</p><p class="mono text-[11px] text-on-surface-variant">-15.41,28.30 · borehole · 14s ago</p></div></div></div>
+    </div>
+  </a>
+
+  <!-- C: Track Delivery -->
+  <a href="../stitch_export/project_transparency_detail/code.html" class="col-span-5 bg-card border border-outline-variant rounded-2xl p-5 block hover:border-primary transition-colors">
+    <span class="material-symbols-outlined text-accent">photo_camera</span>
+    <h3 class="disp font-semibold text-ink mt-2">Track Delivery</h3>
+    <p class="text-sm text-on-surface-variant mt-1">Community monitors capture geo-tagged, tamper-evident photographic proof that projects exist where they're claimed.</p>
+    <p class="mono text-[11px] text-primary mt-3 font-semibold">VIEW THE EVIDENCE →</p>
+  </a>
+
+  <!-- D: Audit Trail Integrity -->
+  <a href="P9_about.html" class="col-span-7 bg-ink text-white rounded-2xl p-6 flex items-center justify-between hover:ring-2 hover:ring-accent/40 transition">
+    <div class="max-w-sm"><h3 class="disp font-semibold text-lg">Audit Trail Integrity</h3>
+      <p class="text-sm text-white/70 mt-1">Every allocation is recorded on an immutable ledger. A figure cannot be changed retroactively without a public, detectable trail.</p>
+      <p class="mono text-[11px] text-white/50 mt-3">HASH 0xa1b2…9f · verified by 3 independent nodes</p></div>
+    <div class="relative w-20 h-20 rounded-full border border-accent/50 flex items-center justify-center shrink-0">
+      <span class="material-symbols-outlined text-[#8fd5b8]" style="font-size:30px">verified_user</span></div>
+  </a>
+</section>
+
+<!-- dark stat strip -->
+<section class="bg-ink text-white"><div class="max-w-[1200px] mx-auto px-12 py-5 grid grid-cols-4 gap-6">
+  <div><p class="text-[11px] uppercase tracking-wider text-white/50">Active projects</p><p class="disp text-2xl font-bold mono">1,248</p></div>
+  <div><p class="text-[11px] uppercase tracking-wider text-white/50">Verified audits</p><p class="disp text-2xl font-bold mono">4,912</p></div>
+  <div><p class="text-[11px] uppercase tracking-wider text-white/50">Flagged risks</p><p class="disp text-2xl font-bold mono text-[#ff9a9a]">24</p></div>
+  <div><p class="text-[11px] uppercase tracking-wider text-white/50">Uptime</p><p class="disp text-2xl font-bold mono">99.98%</p></div>
+</div></section>
+
+<!-- footer seal (no loose block hash) -->
+<footer class="max-w-[1200px] mx-auto px-12 py-12 flex items-center justify-between">
+  <div class="flex items-center gap-4">
+    <div class="relative w-16 h-16 rounded-full border-2 border-accent flex items-center justify-center">
+      <img src="../assets/coat_of_arms.png" class="h-10 w-10 object-contain"/>
+      <svg class="seal-spin absolute inset-0" viewBox="0 0 100 100"><defs><path id="c" d="M50,50 m-39,0 a39,39 0 1,1 78,0 a39,39 0 1,1 -78,0"/></defs>
+        <text fill="#B8762A" font-size="6" font-family="Inter" font-weight="700" letter-spacing="1.8"><textPath href="#c">VERIFIED ON LEDGER • REPUBLIC OF ZAMBIA • </textPath></text></svg>
+    </div>
+    <div><p class="disp font-semibold text-ink">Republic of Zambia · Public Ledger</p>
+      <p class="text-xs text-on-surface-variant">Verified via cryptographic audit. Risk signals require review.</p></div>
+  </div>
+  <div class="flex gap-6 text-xs text-on-surface-variant"><a href="M1_login.html" class="hover:text-ink font-semibold text-primary">CDF Pulse (field app)</a><a href="X6_consent.html" class="hover:text-ink">Privacy Protocol</a><a href="P8_open_data.html" class="hover:text-ink">Open Data Policy</a><a href="P8_open_data.html" class="hover:text-ink">API Documentation</a><a href="index.html" class="hover:text-ink">Screen map</a></div>
+</footer>
+</body></html>
