@@ -4,13 +4,13 @@
 > state. Overall % = Σ(weight × completion%). Do not mark an increment `DONE` without a matching
 > `increments/INC-XXX_*.md` validation record.
 
-## Overall completion: **60%**
+## Overall completion: **63%**
 
 ```
-[██████████████████████████████░░░░░░░░░░░░░░░░░░░]  60 / 100
+[███████████████████████████████░░░░░░░░░░░░░░░░░░]  63 / 100
 ```
 
-Last updated: INC-010 complete (2026-06-04).
+Last updated: INC-011 complete (2026-06-04).
 
 ## Status table
 Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
@@ -28,7 +28,7 @@ Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
 | INC-008 | Public CDF dashboard + map | 6 | **DONE** | 100 | `increments/INC-008_public_dashboard.md` |
 | INC-009 | Oversight console (risk) | 8 | **DONE** | 100 | `increments/INC-009_oversight_console.md` |
 | INC-010 | CDF Pulse PWA — capture + offline | 6 | **DONE** | 100 | `increments/INC-010_pulse_pwa.md` |
-| INC-011 | IPFS evidence storage | 3 | TODO | 0 | — |
+| INC-011 | IPFS evidence storage | 3 | **DONE** | 100 | `increments/INC-011_ipfs_evidence.md` |
 | INC-012 | Polygon confirmation contract | 6 | TODO | 0 | — |
 | INC-013 | Confirmation workflow | 4 | TODO | 0 | — |
 | INC-014 | Public project dashboard (evidence) | 4 | TODO | 0 | — |

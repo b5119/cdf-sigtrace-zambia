@@ -36,3 +36,11 @@ export const pulseApi = {
       })),
     }),
 };
+
+export const evidenceApi = {
+  uploadPhoto: (submissionId: string, photo: Blob) => {
+    const fd = new FormData();
+    fd.append("file", photo, "evidence.jpg");
+    return api.post(`/pulse/submissions/${submissionId}/photo`, fd);
+  },
+};

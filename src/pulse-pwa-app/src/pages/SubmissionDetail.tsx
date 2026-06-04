@@ -33,7 +33,9 @@ export default function SubmissionDetail() {
             ["Captured", new Date(sub.captured_at).toLocaleString()],
             ["Client ID", sub.client_uuid],
             ["Server ID", sub.server_id ?? "not synced"],
-            ["IPFS CID", "pending (INC-011)"],
+            ["Evidence photo", sub.photo_blob
+              ? (sub.sync_status === "synced" ? "pinned to IPFS ✓" : "queued — pins on sync")
+              : "no photo"],
             ["Note", sub.note ?? "—"],
           ].map(([k, v]) => (
             <div key={k} className="flex justify-between gap-3">

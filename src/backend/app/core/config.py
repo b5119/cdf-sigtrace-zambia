@@ -55,8 +55,14 @@ class Settings(BaseSettings):
     POLYGON_RPC: str = ""
     POLYGON_SIGNER_KEY: str = ""
 
-    # IPFS (placeholder for INC-011)
+    # IPFS (INC-011)
     IPFS_API: str = "/ip4/127.0.0.1/tcp/5001"
+    IPFS_API_URL: str = "http://localhost:5001"  # Kubo HTTP API base
+    IPFS_GATEWAY_URL: str = "http://localhost:8080/ipfs"
+    # Set True in dev/test to use the in-memory content-addressed mock
+    IPFS_MOCK_MODE: bool = True
+    # Max evidence photo size (MB)
+    IPFS_MAX_PHOTO_MB: int = 15
 
     @field_validator("JWT_SECRET")
     @classmethod
