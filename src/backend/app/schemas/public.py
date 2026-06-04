@@ -117,3 +117,39 @@ class OpenDataMeta(BaseModel):
     generated_at: datetime
     note: str
     data: list[Any]
+
+
+# ── Public project evidence (INC-014) ──────────────────────────────────────────
+
+class PublicEvidenceItem(BaseModel):
+    """De-identified field evidence — NO monitor identity, NO confirmer names."""
+    submission_id: str
+    ipfs_cid: Optional[str]
+    lat: float
+    lng: float
+    category: Optional[str]
+    captured_at: datetime
+    status: str                      # pending / confirmed / rejected
+    confirmation_count: int          # how many distinct confirmations
+    onchain_tx: Optional[str]        # Polygon completion tx (if confirmed)
+
+
+class PublicProjectDetail(BaseModel):
+    """Public project page (P5) — disbursement, evidence, verified location, status."""
+    project_id: str
+    constituency_id: Optional[str]
+    title: str
+    category: str
+    status: str
+    verified: bool                   # has >=1 confirmed evidence submission
+    disbursement_amount: Optional[float]
+    disbursement_date: Optional[str]
+    evidence_count: int
+    confirmed_count: int
+    location: Optional[dict]         # {lat, lng} verified location centroid
+
+
+class PublicEvidenceListResponse(BaseModel):
+    project_id: str
+    total: int
+    evidence: list[PublicEvidenceItem]

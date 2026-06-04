@@ -9,7 +9,7 @@ All endpoints:
 from datetime import datetime, timezone
 from typing import Optional
 
-from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
+from fastapi import APIRouter, Depends, File, HTTPException, Request, Response, UploadFile
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -30,6 +30,8 @@ from app.schemas.public import (
     PublicVerifyResponse,
     RiskAggregateResponse,
     PublicRiskAggregateRow,
+    PublicProjectDetail,
+    PublicEvidenceListResponse,
 )
 from app.services.anchor_service import verify_document
 from app.services.scoring_service import risk_tier
@@ -313,3 +315,111 @@ async def get_public_anchor(request: Request, ocid: str, db: AsyncSession = Depe
         "block_ref": latest.block_ref,
         "anchored_at": latest.anchored_at.isoformat() if latest.anchored_at else None,
     }
+
+
+# ── INC-014: Public project evidence (P5) ──────────────────────────────────────
+
+# Seed project metadata (real projects come from CDF allocation data, INC-017)
+_SEED_PROJECT_META = {
+    "proj-001": {"title": "Borehole Drilling — Ward 3", "category": "Water & Sanitation",
+                 "constituency_id": "LPV-002", "disbursement": 285_000, "date": "2024-08-15"},
+    "proj-002": {"title": "Community Health Post", "category": "Health",
+                 "constituency_id": "LPV-002", "disbursement": 540_000, "date": "2024-09-01"},
+    "proj-003": {"title": "Market Stall Construction", "category": "Economic Development",
+                 "constituency_id": "LPV-002", "disbursement": 190_000, "date": "2024-09-20"},
+    "proj-004": {"title": "Solar Electrification — School", "category": "Energy",
+                 "constituency_id": "LPV-002", "disbursement": 420_000, "date": "2024-10-05"},
+}
+
+
+@router.get("/projects/{project_id}", response_model=PublicProjectDetail)
+@limiter.limit(PUBLIC_LIMIT)
+async def public_project_detail(request: Request, project_id: str, db: AsyncSession = Depends(get_db)):
+    """P5 — public project detail: disbursement, evidence count, verified status, location."""
+    from app.models.pulse import PulseSubmission
+    from sqlalchemy import select as _select
+
+    result = await db.execute(
+        _select(PulseSubmission)
+        .where(PulseSubmission.project_id == project_id, PulseSubmission.ipfs_cid.isnot(None))
+        .order_by(PulseSubmission.captured_at.desc())
+    )
+    subs = list(result.scalars().all())
+    confirmed = [s for s in subs if s.status == "confirmed"]
+
+    meta = _SEED_PROJECT_META.get(project_id, {
+        "title": f"Project {project_id}", "category": "CDF Project",
+        "constituency_id": None, "disbursement": None, "date": None,
+    })
+
+    # Verified location centroid from confirmed evidence (else any evidence)
+    loc_source = confirmed or subs
+    location = None
+    if loc_source:
+        location = {
+            "lat": sum(s.lat for s in loc_source) / len(loc_source),
+            "lng": sum(s.lng for s in loc_source) / len(loc_source),
+        }
+
+    return {
+        "project_id": project_id,
+        "constituency_id": meta["constituency_id"],
+        "title": meta["title"],
+        "category": meta["category"],
+        "status": "completed" if confirmed else ("ongoing" if subs else "no evidence"),
+        "verified": len(confirmed) > 0,
+        "disbursement_amount": meta["disbursement"],
+        "disbursement_date": meta["date"],
+        "evidence_count": len(subs),
+        "confirmed_count": len(confirmed),
+        "location": location,
+    }
+
+
+@router.get("/projects/{project_id}/evidence", response_model=PublicEvidenceListResponse)
+@limiter.limit(PUBLIC_LIMIT)
+async def public_project_evidence(request: Request, project_id: str, db: AsyncSession = Depends(get_db)):
+    """P5 — de-identified evidence list. NO monitor identity, NO confirmer names."""
+    from app.models.pulse import PulseSubmission
+    from app.models.confirmation import Confirmation
+    from sqlalchemy import select as _select, func as _func
+
+    result = await db.execute(
+        _select(PulseSubmission)
+        .where(PulseSubmission.project_id == project_id, PulseSubmission.ipfs_cid.isnot(None))
+        .order_by(PulseSubmission.captured_at.desc())
+    )
+    subs = list(result.scalars().all())
+
+    evidence = []
+    for s in subs:
+        count_result = await db.execute(
+            _select(_func.count()).select_from(Confirmation)
+            .where(Confirmation.submission_id == s.id, Confirmation.decision == "confirm")
+        )
+        conf_count = count_result.scalar_one() or 0
+        evidence.append({
+            "submission_id": s.id,
+            "ipfs_cid": s.ipfs_cid,
+            "lat": s.lat,
+            "lng": s.lng,
+            "category": s.category,
+            "captured_at": s.captured_at,
+            "status": s.status,
+            "confirmation_count": conf_count,
+            "onchain_tx": s.onchain_tx,
+            # monitor_id deliberately omitted — public tier is de-identified
+        })
+
+    return {"project_id": project_id, "total": len(evidence), "evidence": evidence}
+
+
+@router.get("/evidence/{cid}")
+@limiter.limit(PUBLIC_LIMIT)
+async def public_evidence_photo(request: Request, cid: str):
+    """Serve a field-evidence photo by its IPFS CID (content-addressed, public)."""
+    from app.services.ipfs_service import retrieve_photo
+    data = retrieve_photo(cid)
+    if data is None:
+        raise HTTPException(status_code=404, detail="Evidence not found on IPFS")
+    return Response(content=data, media_type="image/jpeg", headers={"X-IPFS-CID": cid})

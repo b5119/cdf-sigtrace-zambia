@@ -7,6 +7,7 @@ import Landing          from "./pages/Landing";
 import Dashboard        from "./pages/Dashboard";
 import MapPage          from "./pages/MapPage";
 import ConstituencyDetail from "./pages/ConstituencyDetail";
+import ProjectDetail     from "./pages/ProjectDetail";
 import ProcurementRisk  from "./pages/ProcurementRisk";
 import OpenData         from "./pages/OpenData";
 import About            from "./pages/About";
@@ -36,6 +37,7 @@ export default function App() {
           <Route path={ROUTES.DASHBOARD}   element={<PublicLayout><Dashboard /></PublicLayout>} />
           <Route path={ROUTES.MAP}         element={<PublicLayout><MapPage /></PublicLayout>} />
           <Route path={ROUTES.CONSTITUENCY} element={<PublicLayout><ConstituencyDetail /></PublicLayout>} />
+          <Route path={ROUTES.PROJECT}     element={<PublicLayout><ProjectDetail /></PublicLayout>} />
           <Route path={ROUTES.RISK}        element={<PublicLayout><ProcurementRisk /></PublicLayout>} />
           <Route path={ROUTES.OPEN_DATA}   element={<PublicLayout><OpenData /></PublicLayout>} />
           <Route path={ROUTES.ABOUT}       element={<PublicLayout><About /></PublicLayout>} />

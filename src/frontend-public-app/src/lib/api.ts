@@ -98,3 +98,21 @@ export const publicApi = {
   },
   publicAnchor: (ocid: string) => api.get(`/public/anchors/${encodeURIComponent(ocid)}`),
 };
+
+export interface EvidenceItem {
+  submission_id: string; ipfs_cid: string | null; lat: number; lng: number;
+  category: string | null; captured_at: string; status: string;
+  confirmation_count: number; onchain_tx: string | null;
+}
+export interface ProjectDetail {
+  project_id: string; constituency_id: string | null; title: string; category: string;
+  status: string; verified: boolean; disbursement_amount: number | null;
+  disbursement_date: string | null; evidence_count: number; confirmed_count: number;
+  location: { lat: number; lng: number } | null;
+}
+
+export const projectApi = {
+  detail: (id: string) => api.get<ProjectDetail>(`/public/projects/${id}`),
+  evidence: (id: string) => api.get<{ project_id: string; total: number; evidence: EvidenceItem[] }>(`/public/projects/${id}/evidence`),
+  photoUrl: (cid: string) => `${api.defaults.baseURL}/public/evidence/${cid}`,
+};

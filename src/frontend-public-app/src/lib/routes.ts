@@ -5,6 +5,7 @@ export const ROUTES = {
   MAP:          "/map",
   CONSTITUENCY: "/constituencies/:id",
   CONSTITUENCIES: "/constituencies",
+  PROJECT:      "/projects/:id",
   RISK:         "/risk",
   OPEN_DATA:    "/open-data",
   ABOUT:        "/about",
@@ -14,4 +15,8 @@ export const ROUTES = {
 
 export function constituencyPath(id: string) {
   return `/constituencies/${id}`;
+}
+
+export function projectPath(id: string) {
+  return `/projects/${id}`;
 }

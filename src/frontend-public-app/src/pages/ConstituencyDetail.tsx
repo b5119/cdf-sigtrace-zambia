@@ -11,12 +11,12 @@ function fmt(n: number | null | undefined) {
 }
 
 // Seed project rows for prototype — real data comes from INC-010/014
+// IDs mirror the backend pulse project ids so the public project page (P5) resolves
 const SEED_PROJECTS = [
-  { id: "p1", title: "Borehole Drilling — Ward 3",        category: "Water & Sanitation", status: "completed", verified: true  },
-  { id: "p2", title: "Community Health Post Renovation",   category: "Health",              status: "ongoing",   verified: false },
-  { id: "p3", title: "Market Stall Construction",          category: "Economic Dev",        status: "ongoing",   verified: false },
-  { id: "p4", title: "Road Grading — Rural Access",        category: "Infrastructure",      status: "stalled",   verified: false },
-  { id: "p5", title: "Solar Electrification — 2 Schools",  category: "Energy",              status: "completed", verified: true  },
+  { id: "proj-001", title: "Borehole Drilling — Ward 3",       category: "Water & Sanitation", status: "completed", verified: true  },
+  { id: "proj-002", title: "Community Health Post",            category: "Health",              status: "ongoing",   verified: false },
+  { id: "proj-003", title: "Market Stall Construction",        category: "Economic Dev",        status: "ongoing",   verified: false },
+  { id: "proj-004", title: "Solar Electrification — School",   category: "Energy",              status: "completed", verified: true  },
 ];
 
 const STATUS_STYLE: Record<string, string> = {
@@ -89,7 +89,8 @@ export default function ConstituencyDetail() {
         </div>
         <div className="divide-y divide-outline-variant">
           {SEED_PROJECTS.map(p => (
-            <div key={p.id} className="px-6 py-4 flex items-center justify-between gap-4">
+            <Link key={p.id} to={`/projects/${p.id}`}
+              className="px-6 py-4 flex items-center justify-between gap-4 hover:bg-surface-2/50 transition-colors">
               <div className="min-w-0">
                 <p className="font-medium text-sm">{p.title}</p>
                 <p className="text-xs text-on-surface-variant">{p.category}</p>
@@ -104,8 +105,9 @@ export default function ConstituencyDetail() {
                     Verified
                   </span>
                 )}
+                <span className="material-symbols-outlined text-outline text-base">chevron_right</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

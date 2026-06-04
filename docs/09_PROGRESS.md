@@ -4,13 +4,13 @@
 > state. Overall % = Σ(weight × completion%). Do not mark an increment `DONE` without a matching
 > `increments/INC-XXX_*.md` validation record.
 
-## Overall completion: **73%**
+## Overall completion: **77%**
 
 ```
-[████████████████████████████████████░░░░░░░░░░░░░]  73 / 100
+[██████████████████████████████████████░░░░░░░░░░░]  77 / 100
 ```
 
-Last updated: INC-013 complete (2026-06-04).
+Last updated: INC-014 complete (2026-06-04).
 
 ## Status table
 Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
@@ -31,7 +31,7 @@ Status ∈ `TODO` · `IN PROGRESS` · `BLOCKED` · `DONE`.
 | INC-011 | IPFS evidence storage | 3 | **DONE** | 100 | `increments/INC-011_ipfs_evidence.md` |
 | INC-012 | Polygon confirmation contract | 6 | **DONE** | 100 | `increments/INC-012_polygon_confirmation.md` |
 | INC-013 | Confirmation workflow | 4 | **DONE** | 100 | `increments/INC-013_confirmation_workflow.md` |
-| INC-014 | Public project dashboard (evidence) | 4 | TODO | 0 | — |
+| INC-014 | Public project dashboard (evidence) | 4 | **DONE** | 100 | `increments/INC-014_public_project_evidence.md` |
 | INC-015 | Integrated monitor + ghost queue | 6 | TODO | 0 | — |
 | INC-016 | Cases & notifications | 3 | TODO | 0 | — |
 | INC-017 | Admin console | 5 | TODO | 0 | — |
