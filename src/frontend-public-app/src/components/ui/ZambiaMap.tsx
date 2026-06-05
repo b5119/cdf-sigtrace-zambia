@@ -1,6 +1,7 @@
 // Zambia choropleth — faithful to zambia_map() in design/screens/generate.py.
 // Real outline at viewBox 0 0 1000 800, preserveAspectRatio xMidYMid meet (true aspect),
 // markers at the design's FIXED svg coordinates (NOT a lat/lng projection).
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { constituencyPath } from "../../lib/routes";
 
@@ -48,9 +49,17 @@ export default function ZambiaMap({ riskById, height = "h-72", showControls = fa
     );
   }
 
+  // zoom is centred on the map's middle (500,400); viewBox shrinks as we zoom in.
+  const [zoom, setZoom] = useState(1);
+  const vw = 1000 / zoom, vh = 800 / zoom;
+  const viewBox = `${(1000 - vw) / 2} ${(800 - vh) / 2} ${vw} ${vh}`;
+  const zoomIn = () => setZoom(z => Math.min(+(z * 1.4).toFixed(3), 6));
+  const zoomOut = () => setZoom(z => Math.max(+(z / 1.4).toFixed(3), 1));
+  const recenter = () => setZoom(1);
+
   return (
     <div className={`relative ${height} rounded-lg bg-surface-2 overflow-hidden border border-outline-variant`}>
-      <svg viewBox="0 0 1000 800" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+      <svg viewBox={viewBox} className="w-full h-full transition-[viewBox] duration-300" preserveAspectRatio="xMidYMid meet">
         <path d={ZM} fill="#0E5C46" fillOpacity="0.07" stroke="#0E5C46" strokeOpacity="0.45" strokeWidth="2.5" />
         {CITIES.map(([name, x, y, baseRisk, cid]) => {
           const s = riskById?.[cid] ?? baseRisk;
@@ -74,10 +83,12 @@ export default function ZambiaMap({ riskById, height = "h-72", showControls = fa
         <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full" style={{ background: "#B91C1C" }} />High</span>
       </div>
       {showControls && (
-        <div className="absolute bottom-4 right-4 flex flex-col gap-2">
-          {["add", "remove", "my_location"].map(i => (
-            <button key={i} className="bg-card border border-outline-variant w-9 h-9 rounded-lg flex items-center justify-center shadow-sm hover:bg-surface-2">
-              <span className="material-symbols-outlined">{i}</span>
+        <div className="absolute bottom-4 left-4 z-40 flex flex-col gap-2">
+          {([["add", zoomIn, "Zoom in"], ["remove", zoomOut, "Zoom out"], ["my_location", recenter, "Reset view"]] as const).map(([icon, fn, label]) => (
+            <button key={icon} type="button" onClick={fn} aria-label={label} title={label}
+              disabled={icon === "remove" && zoom <= 1}
+              className="bg-card border border-outline-variant w-9 h-9 rounded-lg flex items-center justify-center shadow-sm hover:bg-surface-2 active:scale-95 disabled:opacity-40 disabled:pointer-events-none transition">
+              <span className="material-symbols-outlined">{icon}</span>
             </button>
           ))}
         </div>

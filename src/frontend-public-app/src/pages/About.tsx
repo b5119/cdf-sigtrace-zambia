@@ -17,7 +17,7 @@ export default function About() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div id="methodology" className="scroll-mt-20 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-card border border-outline-variant rounded-xl p-5">
           <div className="flex items-center justify-between mb-4"><h3 className="disp font-semibold text-ink">The eight integrity checks</h3></div>
           <ol className="text-sm text-on-surface-variant space-y-1 list-decimal pl-4">
@@ -34,7 +34,7 @@ export default function About() {
       </div>
 
       <div className="mt-6">
-        <div className="bg-card border border-outline-variant rounded-xl p-5">
+        <div id="faq" className="scroll-mt-20 bg-card border border-outline-variant rounded-xl p-5">
           <div className="flex items-center justify-between mb-4"><h3 className="disp font-semibold text-ink">FAQ</h3></div>
           <div className="text-sm text-on-surface-variant space-y-2">
             <p>▸ Why two blockchains?</p>

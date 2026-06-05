@@ -64,7 +64,7 @@ export default function OpenData() {
       </div>
 
       <div className="mt-6">
-        <div className="bg-card border border-outline-variant rounded-xl p-5">
+        <div id="api" className="scroll-mt-20 bg-card border border-outline-variant rounded-xl p-5">
           <div className="flex items-center justify-between mb-4"><h3 className="disp font-semibold text-ink">Public API</h3></div>
           <p className="text-sm text-on-surface-variant mb-3">Programmatic access to the public tier. See the API documentation.</p>
           <Link to={ROUTES.ABOUT} className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 border border-accent text-accent">

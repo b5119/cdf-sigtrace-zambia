@@ -1,4 +1,5 @@
 // P4 — Constituency Detail (matches stitch_export/constituency_detail)
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { publicApi, type ConstituencyDetail as ConstituencyDTO } from "../lib/api";
@@ -104,6 +105,13 @@ export default function ConstituencyDetail() {
     ? `${data.geo.coordinates[1].toFixed(2)}, ${data.geo.coordinates[0].toFixed(2)}`
     : "-15.41, 28.30";
 
+  // Project grid controls
+  const [verifiedOnly, setVerifiedOnly] = useState(false);
+  const [sortByValue, setSortByValue] = useState(false);
+  const parseVal = (v: string) => Number(v.replace(/[^0-9]/g, "")) || 0;
+  let shownProjects = verifiedOnly ? SAMPLE_PROJECTS.filter(p => p.verified) : SAMPLE_PROJECTS.slice();
+  if (sortByValue) shownProjects = [...shownProjects].sort((a, b) => parseVal(b.value) - parseVal(a.value));
+
   return (
     <main className="px-4 md:px-12 py-8">
       {/* Breadcrumbs */}
@@ -206,10 +214,14 @@ export default function ConstituencyDetail() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-display text-[24px] font-medium">Active Ledger Projects</h2>
             <div className="flex gap-2">
-              <button className="bg-card border border-outline-variant p-2 rounded-lg flex items-center">
+              <button type="button" onClick={() => setVerifiedOnly(v => !v)} aria-pressed={verifiedOnly}
+                title="Show verified projects only"
+                className={`border p-2 rounded-lg flex items-center transition-colors ${verifiedOnly ? "bg-primary/10 border-primary text-primary" : "bg-card border-outline-variant hover:bg-surface-2"}`}>
                 <span className="material-symbols-outlined text-[20px]">filter_list</span>
               </button>
-              <button className="bg-card border border-outline-variant p-2 rounded-lg flex items-center">
+              <button type="button" onClick={() => setSortByValue(v => !v)} aria-pressed={sortByValue}
+                title="Sort by allocation value (high → low)"
+                className={`border p-2 rounded-lg flex items-center transition-colors ${sortByValue ? "bg-primary/10 border-primary text-primary" : "bg-card border-outline-variant hover:bg-surface-2"}`}>
                 <span className="material-symbols-outlined text-[20px]">sort</span>
               </button>
             </div>
@@ -220,7 +232,7 @@ export default function ConstituencyDetail() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {SAMPLE_PROJECTS.map(p => (
+            {shownProjects.map(p => (
               <Link
                 key={p.id}
                 to={projectPath(p.id)}

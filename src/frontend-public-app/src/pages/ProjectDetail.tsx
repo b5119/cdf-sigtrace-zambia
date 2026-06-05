@@ -294,10 +294,10 @@ export default function ProjectDetail() {
                 {hero?.onchain_tx ?? "f7e8b9a1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9"}
               </p>
             </div>
-            <button className="w-full py-3 border border-[#8fd5b8]/40 rounded-lg text-xs font-bold tracking-[0.05em] uppercase text-[#8fd5b8] hover:bg-primary/10 transition-colors flex items-center justify-center gap-2">
+            <Link to={ROUTES.AUDIT_TRAIL} className="w-full py-3 border border-[#8fd5b8]/40 rounded-lg text-xs font-bold tracking-[0.05em] uppercase text-[#8fd5b8] hover:bg-primary/10 transition-colors flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-[18px]">verified_user</span>
               View On Explorer
-            </button>
+            </Link>
           </div>
 
           {/* Community Oversight */}

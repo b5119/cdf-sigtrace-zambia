@@ -1,5 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Scroll to a #hash section on navigation (so "Public API" / "FAQ" land on their section),
+// otherwise scroll to top on route change.
+function ScrollToHash() {
+  const { hash, pathname } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) { setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 60); return; }
+    }
+    window.scrollTo(0, 0);
+  }, [hash, pathname]);
+  return null;
+}
 import { ROUTES } from "./lib/routes";
 import PublicHeader from "./components/layout/PublicHeader";
 import Landing          from "./pages/Landing";
@@ -33,6 +48,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <ScrollToHash />
         <Routes>
           <Route path={ROUTES.HOME}        element={<Landing />} />
           <Route path={ROUTES.DASHBOARD}   element={<PublicLayout><Dashboard /></PublicLayout>} />

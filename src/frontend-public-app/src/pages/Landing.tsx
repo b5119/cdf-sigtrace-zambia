@@ -125,9 +125,9 @@ export default function Landing() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative">
               <span className="absolute inset-0 rounded-full border-2 border-accent pulse-ring" />
-              <button className="relative w-16 h-16 rounded-full bg-accent text-white flex items-center justify-center">
+              <span className="relative w-16 h-16 rounded-full bg-accent text-white flex items-center justify-center">
                 <span className="material-symbols-outlined" style={{ fontSize: 32 }}>play_arrow</span>
-              </button>
+              </span>
             </div>
           </div>
           <div className="absolute top-4 left-4 text-[11px] font-bold tracking-widest text-white/60">WATCH · HOW VERIFICATION WORKS</div>
