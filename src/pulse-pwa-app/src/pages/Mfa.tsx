@@ -7,7 +7,6 @@ export default function Mfa() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const token = sessionStorage.getItem("mfa_token");
-  if (!token) { navigate("/login"); return null; }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();

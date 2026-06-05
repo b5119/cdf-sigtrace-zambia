@@ -5,4 +5,13 @@
   body { @apply bg-surface text-on-surface antialiased; font-family: Inter, sans-serif; }
   h1,h2,h3 { font-family: 'Space Grotesk', sans-serif; }
   .mono { font-family: 'JetBrains Mono', monospace; }
+  .disp { font-family: 'Space Grotesk', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400; vertical-align: middle; }
 }
+
+/* shared map marker pulse + seal ring (mirrors design/screens) */
+.zpulse { transform-box: fill-box; transform-origin: center; animation: zpulse 2.2s ease-out infinite; }
+@keyframes zpulse { 0% { transform: scale(.7); opacity: .5; } 70% { transform: scale(1.9); opacity: 0; } 100% { opacity: 0; } }
+.seal-spin, .seal-ring { animation: spin 26s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .zpulse, .seal-spin, .seal-ring { animation: none; } }

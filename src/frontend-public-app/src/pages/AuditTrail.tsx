@@ -27,7 +27,7 @@ export default function AuditTrail() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {[["Events today","1,284","anchors + verifications","text-ink"],["Last block","#48,210","Hyperledger Fabric","text-ink"],["Anchor backlog","0","fully synced","text-risk-low"]].map(([l,v,s,c]) => (
-          <div key={l} className="bg-card border border-outline-variant rounded-xl p-4 h-full">
+          <div key={l} className="bg-card border border-outline-variant rounded-xl p-4 h-full hover:border-primary transition-colors">
             <p className="text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">{l}</p>
             <p className={`disp text-2xl font-bold mt-1 ${c}`}>{v}</p>
             <p className="text-xs text-on-surface-variant mt-0.5">{s}</p>

@@ -36,10 +36,12 @@
 .zpulse { transform-box: fill-box; transform-origin: center; animation: zpulse 2.2s ease-out infinite; }
 @keyframes zpulse { 0% { transform: scale(.7); opacity: .5; } 70% { transform: scale(1.9); opacity: 0; } 100% { opacity: 0; } }
 .seal-ring { animation: spin 26s linear infinite; }
+/* P6 verification portal — rotating copper ring text inside the seal */
+.seal-text-ring { transform-origin: center; animation: spin 20s linear infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   .pulse { animation: none; stroke: #1FE000; stroke-dasharray: none; opacity: .5; }
-  .mapbg svg, .levent, .seal-spin, .pulse-ring, .zpulse { animation: none; }
+  .mapbg svg, .levent, .seal-spin, .pulse-ring, .zpulse, .seal-text-ring, .seal-ring { animation: none; }
   .levent { opacity: 1; position: relative; }
   .levent + .levent { display: none; }
 }

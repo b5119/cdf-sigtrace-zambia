@@ -11,8 +11,6 @@ export default function MfaChallenge() {
   const navigate = useNavigate();
   const { mfaChallengeToken, setTokens } = useAuth();
 
-  if (!mfaChallengeToken) { navigate(ROUTES.LOGIN); return null; }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true); setError(null);

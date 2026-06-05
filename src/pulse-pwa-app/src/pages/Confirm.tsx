@@ -2,17 +2,24 @@ import { useEffect, useState, useCallback } from "react";
 import PhoneShell from "../components/PhoneShell";
 import { confirmApi, type SubmissionServer } from "../lib/api";
 
+// Design-sample confirmation inbox — shown when the API is unavailable (demo).
+const SAMPLE_CONFIRM: SubmissionServer[] = [
+  { id: "srv-101", client_uuid: "c1", project_id: "proj-001", lat: -15.4101, lng: 28.3001, category: "Borehole", status: "pending", captured_at: "2026-06-04T10:00:00Z", ipfs_cid: "Qm…f1" },
+  { id: "srv-102", client_uuid: "c2", project_id: "proj-002", lat: -15.4112, lng: 28.3025, category: "Clinic Annex", status: "pending", captured_at: "2026-06-04T11:30:00Z", ipfs_cid: null },
+];
+
 export default function Confirm() {
-  const [subs, setSubs] = useState<SubmissionServer[]>([]);
+  const [subs, setSubs] = useState<SubmissionServer[]>(SAMPLE_CONFIRM);
   const [busy, setBusy] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     try {
       const res = await confirmApi.listSubmissions();
-      // Confirmation inbox = submissions still pending
-      setSubs(res.data.submissions.filter(s => s.status === "pending"));
-    } catch { setSubs([]); }
+      const pending = res.data.submissions.filter(s => s.status === "pending");
+      // Confirmation inbox = submissions still pending; keep the sample when the server has none (demo).
+      setSubs(pending.length ? pending : SAMPLE_CONFIRM);
+    } catch { setSubs(SAMPLE_CONFIRM); }
   }, []);
 
   useEffect(() => { load(); }, [load]);

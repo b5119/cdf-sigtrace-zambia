@@ -17,6 +17,7 @@ import Cases from "./pages/Cases";
 import Notifications from "./pages/Notifications";
 import AuditLog from "./pages/AuditLog";
 import Admin from "./pages/Admin";
+import VerifyDocument from "./pages/VerifyDocument";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: false } },
@@ -36,6 +37,7 @@ export default function App() {
           <Route path={ROUTES.MISMATCH} element={<ConsoleLayout><MismatchExplorer /></ConsoleLayout>} />
           <Route path={ROUTES.SUPPLIER_NETWORK} element={<ConsoleLayout><SupplierNetwork /></ConsoleLayout>} />
           <Route path={ROUTES.VERIFICATION_REVIEW} element={<ConsoleLayout><VerificationReview /></ConsoleLayout>} />
+          <Route path={ROUTES.VERIFY_DOC} element={<ConsoleLayout><VerifyDocument /></ConsoleLayout>} />
           <Route path={ROUTES.ANALYTICS} element={<ConsoleLayout><Analytics /></ConsoleLayout>} />
           <Route path={ROUTES.REPORTS} element={<ConsoleLayout><Reports /></ConsoleLayout>} />
           <Route path={ROUTES.CASES} element={<ConsoleLayout><Cases /></ConsoleLayout>} />

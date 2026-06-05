@@ -10,6 +10,7 @@ const NAV = [
   { to: ROUTES.MISMATCH,         icon: "compare_arrows",  label: "Disbursement Explorer" },
   { to: ROUTES.SUPPLIER_NETWORK, icon: "hub",             label: "Supplier Network" },
   { to: ROUTES.VERIFICATION_REVIEW, icon: "how_to_reg",   label: "Verification Review" },
+  { to: ROUTES.VERIFY_DOC,       icon: "document_scanner", label: "Verify Document" },
   { to: ROUTES.ANALYTICS,        icon: "insights",        label: "Analytics" },
   { to: ROUTES.CASES,            icon: "folder_open",     label: "Cases" },
   { to: ROUTES.REPORTS,          icon: "summarize",       label: "Reports" },
@@ -32,7 +33,7 @@ export default function Sidebar() {
   return (
     <aside className="w-[260px] shrink-0 bg-sidebar min-h-screen p-4 flex flex-col gap-1">
       <div className="flex items-center gap-2 px-2 py-3 mb-2">
-        <span className="text-accent text-xl font-bold">◈</span>
+        <img src="/coat_of_arms.png" alt="Republic of Zambia" className="h-7 w-7 object-contain" />
         <div>
           <p className="text-white font-display font-semibold text-sm">SigTrace Oversight</p>
           <p className="text-sidebar-muted text-xs">{user?.role?.name ?? "Officer"}</p>

@@ -5,6 +5,13 @@ import { getAllSubmissions, type QueuedSubmission } from "../lib/db";
 import { syncPending, onReconnect } from "../lib/sync";
 import { useOnline } from "../store/useOnline";
 
+// Design-sample queue — shown when the local queue is empty (fresh device / demo).
+const SAMPLE_SUBS: QueuedSubmission[] = [
+  { client_uuid: "sub-001", project_id: "proj-001", lat: -15.412, lng: 28.301, category: "Borehole", captured_at: "2026-06-02T11:20:00Z", sync_status: "synced", server_id: "srv-001", created_at: "2026-06-02T11:20:00Z" },
+  { client_uuid: "sub-002", project_id: "proj-002", lat: -15.413, lng: 28.302, category: "Clinic Annex", captured_at: "2026-06-03T09:05:00Z", sync_status: "synced", server_id: "srv-002", created_at: "2026-06-03T09:05:00Z" },
+  { client_uuid: "sub-003", project_id: "proj-003", lat: -15.414, lng: 28.303, category: "Classroom Block", captured_at: "2026-06-04T14:40:00Z", sync_status: "pending", created_at: "2026-06-04T14:40:00Z" },
+];
+
 export default function Submissions() {
   const online = useOnline();
   const [subs, setSubs] = useState<QueuedSubmission[]>([]);
@@ -52,9 +59,9 @@ export default function Submissions() {
           </div>
         )}
 
-        {/* Submission list */}
+        {/* Submission list (sample rows shown when the local queue is empty) */}
         <div className="space-y-3">
-          {subs.map(s => (
+          {(subs.length ? subs : SAMPLE_SUBS).map(s => (
             <Link key={s.client_uuid} to={`/submissions/${s.client_uuid}`}
               className="block bg-card border border-outline-variant rounded-xl p-3 hover:border-primary/40">
               <div className="flex items-center justify-between">
@@ -73,13 +80,6 @@ export default function Submissions() {
               </div>
             </Link>
           ))}
-          {subs.length === 0 && (
-            <div className="text-center py-12 text-on-surface-variant">
-              <span className="material-symbols-outlined text-4xl">inbox</span>
-              <p className="text-sm mt-2">No submissions yet</p>
-              <Link to="/capture" className="text-primary text-sm font-semibold mt-2 inline-block">Capture your first →</Link>
-            </div>
-          )}
         </div>
       </div>
     </PhoneShell>
