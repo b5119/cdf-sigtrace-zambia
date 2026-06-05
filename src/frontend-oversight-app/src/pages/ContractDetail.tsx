@@ -155,15 +155,15 @@ export default function ContractDetail() {
               <h3 className="font-display font-semibold text-ink">Actions</h3>
             </div>
             <div className="space-y-2">
-              <button className="w-full text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 border border-accent text-accent justify-center">
+              <Link to={ROUTES.CASES} className="w-full text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 border border-accent text-accent justify-center hover:bg-accent/5">
                 <span className="material-symbols-outlined text-base">folder</span>Add to case
-              </button>
-              <button className="w-full text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-accent text-white justify-center">
+              </Link>
+              <Link to={ROUTES.CASES} className="w-full text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-accent text-white justify-center hover:opacity-90">
                 <span className="material-symbols-outlined text-base">priority_high</span>Escalate to ACC
-              </button>
-              <button className="w-full text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 text-ink hover:bg-surface-2 justify-center">
+              </Link>
+              <Link to={ROUTES.CONTRACTS} className="w-full text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 text-ink hover:bg-surface-2 justify-center">
                 <span className="material-symbols-outlined text-base">done</span>Mark reviewed
-              </button>
+              </Link>
             </div>
           </div>
         </div>

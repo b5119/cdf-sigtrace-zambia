@@ -14,6 +14,7 @@ const QR_CELLS = [
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [codeSent, setCodeSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -124,14 +125,20 @@ export default function Login() {
             />
           </label>
 
-          <div className="my-2">
+          <div className="my-2 flex items-center gap-3">
             <button
               type="button"
-              className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-primary text-white"
+              onClick={() => setCodeSent(true)}
+              className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-primary text-white active:scale-95 transition"
             >
               <span className="material-symbols-outlined text-base">sms</span>
-              Send code
+              {codeSent ? "Resend code" : "Send code"}
             </button>
+            {codeSent && (
+              <span className="text-xs text-risk-low font-semibold inline-flex items-center gap-1">
+                <span className="material-symbols-outlined text-[16px]">check_circle</span>Code sent
+              </span>
+            )}
           </div>
 
           <p className="text-xs text-on-surface-variant mb-2">Enter the 6-digit code</p>
