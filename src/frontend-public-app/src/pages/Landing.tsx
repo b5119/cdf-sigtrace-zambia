@@ -48,18 +48,19 @@ export default function Landing() {
           <NavDropdown label="Explore" items={[
             { to: ROUTES.DASHBOARD, text: "National dashboard" },
             { to: ROUTES.MAP, text: "National map" },
-            { to: ROUTES.MAP, text: "Constituencies" },
-            { to: ROUTES.MAP, text: "Projects" },
+            { to: ROUTES.CONSTITUENCIES, text: "Constituencies" },
+            { to: ROUTES.PROJECTS, text: "Projects" },
             { to: ROUTES.RISK, text: "Procurement risk" },
           ]} />
           <NavDropdown label="Data" items={[
             { to: ROUTES.OPEN_DATA, text: "Open data & datasets" },
-            { to: ROUTES.OPEN_DATA, text: "Public API" },
-            { to: ROUTES.ABOUT, text: "Methodology" },
+            { to: `${ROUTES.OPEN_DATA}#api`, text: "Public API" },
+            { to: ROUTES.AUDIT_TRAIL, text: "Public ledger (audit trail)" },
+            { to: `${ROUTES.ABOUT}#methodology`, text: "Methodology" },
           ]} />
           <NavDropdown label="About" items={[
             { to: ROUTES.ABOUT, text: "How it works" },
-            { to: ROUTES.ABOUT, text: "FAQ" },
+            { to: `${ROUTES.ABOUT}#faq`, text: "FAQ" },
             { to: ROUTES.CONSENT, text: "Data protection" },
           ]} />
         </nav>

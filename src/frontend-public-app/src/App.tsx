@@ -20,7 +20,9 @@ import PublicHeader from "./components/layout/PublicHeader";
 import Landing          from "./pages/Landing";
 import Dashboard        from "./pages/Dashboard";
 import MapPage          from "./pages/MapPage";
+import ConstituenciesList from "./pages/ConstituenciesList";
 import ConstituencyDetail from "./pages/ConstituencyDetail";
+import ProjectsList      from "./pages/ProjectsList";
 import ProjectDetail     from "./pages/ProjectDetail";
 import ProcurementRisk  from "./pages/ProcurementRisk";
 import OpenData         from "./pages/OpenData";
@@ -53,7 +55,9 @@ export default function App() {
           <Route path={ROUTES.HOME}        element={<Landing />} />
           <Route path={ROUTES.DASHBOARD}   element={<PublicLayout><Dashboard /></PublicLayout>} />
           <Route path={ROUTES.MAP}         element={<PublicLayout><MapPage /></PublicLayout>} />
+          <Route path={ROUTES.CONSTITUENCIES} element={<PublicLayout><ConstituenciesList /></PublicLayout>} />
           <Route path={ROUTES.CONSTITUENCY} element={<PublicLayout><ConstituencyDetail /></PublicLayout>} />
+          <Route path={ROUTES.PROJECTS}    element={<PublicLayout><ProjectsList /></PublicLayout>} />
           <Route path={ROUTES.PROJECT}     element={<PublicLayout><ProjectDetail /></PublicLayout>} />
           <Route path={ROUTES.RISK}        element={<PublicLayout><ProcurementRisk /></PublicLayout>} />
           <Route path={ROUTES.OPEN_DATA}   element={<PublicLayout><OpenData /></PublicLayout>} />

@@ -32,8 +32,8 @@ export default function PublicHeader() {
         <Dropdown label="Explore" items={[
           { to: ROUTES.DASHBOARD, text: "National dashboard" },
           { to: ROUTES.MAP, text: "National map" },
-          { to: ROUTES.MAP, text: "Constituencies" },
-          { to: ROUTES.MAP, text: "Projects" },
+          { to: ROUTES.CONSTITUENCIES, text: "Constituencies" },
+          { to: ROUTES.PROJECTS, text: "Projects" },
           { to: ROUTES.RISK, text: "Procurement risk" },
         ]} />
         <Dropdown label="Data" items={[
