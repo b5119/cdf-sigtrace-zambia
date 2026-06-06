@@ -32,6 +32,7 @@ from app.schemas.public import (
     PublicRiskAggregateRow,
     PublicProjectDetail,
     PublicEvidenceListResponse,
+    PublicProjectListResponse,
 )
 from app.services.anchor_service import verify_document
 from app.services.scoring_service import risk_tier
@@ -330,6 +331,43 @@ _SEED_PROJECT_META = {
     "proj-004": {"title": "Solar Electrification — School", "category": "Energy",
                  "constituency_id": "LPV-002", "disbursement": 420_000, "date": "2024-10-05"},
 }
+
+
+@router.get("/projects", response_model=PublicProjectListResponse)
+@limiter.limit(PUBLIC_LIMIT)
+async def public_projects_list(
+    request: Request,
+    constituency_id: str | None = None,
+    db: AsyncSession = Depends(get_db),
+):
+    """Projects index (public) — de-identified list of CDF projects with verification status.
+    Status/verified are derived live from confirmed field evidence."""
+    from app.models.pulse import PulseSubmission
+    from sqlalchemy import select as _select, func as _func
+
+    projects = []
+    for pid, meta in _SEED_PROJECT_META.items():
+        if constituency_id and meta.get("constituency_id") != constituency_id:
+            continue
+        ev = await db.execute(
+            _select(PulseSubmission.status)
+            .where(PulseSubmission.project_id == pid, PulseSubmission.ipfs_cid.isnot(None))
+        )
+        statuses = [s for (s,) in ev.all()]
+        confirmed = sum(1 for s in statuses if s == "confirmed")
+        projects.append({
+            "project_id": pid,
+            "title": meta["title"],
+            "category": meta["category"],
+            "constituency_id": meta.get("constituency_id"),
+            "disbursement_amount": meta.get("disbursement"),
+            "status": "completed" if confirmed else ("ongoing" if statuses else "no evidence"),
+            "verified": confirmed > 0,
+            "evidence_count": len(statuses),
+        })
+    # most-funded first
+    projects.sort(key=lambda p: p["disbursement_amount"] or 0, reverse=True)
+    return {"total": len(projects), "projects": projects}
 
 
 @router.get("/projects/{project_id}", response_model=PublicProjectDetail)

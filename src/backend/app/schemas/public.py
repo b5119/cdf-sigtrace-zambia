@@ -153,3 +153,20 @@ class PublicEvidenceListResponse(BaseModel):
     project_id: str
     total: int
     evidence: list[PublicEvidenceItem]
+
+
+class PublicProjectSummary(BaseModel):
+    """Public project list row (Projects index page)."""
+    project_id: str
+    title: str
+    category: str
+    constituency_id: Optional[str]
+    disbursement_amount: Optional[float]
+    status: str                      # completed | ongoing | no evidence
+    verified: bool
+    evidence_count: int
+
+
+class PublicProjectListResponse(BaseModel):
+    total: int
+    projects: list[PublicProjectSummary]

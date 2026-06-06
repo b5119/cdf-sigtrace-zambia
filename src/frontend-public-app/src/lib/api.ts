@@ -111,7 +111,13 @@ export interface ProjectDetail {
   location: { lat: number; lng: number } | null;
 }
 
+export interface ProjectSummary {
+  project_id: string; title: string; category: string; constituency_id: string | null;
+  disbursement_amount: number | null; status: string; verified: boolean; evidence_count: number;
+}
+
 export const projectApi = {
+  list: () => api.get<{ total: number; projects: ProjectSummary[] }>("/public/projects"),
   detail: (id: string) => api.get<ProjectDetail>(`/public/projects/${id}`),
   evidence: (id: string) => api.get<{ project_id: string; total: number; evidence: EvidenceItem[] }>(`/public/projects/${id}/evidence`),
   photoUrl: (cid: string) => `${api.defaults.baseURL}/public/evidence/${cid}`,
