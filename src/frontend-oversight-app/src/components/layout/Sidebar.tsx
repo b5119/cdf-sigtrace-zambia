@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ROUTES } from "../../lib/routes";
 import { useAuth } from "../../store/auth";
 import { authApi } from "../../lib/api";
+import { roleFromToken, navAllowed, ROLE_LABEL } from "../../lib/roles";
 
 const NAV = [
   { to: ROUTES.DASHBOARD,        icon: "monitoring",      label: "Risk Dashboard" },
@@ -21,7 +22,9 @@ const NAV = [
 
 export default function Sidebar() {
   const { pathname } = useLocation();
-  const { user, logout, refreshToken } = useAuth();
+  const { user, accessToken, logout, refreshToken } = useAuth();
+  const role = roleFromToken(accessToken);
+  const visibleNav = NAV.filter(({ to }) => navAllowed(role, to));
 
   async function handleLogout() {
     if (refreshToken) {
@@ -36,11 +39,11 @@ export default function Sidebar() {
         <img src="/coat_of_arms.png" alt="Republic of Zambia" className="h-7 w-7 object-contain" />
         <div>
           <p className="text-white font-display font-semibold text-sm">SigTrace Oversight</p>
-          <p className="text-sidebar-muted text-xs">{user?.role?.name ?? "Officer"}</p>
+          <p className="text-sidebar-muted text-xs">{user?.role?.name ?? ROLE_LABEL[role] ?? "Officer"}</p>
         </div>
       </div>
 
-      {NAV.map(({ to, icon, label }) => {
+      {visibleNav.map(({ to, icon, label }) => {
         const active = pathname === to || (to !== ROUTES.DASHBOARD && pathname.startsWith(to));
         return (
           <Link key={to} to={to}

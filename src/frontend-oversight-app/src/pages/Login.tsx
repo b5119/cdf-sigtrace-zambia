@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { authApi } from "../lib/api";
 import { useAuth } from "../store/auth";
 import { ROUTES } from "../lib/routes";
+import { roleFromToken, roleHome } from "../lib/roles";
 
 const DEMO_ACCOUNTS = [
   { label: "A. Banda — Oversight Officer (OAG)", email: "officer@oag.gov.zm", password: "Officer123!" },
@@ -34,7 +35,7 @@ export default function Login() {
         navigate(ROUTES.MFA);
       } else if (data.access_token && data.refresh_token) {
         setTokens(data.access_token, data.refresh_token);
-        navigate(ROUTES.DASHBOARD);
+        navigate(roleHome(roleFromToken(data.access_token)));
       }
     } catch {
       setError("Invalid credentials. Please try again.");

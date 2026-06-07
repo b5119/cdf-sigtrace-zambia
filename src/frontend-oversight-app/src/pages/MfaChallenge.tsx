@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authApi } from "../lib/api";
 import { useAuth } from "../store/auth";
-import { ROUTES } from "../lib/routes";
+import { roleFromToken, roleHome } from "../lib/roles";
 
 export default function MfaChallenge() {
   const [code, setCode] = useState("");
@@ -19,7 +19,7 @@ export default function MfaChallenge() {
       const data = res.data;
       if (data.access_token && data.refresh_token) {
         setTokens(data.access_token, data.refresh_token);
-        navigate(ROUTES.DASHBOARD);
+        navigate(roleHome(roleFromToken(data.access_token)));
       }
     } catch {
       setError("Invalid code. Please try again.");
