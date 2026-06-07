@@ -26,7 +26,10 @@ import ProjectsList      from "./pages/ProjectsList";
 import ProjectDetail     from "./pages/ProjectDetail";
 import ProcurementRisk  from "./pages/ProcurementRisk";
 import OpenData         from "./pages/OpenData";
+import ApiDocs          from "./pages/ApiDocs";
 import About            from "./pages/About";
+import Methodology      from "./pages/Methodology";
+import Faq              from "./pages/Faq";
 import AuditTrail       from "./pages/AuditTrail";
 import VerifyPortal     from "./pages/VerifyPortal";
 import Consent          from "./pages/Consent";
@@ -61,6 +64,9 @@ export default function App() {
           <Route path={ROUTES.PROJECT}     element={<PublicLayout><ProjectDetail /></PublicLayout>} />
           <Route path={ROUTES.RISK}        element={<PublicLayout><ProcurementRisk /></PublicLayout>} />
           <Route path={ROUTES.OPEN_DATA}   element={<PublicLayout><OpenData /></PublicLayout>} />
+          <Route path={ROUTES.API}         element={<PublicLayout><ApiDocs /></PublicLayout>} />
+          <Route path={ROUTES.METHODOLOGY} element={<PublicLayout><Methodology /></PublicLayout>} />
+          <Route path={ROUTES.FAQ}         element={<PublicLayout><Faq /></PublicLayout>} />
           <Route path={ROUTES.ABOUT}       element={<PublicLayout><About /></PublicLayout>} />
           <Route path={ROUTES.AUDIT_TRAIL} element={<PublicLayout><AuditTrail /></PublicLayout>} />
           <Route path={ROUTES.VERIFY}      element={<PublicLayout><VerifyPortal /></PublicLayout>} />

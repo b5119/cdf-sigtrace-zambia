@@ -12,6 +12,8 @@ export default function Confirm() {
   const [subs, setSubs] = useState<SubmissionServer[]>(SAMPLE_CONFIRM);
   const [busy, setBusy] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  const [rejectId, setRejectId] = useState<string | null>(null);
+  const [reason, setReason] = useState("");
 
   const load = useCallback(async () => {
     try {
@@ -35,13 +37,13 @@ export default function Confirm() {
     } finally { setBusy(null); }
   }
 
-  async function doReject(id: string) {
-    const reason = prompt("Reason for rejection:");
-    if (!reason) return;
+  async function submitReject(id: string) {
+    if (!reason.trim()) return;
     setBusy(id); setMsg(null);
     try {
-      await confirmApi.reject(id, reason);
+      await confirmApi.reject(id, reason.trim());
       setMsg("Submission rejected");
+      setRejectId(null); setReason("");
       await load();
     } catch (e: any) {
       setMsg(e?.response?.data?.detail ?? "Rejection failed");
@@ -61,16 +63,31 @@ export default function Confirm() {
               <p className="text-xs text-on-surface-variant mono">{s.lat.toFixed(4)}, {s.lng.toFixed(4)}</p>
               <p className="text-xs text-on-surface-variant">{new Date(s.captured_at).toLocaleString()}</p>
               {s.ipfs_cid && <p className="text-[10px] text-on-surface-variant mono truncate mt-1">IPFS {s.ipfs_cid}</p>}
-              <div className="flex gap-2 mt-3">
-                <button disabled={busy === s.id} onClick={() => doConfirm(s.id)}
-                  className="flex-1 bg-primary text-white text-sm font-semibold py-2 rounded-lg disabled:opacity-50 flex items-center justify-center gap-1">
-                  <span className="material-symbols-outlined" style={{ fontSize: 18 }}>check</span>Confirm
-                </button>
-                <button disabled={busy === s.id} onClick={() => doReject(s.id)}
-                  className="flex-1 border border-risk-high/30 text-risk-high text-sm font-semibold py-2 rounded-lg disabled:opacity-50 flex items-center justify-center gap-1">
-                  <span className="material-symbols-outlined" style={{ fontSize: 18 }}>close</span>Reject
-                </button>
-              </div>
+              {rejectId === s.id ? (
+                <div className="mt-3">
+                  <label className="block text-[11px] font-semibold text-on-surface-variant mb-1">Reason for rejection</label>
+                  <textarea autoFocus value={reason} onChange={e => setReason(e.target.value)} rows={2}
+                    placeholder="e.g. photo doesn't show the project"
+                    className="w-full rounded-lg border border-outline-variant bg-card px-3 py-2 text-xs focus:border-risk-high focus:ring-1 focus:ring-risk-high outline-none" />
+                  <div className="flex gap-2 mt-2">
+                    <button disabled={!reason.trim() || busy === s.id} onClick={() => submitReject(s.id)}
+                      className="flex-1 bg-risk-high text-white text-sm font-semibold py-2 rounded-lg disabled:opacity-50">Submit</button>
+                    <button onClick={() => { setRejectId(null); setReason(""); }}
+                      className="flex-1 border border-outline-variant text-ink text-sm font-semibold py-2 rounded-lg">Cancel</button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex gap-2 mt-3">
+                  <button disabled={busy === s.id} onClick={() => doConfirm(s.id)}
+                    className="flex-1 bg-primary text-white text-sm font-semibold py-2 rounded-lg disabled:opacity-50 flex items-center justify-center gap-1">
+                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>check</span>Confirm
+                  </button>
+                  <button disabled={busy === s.id} onClick={() => { setRejectId(s.id); setReason(""); }}
+                    className="flex-1 border border-risk-high/30 text-risk-high text-sm font-semibold py-2 rounded-lg disabled:opacity-50 flex items-center justify-center gap-1">
+                    <span className="material-symbols-outlined" style={{ fontSize: 18 }}>close</span>Reject
+                  </button>
+                </div>
+              )}
             </div>
           ))}
           {subs.length === 0 && (

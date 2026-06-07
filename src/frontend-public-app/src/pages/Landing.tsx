@@ -54,13 +54,13 @@ export default function Landing() {
           ]} />
           <NavDropdown label="Data" items={[
             { to: ROUTES.OPEN_DATA, text: "Open data & datasets" },
-            { to: `${ROUTES.OPEN_DATA}#api`, text: "Public API" },
+            { to: ROUTES.API, text: "Public API" },
             { to: ROUTES.AUDIT_TRAIL, text: "Public ledger (audit trail)" },
-            { to: `${ROUTES.ABOUT}#methodology`, text: "Methodology" },
           ]} />
           <NavDropdown label="About" items={[
             { to: ROUTES.ABOUT, text: "How it works" },
-            { to: `${ROUTES.ABOUT}#faq`, text: "FAQ" },
+            { to: ROUTES.METHODOLOGY, text: "Methodology" },
+            { to: ROUTES.FAQ, text: "FAQ" },
             { to: ROUTES.CONSENT, text: "Data protection" },
           ]} />
         </nav>

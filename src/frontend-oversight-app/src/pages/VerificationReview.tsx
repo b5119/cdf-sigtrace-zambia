@@ -12,6 +12,8 @@ const SAMPLE_SUBMISSIONS: PulseSubmissionRow[] = [
 export default function VerificationReview() {
   const qc = useQueryClient();
   const [msg, setMsg] = useState<string | null>(null);
+  const [rejectId, setRejectId] = useState<string | null>(null);
+  const [reason, setReason] = useState("");
 
   const { data } = useQuery({
     queryKey: ["pulse-submissions"],
@@ -26,7 +28,7 @@ export default function VerificationReview() {
 
   const rejectM = useMutation({
     mutationFn: ({ id, reason }: { id: string; reason: string }) => verifyApi.reject(id, reason),
-    onSuccess: () => { setMsg("Submission rejected"); qc.invalidateQueries({ queryKey: ["pulse-submissions"] }); },
+    onSuccess: () => { setMsg("Submission rejected"); setRejectId(null); setReason(""); qc.invalidateQueries({ queryKey: ["pulse-submissions"] }); },
     onError: (e: any) => setMsg(e?.response?.data?.detail ?? "Rejection failed"),
   });
 
@@ -56,21 +58,39 @@ export default function VerificationReview() {
                 <p className="mono text-xs text-on-surface-variant">
                   {s.lat.toFixed(2)}, {s.lng.toFixed(2)} · {s.captured_at}
                 </p>
-                <div className="flex gap-2 mt-3">
-                  <button
-                    onClick={() => confirmM.mutate(s.id)}
-                    disabled={confirmM.isPending}
-                    className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-primary text-white disabled:opacity-50"
-                  >
-                    <span className="material-symbols-outlined">check</span>Confirm
-                  </button>
-                  <button
-                    onClick={() => { const r = prompt("Reason:"); if (r) rejectM.mutate({ id: s.id, reason: r }); }}
-                    className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 text-ink hover:bg-surface-2"
-                  >
-                    <span className="material-symbols-outlined">close</span>Reject
-                  </button>
-                </div>
+                {rejectId === s.id ? (
+                  <div className="mt-3">
+                    <label className="block text-xs font-semibold text-on-surface-variant mb-1">Reason for rejection</label>
+                    <textarea autoFocus value={reason} onChange={e => setReason(e.target.value)} rows={2}
+                      placeholder="e.g. GPS location doesn't match the project site"
+                      className="w-full rounded-lg border border-outline-variant bg-card px-3 py-2 text-sm focus:border-risk-high focus:ring-1 focus:ring-risk-high outline-none" />
+                    <div className="flex gap-2 mt-2">
+                      <button onClick={() => reason.trim() && rejectM.mutate({ id: s.id, reason: reason.trim() })}
+                        disabled={!reason.trim() || rejectM.isPending}
+                        className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-risk-high text-white disabled:opacity-50">
+                        <span className="material-symbols-outlined">close</span>Submit rejection
+                      </button>
+                      <button onClick={() => { setRejectId(null); setReason(""); }}
+                        className="text-sm font-semibold px-4 py-2 rounded-lg text-ink hover:bg-surface-2">Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex gap-2 mt-3">
+                    <button
+                      onClick={() => confirmM.mutate(s.id)}
+                      disabled={confirmM.isPending}
+                      className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-primary text-white disabled:opacity-50"
+                    >
+                      <span className="material-symbols-outlined">check</span>Confirm
+                    </button>
+                    <button
+                      onClick={() => { setRejectId(s.id); setReason(""); }}
+                      className="text-sm font-semibold px-4 py-2 rounded-lg inline-flex items-center gap-2 text-ink hover:bg-surface-2"
+                    >
+                      <span className="material-symbols-outlined">close</span>Reject
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

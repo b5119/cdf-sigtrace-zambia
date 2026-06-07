@@ -11,11 +11,21 @@ const QR_CELLS = [
   true, false, true, true, false,
 ];
 
+const DEMO_ACCOUNTS = [
+  { label: "A. Monitor — Community Monitor (Milenge)", email: "monitor@cdf.zm", password: "Monitor123!" },
+];
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [codeSent, setCodeSent] = useState(false);
+  const [showQuickFill, setShowQuickFill] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Shift+D — demo account quick-fill.
+  function handleFormKeyDown(e: React.KeyboardEvent<HTMLFormElement>) {
+    if (e.shiftKey && (e.key === "D" || e.key === "d")) { e.preventDefault(); setShowQuickFill(v => !v); }
+  }
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -90,12 +100,31 @@ export default function Login() {
       <div className="bg-surface flex items-center justify-center p-6 sm:p-8 lg:min-h-screen">
         <form
           onSubmit={submit}
+          onKeyDown={handleFormKeyDown}
           className="w-full max-w-[380px] bg-card rounded-2xl p-7 border border-outline-variant"
         >
-          <h2 className="font-display font-bold text-ink mb-1">Sign in</h2>
+          <div className="flex items-center justify-between mb-1">
+            <h2 className="font-display font-bold text-ink">Sign in</h2>
+            <button type="button" onClick={() => setShowQuickFill(v => !v)}
+              className="text-[10px] font-semibold text-on-surface-variant border border-outline-variant rounded px-1.5 py-0.5 hover:bg-surface-2" title="Demo account (Shift+D)">
+              ⇧D demo
+            </button>
+          </div>
           <p className="text-xs text-on-surface-variant mb-5">
             Field monitor or institutional confirmer.
           </p>
+          {showQuickFill && (
+            <div className="mb-4 rounded-lg border border-accent/30 bg-accent/5 p-2 space-y-1">
+              {DEMO_ACCOUNTS.map(a => (
+                <button key={a.email} type="button"
+                  onClick={() => { setEmail(a.email); setPassword(a.password); setShowQuickFill(false); }}
+                  className="w-full text-left text-xs px-2 py-1.5 rounded hover:bg-card">
+                  <span className="font-medium text-ink block">{a.label}</span>
+                  <span className="mono text-[10px] text-on-surface-variant">{a.email}</span>
+                </button>
+              ))}
+            </div>
+          )}
 
           <label className="block mb-3">
             <span className="block text-xs font-semibold text-on-surface-variant mb-1">
