@@ -44,6 +44,8 @@ class CaseOut(BaseModel):
     assignee_id: Optional[str]
     status: str
     priority: str
+    owner_institution: Optional[str] = None
+    escalated_to: Optional[str] = None
     created_by: str
     created_at: datetime
     closed_at: Optional[datetime]

@@ -39,7 +39,9 @@ export default function Sidebar() {
         <img src="/coat_of_arms.png" alt="Republic of Zambia" className="h-7 w-7 object-contain" />
         <div>
           <p className="text-white font-display font-semibold text-sm">SigTrace Oversight</p>
-          <p className="text-sidebar-muted text-xs">{user?.role?.name ?? ROLE_LABEL[role] ?? "Officer"}</p>
+          <p className="text-sidebar-muted text-xs">
+            {user?.role?.name ?? ROLE_LABEL[role] ?? "Officer"}{user?.institution?.type ? ` · ${user.institution.type}` : ""}
+          </p>
         </div>
       </div>
 

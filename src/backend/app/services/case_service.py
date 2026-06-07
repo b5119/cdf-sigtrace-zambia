@@ -25,6 +25,7 @@ async def _notify(db: AsyncSession, user_id: str | None, ntype: str, payload: di
 async def open_case(
     db: AsyncSession, subject_type: str, subject_ref: str, title: str,
     created_by: str, assignee_id: str | None = None, priority: str = "medium",
+    owner_institution: str | None = None,
 ) -> Case:
     """Open a case from a contract or ghost-project signal; notify the assignee."""
     if subject_type not in ("contract", "ghost_project"):
@@ -32,7 +33,7 @@ async def open_case(
     case = Case(
         id=str(uuid.uuid4()), subject_type=subject_type, subject_ref=subject_ref,
         title=title, created_by=created_by, assignee_id=assignee_id, priority=priority,
-        status="open",
+        status="open", owner_institution=owner_institution,
     )
     db.add(case)
     await db.flush()
@@ -47,10 +48,27 @@ async def open_case(
     return case
 
 
-async def list_cases(db: AsyncSession, status: str | None = None) -> list[Case]:
+async def list_cases(
+    db: AsyncSession, status: str | None = None,
+    institution: str | None = None, scope: str = "relevant",
+) -> list[Case]:
+    """List cases, optionally scoped to an institution.
+
+    scope: 'ours' = owned by the institution · 'escalated' = escalated TO the institution ·
+    'relevant' (default) = either (institution-segregated view) · 'all' = no institution filter.
+    """
     query = select(Case).order_by(Case.created_at.desc())
     if status:
         query = query.where(Case.status == status)
+    if institution and scope != "all":
+        if scope == "ours":
+            query = query.where(Case.owner_institution == institution)
+        elif scope == "escalated":
+            query = query.where(Case.escalated_to == institution)
+        else:  # relevant
+            query = query.where(
+                (Case.owner_institution == institution) | (Case.escalated_to == institution)
+            )
     result = await db.execute(query)
     return list(result.scalars().all())
 
@@ -90,13 +108,23 @@ async def add_note(db: AsyncSession, case_id: str, author_id: str, body: str) ->
 
 
 async def escalate_case(db: AsyncSession, case_id: str, actor_id: str, target: str = "ACC") -> Case:
-    """Escalate a case (e.g. to ACC); fires a notification."""
+    """Escalate a case to a receiving institution (e.g. ACC / ZPPA); records the target and
+    notifies an officer at the receiving institution so it lands in their escalations inbox."""
     case = await get_case(db, case_id)
     if not case:
         raise ValueError("Case not found")
     case.status = "escalated"
-    await _notify(db, case.assignee_id or actor_id, "case_escalated",
-                  {"case_id": case.id, "title": case.title, "target": target})
+    case.escalated_to = target
+    # Notify an officer at the receiving institution (so the case appears in their inbox).
+    from app.models.user import User, Institution
+    recv = await db.execute(
+        select(User.id).join(Institution, User.institution_id == Institution.id)
+        .where(Institution.type == target, User.active.is_(True)).limit(1)
+    )
+    recv_id = recv.scalar_one_or_none()
+    await _notify(db, str(recv_id) if recv_id else (case.assignee_id or actor_id), "case_escalated",
+                  {"case_id": case.id, "title": case.title, "target": target,
+                   "from": case.owner_institution})
     from app.services.audit_service import log_action
     await log_action(db, actor_id, "case_escalated", "case", case.id, {"target": target})
     await db.commit()

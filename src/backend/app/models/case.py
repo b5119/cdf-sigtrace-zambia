@@ -24,6 +24,8 @@ class Case(Base):
     assignee_id: Mapped[str | None] = mapped_column(String(36), index=True)
     status: Mapped[str] = mapped_column(String(20), default="open")        # open / in_review / escalated / closed
     priority: Mapped[str] = mapped_column(String(10), default="medium")    # low / medium / high
+    owner_institution: Mapped[str | None] = mapped_column(String(20), index=True)   # OAG / ACC / ZPPA — institution that owns the case
+    escalated_to: Mapped[str | None] = mapped_column(String(20), index=True)        # institution the case is escalated to
     created_by: Mapped[str] = mapped_column(String(36), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     closed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

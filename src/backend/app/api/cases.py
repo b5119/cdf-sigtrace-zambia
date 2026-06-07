@@ -15,13 +15,27 @@ from app.services import case_service
 router = APIRouter(tags=["cases"])
 
 
+async def _institution_type(db: AsyncSession, user: User) -> str | None:
+    """Resolve a user's institution code (OAG / ACC / ZPPA) from their institution_id."""
+    if not getattr(user, "institution_id", None):
+        return None
+    from sqlalchemy import select
+    from app.models.user import Institution
+    res = await db.execute(select(Institution.type).where(Institution.id == user.institution_id))
+    return res.scalar_one_or_none()
+
+
 @router.get("/cases", response_model=CaseListResponse)
 async def list_cases(
     status: str | None = None,
+    scope: str = "relevant",   # ours | escalated | relevant | all
     db: AsyncSession = Depends(get_db),
-    _: User = require_permission(Permission.CASE_MGMT),
+    current_user: User = require_permission(Permission.CASE_MGMT),
 ):
-    cases = await case_service.list_cases(db, status)
+    """Cases are institution-segregated: each institution sees the cases it owns plus those
+    escalated to it. Pass scope=ours / escalated / all to narrow or widen."""
+    institution = await _institution_type(db, current_user)
+    cases = await case_service.list_cases(db, status, institution=institution, scope=scope)
     return CaseListResponse(total=len(cases), cases=cases)
 
 
@@ -38,6 +52,7 @@ async def create_case(
             created_by=str(current_user.id),
             assignee_id=body.assignee_id or str(current_user.id),
             priority=body.priority,
+            owner_institution=await _institution_type(db, current_user),
         )
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))

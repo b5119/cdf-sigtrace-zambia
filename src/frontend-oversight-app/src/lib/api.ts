@@ -81,12 +81,14 @@ export const monitorApi = {
 export interface CaseNote { id: string; case_id: string; author_id: string; body: string; created_at: string; }
 export interface CaseItem {
   id: string; subject_type: string; subject_ref: string; title: string; assignee_id: string | null;
-  status: string; priority: string; created_by: string; created_at: string; closed_at: string | null; notes: CaseNote[];
+  status: string; priority: string; owner_institution: string | null; escalated_to: string | null;
+  created_by: string; created_at: string; closed_at: string | null; notes: CaseNote[];
 }
 export interface NotificationItem { id: string; type: string; payload: Record<string, unknown>; read: boolean; created_at: string; }
 
 export const casesApi = {
-  list: () => api.get<{ total: number; cases: CaseItem[] }>("/cases"),
+  list: (scope: "relevant" | "ours" | "escalated" | "all" = "relevant") =>
+    api.get<{ total: number; cases: CaseItem[] }>("/cases", { params: { scope } }),
   get: (id: string) => api.get<CaseItem>(`/cases/${id}`),
   create: (body: { subject_type: string; subject_ref: string; title: string; priority?: string }) => api.post<CaseItem>("/cases", body),
   update: (id: string, body: { status?: string; priority?: string }) => api.patch<CaseItem>(`/cases/${id}`, body),

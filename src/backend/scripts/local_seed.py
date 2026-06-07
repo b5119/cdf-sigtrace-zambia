@@ -21,6 +21,7 @@ from app.models.user import Role, User, Institution
 from app.models.contract import Contract, Supplier
 from app.models.anomaly import CheckDefinition
 from app.models.monitor import Disbursement
+from app.models.case import Case
 from app.core.security import hash_password
 
 ROLES = [
@@ -51,21 +52,36 @@ async def main():
             db.add(r); roles[key] = r
         await db.flush()
 
-        inst = Institution(id=uuid.uuid4(), name="Office of the Auditor General", type="OAG")
-        db.add(inst)
+        # Three institutions with distinct mandates.
+        oag = Institution(id=uuid.uuid4(), name="Office of the Auditor General", type="OAG",
+                          data_sharing_agreement_ref="DSA-2026-01")
+        acc = Institution(id=uuid.uuid4(), name="Anti-Corruption Commission", type="ACC",
+                          data_sharing_agreement_ref="DSA-2026-02")
+        zppa = Institution(id=uuid.uuid4(), name="Zambia Public Procurement Authority", type="ZPPA",
+                           data_sharing_agreement_ref="DSA-2026-03")
+        db.add_all([oag, acc, zppa])
         await db.flush()
+        inst = oag  # kept for back-compat below
 
         # Admin user — login: admin@cdf.zm / AdminPass123!
         db.add(User(id=uuid.uuid4(), name="System Admin", email="admin@cdf.zm",
                     password_hash=hash_password("AdminPass123!"), role_id=roles["system_admin"].id,
-                    institution_id=inst.id, active=True))
-        # Officer — officer@oag.gov.zm / Officer123!
-        db.add(User(id=uuid.uuid4(), name="OAG Officer", email="officer@oag.gov.zm",
-                    password_hash=hash_password("Officer123!"), role_id=roles["oversight_officer"].id,
-                    institution_id=inst.id, active=True))
+                    institution_id=oag.id, active=True))
+        # One oversight officer per institution (all password Officer123!).
+        oag_officer = User(id=uuid.uuid4(), name="A. Banda (OAG)", email="officer@oag.gov.zm",
+                           password_hash=hash_password("Officer123!"), role_id=roles["oversight_officer"].id,
+                           institution_id=oag.id, active=True)
+        acc_officer = User(id=uuid.uuid4(), name="C. Phiri (ACC)", email="officer@acc.gov.zm",
+                           password_hash=hash_password("Officer123!"), role_id=roles["oversight_officer"].id,
+                           institution_id=acc.id, active=True)
+        zppa_officer = User(id=uuid.uuid4(), name="M. Tembo (ZPPA)", email="officer@zppa.gov.zm",
+                            password_hash=hash_password("Officer123!"), role_id=roles["oversight_officer"].id,
+                            institution_id=zppa.id, active=True)
+        db.add_all([oag_officer, acc_officer, zppa_officer])
         # Monitor — monitor@cdf.zm / Monitor123!
         db.add(User(id=uuid.uuid4(), name="Field Monitor", email="monitor@cdf.zm",
                     password_hash=hash_password("Monitor123!"), role_id=roles["community_monitor"].id, active=True))
+        await db.flush()
 
         for cid, key, name, w in CHECKS:
             db.add(CheckDefinition(id=cid, key=key, name=name, basis="Public Procurement Act",
@@ -87,6 +103,23 @@ async def main():
         # A disbursement with no completion → ghost candidate
         db.add(Disbursement(id=str(uuid.uuid4()), constituency_id="LPV-002", project_id="proj-001",
                             contract_ocid="ocds-zm-zppa-001", amount=285_000, date=date(2024, 1, 10), source="IFMIS"))
+
+        # Sample cases — institution-segregated, incl. one OAG→ACC escalation.
+        db.add_all([
+            Case(id=str(uuid.uuid4()), subject_type="contract", subject_ref="ocds-zm-zppa-003",
+                 title="Signing gap — Ministry of Roads", status="open", priority="high",
+                 owner_institution="OAG", created_by=str(oag_officer.id), assignee_id=str(oag_officer.id)),
+            Case(id=str(uuid.uuid4()), subject_type="contract", subject_ref="ocds-zm-zppa-002",
+                 title="Procurement irregularity — Ministry of Education", status="escalated", priority="high",
+                 owner_institution="OAG", escalated_to="ACC",
+                 created_by=str(oag_officer.id), assignee_id=str(acc_officer.id)),
+            Case(id=str(uuid.uuid4()), subject_type="ghost_project", subject_ref="proj-001",
+                 title="Ghost project — Milenge borehole", status="in_review", priority="medium",
+                 owner_institution="OAG", created_by=str(oag_officer.id), assignee_id=str(oag_officer.id)),
+            Case(id=str(uuid.uuid4()), subject_type="contract", subject_ref="ocds-zm-zppa-001",
+                 title="Standstill compliance check", status="open", priority="low",
+                 owner_institution="ZPPA", created_by=str(zppa_officer.id), assignee_id=str(zppa_officer.id)),
+        ])
 
         await db.commit()
     await engine.dispose()

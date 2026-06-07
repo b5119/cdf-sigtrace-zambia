@@ -6,8 +6,10 @@ import { ROUTES } from "../lib/routes";
 import { roleFromToken, roleHome } from "../lib/roles";
 
 const DEMO_ACCOUNTS = [
-  { label: "A. Banda — Oversight Officer (OAG)", email: "officer@oag.gov.zm", password: "Officer123!" },
-  { label: "System Admin — ICT (CDF)", email: "admin@cdf.zm", password: "AdminPass123!" },
+  { label: "A. Banda — Officer · OAG", email: "officer@oag.gov.zm", password: "Officer123!" },
+  { label: "C. Phiri — Officer · ACC", email: "officer@acc.gov.zm", password: "Officer123!" },
+  { label: "M. Tembo — Officer · ZPPA", email: "officer@zppa.gov.zm", password: "Officer123!" },
+  { label: "System Administrator · CDF", email: "admin@cdf.zm", password: "AdminPass123!" },
 ];
 
 export default function Login() {
