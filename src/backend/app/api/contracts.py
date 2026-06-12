@@ -144,10 +144,12 @@ async def get_contract_checks(
     if not c_result.scalar_one_or_none():
         raise HTTPException(status_code=404, detail="Contract not found")
 
+    from sqlalchemy.orm import selectinload
     result = await db.execute(
         select(AnomalyFlag)
         .where(AnomalyFlag.contract_ocid == ocid)
         .order_by(AnomalyFlag.check_id)
+        .options(selectinload(AnomalyFlag.check))  # eager-load to avoid async lazy-load 500
     )
     flags = result.scalars().all()
     return [
